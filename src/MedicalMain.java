@@ -2,7 +2,7 @@ import java.awt.EventQueue;
 
 
 public class MedicalMain {
-//Just seeing if I can commit properly...
+//Just seeing if I can commit properly....
 	public static void main(String[] args){
 		EventQueue.invokeLater(new Runnable() {
 			public void run(){
