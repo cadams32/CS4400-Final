@@ -1,0 +1,35 @@
+Overall for the app, I think a size of 1000x600 should be sufficient, so let's make that our standard unless someone
+would rather do some other size for any particular reason. It's just really annoying to do full screen in terms of resizing,
+and it's not really worth it. For the layouts, there is a layout called MigLayout in WindowBuilder that's very flexible and
+works well for this sort of thing. The only thing that's weird is that sometimes the rows/columns aren't actually spaced like they
+seem on the design page. To fix this, instead of having like 10 tiny empty rows/columns, just delete all but one and stretch it to
+the appropriate dimension. Then it'll actually format like it shows.
+
+For all the panel switching, I think we should use CardLayout. Basically, we operate it like a stack (of cards),
+and add/remove panels when we need to. The layout will be located in the contentPane (which is just a JPanel that's on all frames)
+of the overall parent frame, so the parent frame will be passed through each panel that's created so we can access the layout.
+Below are some examples of how to utilize the card layout.
+
+To add a panel (specifically a NewUserPanel) to the card layout and switch to view it:
+This sample assumes an event named "e", a button that triggers the add named "btnAddNewAccount",
+and a parent frame "parent" which contains the content pane with the card layout.
+
+else if(e.getSource() == btnCreateNewAccount){
+	NewUserPanel nup = new NewUserPanel(parent);
+	parent.getContentPane().add(nup);
+	CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+	cl.next(parent.getContentPane());
+}
+
+To remove the last entry from the card layout and view the previous one:
+This sample assumes an event named "e", a button that triggers the removal named "btnBack",
+and a parent frame "parent" which contains the content pane with the card layout.
+
+if(e.getSource() == btnBack){
+	CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+	cl.first(parent.getContentPane());
+	parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+}
+
+If you aren't sure how to use ActionListener, I have partially implemented one in LoginPanel already. It should serve as a decent template.
+I'll keep updating this page as necessary.
