@@ -17,7 +17,6 @@ public class Patient extends User{
 	
 	public Patient(String username, String password, String type) {
 		super(username, password, "Patient");
-		
 	}
 	
 	public Patient(String username, String password, String name, String dob, String gender, String address, String workphone, String homephone, String emerContactName, String emerContactPhone, String weight, String height) {
