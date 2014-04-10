@@ -2,7 +2,12 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
+
+import java.awt.CardLayout;
 import java.awt.Choice;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
@@ -17,12 +22,15 @@ public class NewUserPanel extends JPanel {
 	private JLabel lblConfirmPassword;
 	private JLabel lblTypeOfUser;
 	private JButton btnRegister;
+	MedicalFrame parent;
 
 	/**
 	 * Create the panel.
 	 */
 	public NewUserPanel(MedicalFrame parent) {
 		setLayout(new MigLayout("", "[1000.00,grow]", "[100.00][491.00,grow]"));
+		ButtonListener listener = new ButtonListener();
+		this.parent = parent;
 		
 		JPanel panel = new JPanel();
 		add(panel, "cell 0 1,grow");
@@ -58,7 +66,30 @@ public class NewUserPanel extends JPanel {
 		
 		btnRegister = new JButton("Register");
 		panel.add(btnRegister, "cell 16 11");
-		
+		btnRegister.addActionListener(listener);
 	}
 
+	
+	private class ButtonListener implements ActionListener{
+		
+		public void actionPerformed(ActionEvent e){
+			if(e.getSource() == btnRegister){
+				if (comboBox.getSelectedItem().equals("Patient")) {
+					/*NewUserProfilePanel nup = new NewUserProfilePanel(parent);
+					parent.getContentPane().add(nup);
+					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+					cl.next(parent.getContentPane());*/
+				}
+				else if (comboBox.getSelectedItem().equals("Doctor")) {
+					NewDoctorProfilePanel ndp = new NewDoctorProfilePanel(parent);
+					parent.getContentPane().add(ndp);
+					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+					cl.next(parent.getContentPane());
+				}
+				else {
+					
+				}
+			}
+		}
+	}
 }
