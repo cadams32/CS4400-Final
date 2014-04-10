@@ -9,7 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 
-public class PatientProfileCreationPanel extends JPanel {
+public class NewPatientProfilePanel extends JPanel {
 	
 	private JTextField patientNameTxtField;
 	private JTextField addressTxtField;
@@ -21,13 +21,17 @@ public class PatientProfileCreationPanel extends JPanel {
 	private JTextField dateOfBirthTxtField;
 	private JButton btnSubmit;
 	private JButton allergyButton;
+	private MedicalFrame parent;
 	
 	private String name, gender, dateOfBirth, address, height, weight, homePhone, workPhone, allergies;
 	
 	/**
 	 * Create the panel.
 	 */
-	public PatientProfileCreationPanel() {
+	public NewPatientProfilePanel(MedicalFrame parent) {
+		
+		this.parent = parent;
+		
 		setLayout(new MigLayout("", "[][][][151.00,grow][grow]", "[][][][][][][][][][][][][]"));
 		
 		JLabel lblPatientName = new JLabel("Patient Name");
