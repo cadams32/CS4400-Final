@@ -75,10 +75,10 @@ public class NewUserPanel extends JPanel {
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == btnRegister){
 				if (comboBox.getSelectedItem().equals("Patient")) {
-					/*NewUserProfilePanel nup = new NewUserProfilePanel(parent);
+					NewPatientProfilePanel nup = new NewPatientProfilePanel(parent);
 					parent.getContentPane().add(nup);
 					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-					cl.next(parent.getContentPane());*/
+					cl.next(parent.getContentPane());
 				}
 				else if (comboBox.getSelectedItem().equals("Doctor")) {
 					NewDoctorProfilePanel ndp = new NewDoctorProfilePanel(parent);
