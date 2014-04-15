@@ -32,79 +32,79 @@ public class NewPatientProfilePanel extends JPanel {
 		
 		this.parent = parent;
 		
-		setLayout(new MigLayout("", "[][][][151.00,grow][grow]", "[][][][][][][][][][][][][]"));
+		setLayout(new MigLayout("", "[96.00][][319.00,grow][111.00,grow][][]", "[-1.00][110.00][][][][][][][][][][17.00][][-69.00][][][]"));
 		
 		JLabel lblPatientName = new JLabel("Patient Name");
-		add(lblPatientName, "cell 2 1,alignx trailing");
+		add(lblPatientName, "cell 1 2,alignx trailing");
 		
 		patientNameTxtField = new JTextField();
-		add(patientNameTxtField, "cell 3 1");
+		add(patientNameTxtField, "cell 2 2");
 		patientNameTxtField.setColumns(10);
 		
 		JLabel lblDateOfBirth = new JLabel("Date of Birth");
-		add(lblDateOfBirth, "cell 2 2,alignx trailing");
+		add(lblDateOfBirth, "cell 1 3,alignx trailing");
 		
 		dateOfBirthTxtField = new JTextField();
-		add(dateOfBirthTxtField, "cell 3 2,alignx left");
+		add(dateOfBirthTxtField, "cell 2 3,alignx left");
 		dateOfBirthTxtField.setColumns(10);
 		
 		JLabel lblGender = new JLabel("Gender");
-		add(lblGender, "cell 2 3,alignx trailing");
+		add(lblGender, "cell 1 4,alignx trailing");
 		
 		String[] genderOption = {"Male", "Female"};
 		JComboBox genderComboBox = new JComboBox(genderOption);
-		add(genderComboBox, "cell 3 3");
+		add(genderComboBox, "cell 2 4");
 		
 		JLabel lblAddress = new JLabel("Address");
-		add(lblAddress, "cell 2 4,alignx trailing");
+		add(lblAddress, "cell 1 5,alignx trailing");
 		
 		addressTxtField = new JTextField();
-		add(addressTxtField, "cell 3 4");
+		add(addressTxtField, "cell 2 5");
 		addressTxtField.setColumns(10);
 		
 		JLabel lblHomePhone = new JLabel("Home Phone");
-		add(lblHomePhone, "cell 2 5,alignx trailing");
+		add(lblHomePhone, "cell 1 6,alignx trailing");
 		
 		homePhoneTxtField = new JTextField();
-		add(homePhoneTxtField, "cell 3 5,alignx left");
+		add(homePhoneTxtField, "cell 2 6,alignx left");
 		homePhoneTxtField.setColumns(10);
 		
 		JLabel lblWorkPhone = new JLabel("Work Phone");
-		add(lblWorkPhone, "cell 2 6,alignx trailing");
+		add(lblWorkPhone, "cell 1 7,alignx trailing");
 		
 		workPhoneTxtField = new JTextField();
-		add(workPhoneTxtField, "cell 3 6,alignx left");
+		add(workPhoneTxtField, "cell 2 7,alignx left");
 		workPhoneTxtField.setColumns(10);
 		
 		JLabel lblWeight = new JLabel("Weight");
-		add(lblWeight, "cell 2 7,alignx trailing");
+		add(lblWeight, "cell 1 8,alignx trailing");
 		
 		weightTxtField = new JTextField();
-		add(weightTxtField, "cell 3 7,alignx left");
+		add(weightTxtField, "cell 2 8,alignx left");
 		weightTxtField.setColumns(10);
 		
 		JLabel lblHeight = new JLabel("Height");
-		add(lblHeight, "cell 2 8,alignx trailing");
+		add(lblHeight, "cell 1 9,alignx trailing");
 		
 		heightTxtField = new JTextField();
-		add(heightTxtField, "cell 3 8,alignx left");
+		add(heightTxtField, "cell 2 9,alignx left");
 		heightTxtField.setColumns(10);
 		
 		JLabel lblAnnualIncome = new JLabel("Annual Income ($)");
-		add(lblAnnualIncome, "cell 2 9,alignx trailing");
+		add(lblAnnualIncome, "cell 1 10,alignx trailing");
 		
 		JLabel lblAllergies = new JLabel("Allergies");
-		add(lblAllergies, "cell 2 10,alignx trailing");
+		add(lblAllergies, "cell 1 11,alignx trailing");
 		
 		allergiesTxtField = new JTextField();
-		add(allergiesTxtField, "flowx,cell 3 10");
+		add(allergiesTxtField, "flowx,cell 2 11");
 		allergiesTxtField.setColumns(10);
 		
 		allergyButton = new JButton("+");
-		add(allergyButton, "cell 3 10");
+		add(allergyButton, "cell 2 11");
 		
 		btnSubmit = new JButton("Submit");
-		add(btnSubmit, "cell 4 12");
+		add(btnSubmit, "cell 3 12");
 		
 	}
 	
