@@ -24,96 +24,105 @@ public class NewDoctorProfilePanel extends JPanel {
 	private JLabel specialtyLabel;
 	private JLabel addressLabel;
 	private JLabel availLabel;
-	private JComboBox<String> cbSpecialty;
-	private JComboBox<String> cbDays;
-	private JComboBox<String> cbFromTime;
-	private JComboBox<String> cbToTime; 
+	private JLabel toLabel;
+	private JLabel fromLabel;
+	private JComboBox cbSpecialty;
+	private JComboBox cbDays;
+	private JComboBox cbFromTime;
+	private JComboBox cbToTime; 
 	JButton btnAddAvail, btnCreateProfile;
 	MedicalFrame parent;
-
+	JPanel panel = new JPanel();
+	String[] user_opSpecial = {"General Physician", "Heart Specialist", "Eye Physician",
+						"Orthopedics", "Psyciatry", "GyneCologist"};
+	String[] user_opDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+	String[] user_opTime = {"8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", 
+							"1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"};	
 	/**
 	 * Create the panel.
 	 */
 	public NewDoctorProfilePanel(MedicalFrame parent) {
-		setLayout(new MigLayout("", "[1000.00,grow]", "[100.00][491.00,grow]"));
+		//setLayout(new MigLayout("", "[1000.00,grow]", "[100.00][491.00,grow]"));
+		setLayout(new MigLayout("", "[][90.00][372.00,grow][151.00,grow][grow]", "[][][][][][][][][][][][][][][][][][][][]"));
 		ButtonListener listener = new ButtonListener();
 		this.parent = parent;
 		
-		JPanel panel = new JPanel();
 		add(panel, "cell 0 1,grow");
-		panel.setLayout(new MigLayout("", "[199.00][][][grow][][][][][][][][23.00][][][][][grow]", "[][][][][][][][][][][142.00][36.00]"));
+		/*panel.setLayout(new MigLayout("", "[199.00][][][grow][][][][][][][][23.00][][][][][grow]",
+				"[][][][][][][][][][][142.00][36.00]"));*/
 		
 		licenseLabel = new JLabel("License Numer");
-		panel.add(licenseLabel, "cell 1 3");
+		add(licenseLabel, "cell 1 2");
 		
 		licenseTextField = new JTextField();
-		panel.add(licenseTextField, "cell 3 3 10 1,growx");
+		add(licenseTextField, "cell 2 2,alignx left");
 		licenseTextField.setColumns(10);
 		
 		fnameLabel = new JLabel("First Name");
-		panel.add(fnameLabel, "cell 1 5");
+		add(fnameLabel, "cell 1 3");
 		
 		FnameTextField = new JTextField();
-		panel.add(FnameTextField, "cell 3 5 10 1,growx");
+		add(FnameTextField, "cell 2 3,alignx left");
 		FnameTextField.setColumns(10);
 		
 		lnameLabel = new JLabel("Last Name");
-		panel.add(lnameLabel, "cell 1 7");
+		add(lnameLabel, "cell 1 4");
 		
 		LnameTextField = new JTextField();
-		panel.add(LnameTextField, "cell 3 7 10 1,growx");
+		add(LnameTextField, "cell 2 4,alignx left");
 		LnameTextField.setColumns(10);
 		
 		DOBLabel = new JLabel("Date of Birth");
-		panel.add(DOBLabel, "cell 1 7");
+		add(DOBLabel, "cell 1 5");
 		
 		DOBTextField = new JTextField();
-		panel.add(DOBTextField, "cell 3 7 10 1,growx");
+		add(DOBTextField, "cell 2 5,alignx left");
 		DOBTextField.setColumns(10);
 		
 		wPhoneLabel = new JLabel("Work Phone");
-		panel.add(wPhoneLabel, "cell 1 7");
-			
+		add(wPhoneLabel, "cell 1 6");
+		
 		workPhoneTextField = new JTextField();
-		panel.add(workPhoneTextField, "cell 3 7 10 1,growx");
+		add(workPhoneTextField, "cell 2 6,alignx left");
 		workPhoneTextField.setColumns(10);
 		
-		String[] user_opSpecial = {"General Physician", " Heart Specialist", "Eye Physician",
-				"Orthopedics", "Psyciatry", "GyneCologist"};
-		
 		specialtyLabel = new JLabel("Specialty");
-		panel.add(specialtyLabel, "cell 1 9");
-		cbSpecialty = new JComboBox<String>(user_opSpecial);
-		panel.add(cbSpecialty, "cell 3 9 10 1,growx");
+		add(specialtyLabel, "cell 1 7");
+		
+		cbSpecialty = new JComboBox(user_opSpecial);
+		add(cbSpecialty, "cell 2 7,alignx left");
 		
 		addressLabel = new JLabel("Address");
-		panel.add(addressLabel, "cell 1 7");
-			
+		add(addressLabel, "cell 1 8");
+		
 		addressTextField = new JTextField();
-		panel.add(addressTextField, "cell 3 7 10 1,growx");
+		add(addressTextField, "cell 2 8,alignx left");
 		addressTextField.setColumns(10);
 		
 		availLabel = new JLabel("Availablity");
-		panel.add(availLabel, "cell 1 7");
+		add(availLabel, "cell 1 9,alignx left");
 		
-		String[] user_opDays = {};
-		String[] user_opTime = {};
+		cbDays = new JComboBox(user_opDays);
+		add(cbDays, "flowx,cell 2 9,alignx left");
 		
-		cbDays = new JComboBox<String>(user_opDays);
-		panel.add(cbDays, "cell 3 9 10 1,growx");
+		fromLabel = new JLabel("From: ");
+		add(fromLabel, "cell 2 9");
 		
-		cbFromTime = new JComboBox<String>(user_opTime);
-		panel.add(cbFromTime, "cell 3 9 10 1,growx");
+		cbFromTime = new JComboBox(user_opTime);
+		add(cbFromTime, "cell 2 9,alignx trailing");
 		
-		cbToTime = new JComboBox<String>(user_opTime);
-		panel.add(cbToTime, "cell 3 9 10 1,growx");
+		toLabel = new JLabel("To: ");
+		add(toLabel, "cell 2 9");
 		
-		btnAddAvail = new JButton("Add Availablility");
-		panel.add(btnAddAvail, "cell 25 5");
-		btnAddAvail.addActionListener(listener);
+		cbToTime = new JComboBox(user_opTime);
+		add(cbToTime, "cell 2 9,alignx trailing");
 		
 		btnCreateProfile = new JButton("Create Profile");
-		panel.add(btnCreateProfile, "cell 28 5");
+		add(btnCreateProfile, "cell 3 14");
+		
+		btnAddAvail = new JButton("+");
+		add(btnAddAvail, "cell 2 9");
+		btnAddAvail.addActionListener(listener);
 		btnCreateProfile.addActionListener(listener);
 	}
 	
@@ -121,12 +130,24 @@ public class NewDoctorProfilePanel extends JPanel {
 		
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == btnAddAvail){
+				cbDays = new JComboBox(user_opDays);
+				add(cbDays, "flowx,cell 2 9,alignx left");
 				
+				fromLabel = new JLabel("From: ");
+				add(fromLabel, "cell 2 9");
+				
+				cbFromTime = new JComboBox(user_opTime);
+				add(cbFromTime, "cell 2 9,alignx trailing");
+				
+				toLabel = new JLabel("To: ");
+				add(toLabel, "cell 2 9");
+				
+				cbToTime = new JComboBox(user_opTime);
+				add(cbToTime, "cell 2 9,alignx trailing");
 			}
 			else if(e.getSource() == btnCreateProfile){
 
 			}
 		}
 	}
-
 }
