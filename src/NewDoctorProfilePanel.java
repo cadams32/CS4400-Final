@@ -42,87 +42,82 @@ public class NewDoctorProfilePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public NewDoctorProfilePanel(MedicalFrame parent) {
-		//setLayout(new MigLayout("", "[1000.00,grow]", "[100.00][491.00,grow]"));
-		setLayout(new MigLayout("", "[][90.00][372.00,grow][151.00,grow][grow]", "[][][][][][][][][][][][][][][][][][][][]"));
+		setLayout(new MigLayout("", "[][75.00][12.00,grow][123.00][][][][][][50.00,grow][][][][grow]", "[][120.00][30.00][30.00][30.00][30.00][30.00][30.00][30.00][31.00][][][][][][][][][]"));
 		ButtonListener listener = new ButtonListener();
 		this.parent = parent;
 		
-		add(panel, "cell 0 1,grow");
-		/*panel.setLayout(new MigLayout("", "[199.00][][][grow][][][][][][][][23.00][][][][][grow]",
-				"[][][][][][][][][][][142.00][36.00]"));*/
-		
 		licenseLabel = new JLabel("License Numer");
-		add(licenseLabel, "cell 1 2");
+		add(licenseLabel, "cell 2 2,alignx center");
 		
 		licenseTextField = new JTextField();
-		add(licenseTextField, "cell 2 2,alignx left");
+		add(licenseTextField, "cell 3 2,growx");
 		licenseTextField.setColumns(10);
 		
 		fnameLabel = new JLabel("First Name");
-		add(fnameLabel, "cell 1 3");
+		add(fnameLabel, "cell 2 3,alignx center");
 		
 		FnameTextField = new JTextField();
-		add(FnameTextField, "cell 2 3,alignx left");
+		add(FnameTextField, "cell 3 3,growx");
 		FnameTextField.setColumns(10);
 		
 		lnameLabel = new JLabel("Last Name");
-		add(lnameLabel, "cell 1 4");
+		add(lnameLabel, "cell 2 4,alignx center");
 		
 		LnameTextField = new JTextField();
-		add(LnameTextField, "cell 2 4,alignx left");
+		add(LnameTextField, "cell 3 4,growx");
 		LnameTextField.setColumns(10);
 		
 		DOBLabel = new JLabel("Date of Birth");
-		add(DOBLabel, "cell 1 5");
+		add(DOBLabel, "cell 2 5,alignx center");
 		
 		DOBTextField = new JTextField();
-		add(DOBTextField, "cell 2 5,alignx left");
+		add(DOBTextField, "cell 3 5,growx");
 		DOBTextField.setColumns(10);
 		
 		wPhoneLabel = new JLabel("Work Phone");
-		add(wPhoneLabel, "cell 1 6");
+		add(wPhoneLabel, "cell 2 6,alignx center");
 		
 		workPhoneTextField = new JTextField();
-		add(workPhoneTextField, "cell 2 6,alignx left");
+		add(workPhoneTextField, "cell 3 6,growx");
 		workPhoneTextField.setColumns(10);
 		
 		specialtyLabel = new JLabel("Specialty");
-		add(specialtyLabel, "cell 1 7");
+		add(specialtyLabel, "cell 2 7,alignx center");
 		
 		cbSpecialty = new JComboBox(user_opSpecial);
-		add(cbSpecialty, "cell 2 7,alignx left");
+		add(cbSpecialty, "cell 3 7,growx");
 		
 		addressLabel = new JLabel("Address");
-		add(addressLabel, "cell 1 8");
+		add(addressLabel, "cell 2 8,alignx center");
 		
 		addressTextField = new JTextField();
-		add(addressTextField, "cell 2 8,alignx left");
+		add(addressTextField, "cell 3 8,growx");
 		addressTextField.setColumns(10);
 		
 		availLabel = new JLabel("Availablity");
-		add(availLabel, "cell 1 9,alignx left");
+		add(availLabel, "cell 2 9,alignx center");
 		
 		cbDays = new JComboBox(user_opDays);
-		add(cbDays, "flowx,cell 2 9,alignx left");
+		add(cbDays, "flowx,cell 3 9,growx");
 		
 		fromLabel = new JLabel("From: ");
-		add(fromLabel, "cell 2 9");
+		add(fromLabel, "cell 4 9");
 		
 		cbFromTime = new JComboBox(user_opTime);
-		add(cbFromTime, "cell 2 9,alignx trailing");
+		add(cbFromTime, "flowx,cell 5 9");
 		
 		toLabel = new JLabel("To: ");
-		add(toLabel, "cell 2 9");
+		add(toLabel, "cell 6 9");
 		
 		cbToTime = new JComboBox(user_opTime);
-		add(cbToTime, "cell 2 9,alignx trailing");
-		
-		btnCreateProfile = new JButton("Create Profile");
-		add(btnCreateProfile, "cell 3 14");
+		add(cbToTime, "flowx,cell 7 9,alignx trailing");
 		
 		btnAddAvail = new JButton("+");
-		add(btnAddAvail, "cell 2 9");
+		add(btnAddAvail, "cell 8 9,alignx right");
 		btnAddAvail.addActionListener(listener);
+		
+		btnCreateProfile = new JButton("Create Profile");
+		add(btnCreateProfile, "cell 12 16,alignx center");
 		btnCreateProfile.addActionListener(listener);
 	}
 	
