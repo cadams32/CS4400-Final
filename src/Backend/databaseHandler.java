@@ -214,6 +214,21 @@ public class databaseHandler {
 			}
 		}
 	}
+	
+	public static void addNewPatientAllergies(String username, String allergy) {
+		try {
+			String query = "INSERT INTO Patient_Allergies (Patient_Username, Allergy) VALUES(?, ?)";
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, username);
+			statement.setString(2, allergy);
+		} catch (Exception e) {
+			
+		}
+	}
+	
+	public static void addNewDoctorAvailability(String username, String to, String from, String day) {
+		
+	}
 
 	
 }
