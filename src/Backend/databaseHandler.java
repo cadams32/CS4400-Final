@@ -6,6 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
+/*
+ * Creates queries for manipulating the DB:
+ * 
+ * 		- login - String - the type of user being logged in "Patient", "Doctor", "Invalid"
+ *			- validateLogin - boolean - searches the User table for username and password combination
+ *			- searchDoctorForUser - boolean - searches the Doctor table for specific user
+ *			- searchPatientForUser - boolean - searches the Patient table for specific user
+ *		- doesUsernameExist - boolean - returns true if the username exists in the User table
+ *		- addNewUser - void - inserts new User into User table with given params
+ *		- addNewPatient - void - inserts new Patient into Patient table with given params
+ *		- addNewDoctor - void - inserts new Doctor into Doctor table with given params
+ * 
+ * 
+ */
 public class databaseHandler {
 	
 	private static Connection connection;
@@ -103,11 +118,10 @@ public class databaseHandler {
 		return false;
 	}
 	
-
-	//----------------------------------------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------
 	
 	/*
-	 * Returns true if the username exists in the DB
+	 * Returns true if the username exists in the user table
 	 */
 	private static boolean doesUsernameExist(String username) {
 		String query = "SELECT Username FROM User WHERE User.Username = ?";
