@@ -42,7 +42,7 @@ public class NewDoctorProfilePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public NewDoctorProfilePanel(MedicalFrame parent) {
-		setLayout(new MigLayout("", "[][75.00][12.00,grow][123.00][][][][][][50.00,grow][][][][grow]", "[][120.00][30.00][30.00][30.00][30.00][30.00][30.00][30.00][31.00][][][][][][][][][]"));
+		setLayout(new MigLayout("", "[][75.00][12.00,grow][123.00][][][][][][50.00,grow][][][][grow]", "[][100.00][30.00][30.00][30.00][30.00][30.00][30.00][30.00][31.00][][][][][][][][][]"));
 		ButtonListener listener = new ButtonListener();
 		this.parent = parent;
 		
@@ -117,7 +117,7 @@ public class NewDoctorProfilePanel extends JPanel {
 		btnAddAvail.addActionListener(listener);
 		
 		btnCreateProfile = new JButton("Create Profile");
-		add(btnCreateProfile, "cell 12 16,alignx center");
+		add(btnCreateProfile, "cell 12 17,alignx center");
 		btnCreateProfile.addActionListener(listener);
 	}
 	
