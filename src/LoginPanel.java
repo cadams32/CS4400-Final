@@ -19,6 +19,7 @@ public class LoginPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public LoginPanel(MedicalFrame parent) {
+		
 		setLayout(new MigLayout("", "[1000.00,grow]", "[99.00][495.00,grow]"));
 		ButtonListener listener = new ButtonListener();
 		this.parent = parent;
@@ -51,7 +52,6 @@ public class LoginPanel extends JPanel {
 		
 	}
 
-	
 	private class ButtonListener implements ActionListener{
 		
 		public void actionPerformed(ActionEvent e){

@@ -23,6 +23,7 @@ public class NewUserPanel extends JPanel {
 	private JLabel lblTypeOfUser;
 	private JButton btnRegister;
 	MedicalFrame parent;
+	private JButton btnBack;
 
 	/**
 	 * Create the panel.
@@ -64,6 +65,10 @@ public class NewUserPanel extends JPanel {
 		comboBox = new JComboBox(user_option);
 		panel.add(comboBox, "cell 3 9 10 1,growx");
 		
+		btnBack = new JButton("Back");
+		panel.add(btnBack, "cell 0 11");
+		btnBack.addActionListener(listener);
+		
 		btnRegister = new JButton("Register");
 		panel.add(btnRegister, "cell 16 11");
 		btnRegister.addActionListener(listener);
@@ -89,6 +94,10 @@ public class NewUserPanel extends JPanel {
 				else {
 					
 				}
+			} else if (e.getSource() == btnBack) {
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.first(parent.getContentPane());
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
 			}
 		}
 	}

@@ -10,8 +10,13 @@ import javax.swing.JTextPane;
 public class DoctorMessagingPanel extends JPanel {
 
 	
-	MedicalFrame parent;
-	String username;
+	private MedicalFrame parent;
+	private String username;
+	
+	private JComboBox selectDocComboBox;
+	private JComboBox selectPatComboBox;
+	private JTextPane docTextPane;
+	private JTextPane patTextPane;
 	
 	/**
 	 * Create the panel.
@@ -33,14 +38,14 @@ public class DoctorMessagingPanel extends JPanel {
 		JLabel lblSelectDoctor = new JLabel("Select Doctor");
 		panel_1.add(lblSelectDoctor, "cell 1 1,alignx leading");
 		
-		JComboBox comboBox = new JComboBox();
-		panel_1.add(comboBox, "cell 2 1 2 1,growx");
+		selectDocComboBox = new JComboBox();
+		panel_1.add(selectDocComboBox, "cell 2 1 2 1,growx");
 		
 		JLabel lblSelectPatient = new JLabel("Select Patient");
 		panel_1.add(lblSelectPatient, "cell 5 1,alignx trailing");
 		
-		JComboBox comboBox_1 = new JComboBox();
-		panel_1.add(comboBox_1, "cell 6 1,growx");
+		selectPatComboBox = new JComboBox();
+		panel_1.add(selectPatComboBox, "cell 6 1,growx");
 		
 		JLabel lblMessage = new JLabel("Message");
 		panel_1.add(lblMessage, "cell 1 3,alignx leading");
@@ -48,8 +53,8 @@ public class DoctorMessagingPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane, "cell 2 3 2 2,grow");
 		
-		JTextPane textPane_1 = new JTextPane();
-		scrollPane.setViewportView(textPane_1);
+		docTextPane = new JTextPane();
+		scrollPane.setViewportView(docTextPane);
 		
 		JLabel lblMessage_1 = new JLabel("Message");
 		panel_1.add(lblMessage_1, "cell 5 3");
@@ -57,8 +62,8 @@ public class DoctorMessagingPanel extends JPanel {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panel_1.add(scrollPane_1, "cell 6 3 1 2,grow");
 		
-		JTextPane textPane = new JTextPane();
-		scrollPane_1.setViewportView(textPane);
+		patTextPane = new JTextPane();
+		scrollPane_1.setViewportView(patTextPane);
 		
 		JPanel panel_2 = new JPanel();
 		add(panel_2, "cell 0 2,grow");
