@@ -11,10 +11,14 @@ public class PaymentInfoPanel extends JPanel {
 	private JTextField textField_1;
 	private JTextField textField_2;
 
+	private MedicalFrame parent;
+	private String username;
+	
 	/**
 	 * Create the panel.
 	 */
-	public PaymentInfoPanel() {
+	public PaymentInfoPanel(MedicalFrame parent, String username) {
+		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();

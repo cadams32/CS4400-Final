@@ -19,7 +19,8 @@ public class TesterFrame extends JFrame {
 				try {
 					TesterFrame frame = new TesterFrame();
 					frame.setVisible(true);
-					frame.getContentPane().add(new ViewPatientHistoryPanel());
+					//just to make it work
+					frame.getContentPane().add(new ViewPatientHistoryPanel(new MedicalFrame(), ""));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

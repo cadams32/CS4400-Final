@@ -15,10 +15,17 @@ public class SurgeryPanel extends JPanel {
 	private JTextField textField_2;
 	private JTextField textField_4;
 
+	private MedicalFrame parent;
+	private String username;
+	
 	/**
 	 * Create the panel.
 	 */
-	public SurgeryPanel() {
+	public SurgeryPanel(MedicalFrame parent, String username) {
+		
+		this.parent = parent;
+		this.username = username;
+		
 		setLayout(new MigLayout("", "[grow]", "[100.00][450.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();

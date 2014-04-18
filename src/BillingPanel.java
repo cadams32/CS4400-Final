@@ -13,11 +13,18 @@ public class BillingPanel extends JPanel {
 	private JTable table_1;
 	private JTable table_2;
 	private JTextField textField_1;
+	
+	private MedicalFrame parent;
+	private String username;
 
 	/**
 	 * Create the panel.
 	 */
-	public BillingPanel() {
+	public BillingPanel(MedicalFrame parent, String username) {
+		
+		this.parent = parent;
+		this.username = username;
+		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();

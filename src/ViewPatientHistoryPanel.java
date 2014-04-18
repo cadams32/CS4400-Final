@@ -19,11 +19,18 @@ public class ViewPatientHistoryPanel extends JPanel {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTable table_1;
+	
+	private MedicalFrame parent;
+	private String username;
 
 	/**
 	 * Create the panel.
 	 */
-	public ViewPatientHistoryPanel() {
+	public ViewPatientHistoryPanel(MedicalFrame parent, String username) {
+		
+		this.parent = parent;
+		this.username = username;
+		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();

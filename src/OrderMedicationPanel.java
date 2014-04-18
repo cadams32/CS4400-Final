@@ -12,10 +12,17 @@ public class OrderMedicationPanel extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
 
+	private MedicalFrame parent;
+	private String username;
+	
 	/**
 	 * Create the panel.
 	 */
-	public OrderMedicationPanel() {
+	public OrderMedicationPanel(MedicalFrame parent, String username) {
+		
+		this.parent = parent;
+		this.username = username;	
+		
 		setLayout(new MigLayout("", "[1000.00,grow]", "[100.00,grow][436.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();

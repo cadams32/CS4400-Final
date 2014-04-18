@@ -12,10 +12,18 @@ import java.awt.Dimension;
 
 public class ViewAppointmentPanel extends JPanel {
 
+	private MedicalFrame parent;
+	private String username;
+	
 	/**
+	 * 
 	 * Create the panel.
 	 */
-	public ViewAppointmentPanel() {
+	public ViewAppointmentPanel(MedicalFrame parent, String username) {
+		
+		this.parent = parent;
+		this.username = username;
+		
 		setLayout(new MigLayout("", "[279.00][67.00][145.00][279.00,grow][177.00]", "[100.00,grow][100.00,grow][400.00,grow][]"));
 		
 		JPanel panel = new JPanel();

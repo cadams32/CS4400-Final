@@ -1,3 +1,6 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
@@ -48,6 +51,26 @@ public class AdminHomePanel extends JPanel {
 		btnBack = new JButton("Back");
 		panel_2.add(btnBack, "cell 1 0");
 
+	}
+	
+	private class ButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == btnBack) {
+				
+			} else if (e.getSource() == btnPatientVisitReport) {
+				
+			} else if (e.getSource() == btnSurgeryReport) {
+				
+			} else if (e.getSource() == btnDoctorPerformanceReport) {
+				
+			} else if (e.getSource() == btnBilling) {
+				
+			}
+			
+		}
+		
 	}
 
 }

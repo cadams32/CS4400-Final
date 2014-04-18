@@ -13,8 +13,8 @@ public class DoctorReportPanel extends JPanel {
 	 * Create the panel.
 	 */
 	
-	MedicalFrame parent;
-	String username;
+	private MedicalFrame parent;
+	private String username;
 	
 	public DoctorReportPanel(MedicalFrame parent, String username) {
 		

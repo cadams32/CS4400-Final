@@ -13,7 +13,14 @@ public class PatientMessagingPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PatientMessagingPanel() {
+	private MedicalFrame parent;
+	private String username;
+	
+	public PatientMessagingPanel(MedicalFrame parent, String username) {
+		
+		this.parent = parent;
+		this.username = username;
+		
 		setLayout(new MigLayout("", "[986px,grow]", "[93px][442px][grow]"));
 		
 		JPanel panel = new JPanel();

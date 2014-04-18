@@ -9,11 +9,19 @@ import javax.swing.JTable;
 
 public class PatientVisitPanel extends JPanel {
 	private JTable table;
+	
+	private MedicalFrame parent;
+	private String username;
 
 	/**
 	 * Create the panel.
 	 */
-	public PatientVisitPanel() {
+	
+	public PatientVisitPanel(MedicalFrame parent, String username) {
+		
+		this.parent = parent;
+		this.username = username;
+		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();

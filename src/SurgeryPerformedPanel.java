@@ -7,11 +7,17 @@ import javax.swing.JTable;
 
 public class SurgeryPerformedPanel extends JPanel {
 	private JTable table;
-
+	private MedicalFrame parent;
+	private String username;
+	
 	/**
 	 * Create the panel.
 	 */
-	public SurgeryPerformedPanel() {
+	public SurgeryPerformedPanel(MedicalFrame parent, String username) {
+		
+		this.parent = parent;
+		this.username = username;
+		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();
