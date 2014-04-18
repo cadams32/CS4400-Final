@@ -17,8 +17,9 @@ public class DoctorHomePanel extends JPanel {
 	private JButton btnPatientVisits;
 	private JButton btnRecordASurgery;
 	private JButton btnCommunicate;
-
 	private JButton btnViewMessages;
+
+
 	
 	private MedicalFrame parent;
 	private String username;
@@ -31,9 +32,9 @@ public class DoctorHomePanel extends JPanel {
 		this.parent = parent;
 		this.username = username;
 		
-		setLayout(new MigLayout("", "[][][][][][][][]", "[][][][][][][]"));
-		
 		ButtonListener listener = new ButtonListener();
+		
+		setLayout(new MigLayout("", "[][][][][][][][]", "[][][][][][][]"));
 		
 		JButton btnEditProfile = new JButton("Edit Profile");
 		
@@ -43,23 +44,23 @@ public class DoctorHomePanel extends JPanel {
 		JLabel lblYouHaveMessages = new JLabel("You have messages");
 		add(lblYouHaveMessages, "cell 7 2");
 		
-		JButton btnViewAppointmentCalendar = new JButton("View Appointment Calendar");
+		btnViewAppointmentCalendar = new JButton("View Appointment Calendar");
 		add(btnViewAppointmentCalendar, "cell 2 2");
 		btnViewAppointmentCalendar.addActionListener(listener);
 		
-		JButton btnPatientVisits = new JButton("Patient Visits");
+		btnPatientVisits = new JButton("Patient Visits");
 		add(btnPatientVisits, "cell 2 3");
 		btnPatientVisits.addActionListener(listener);
 		
-		JButton btnViewMessages = new JButton("View Messages");
+		btnViewMessages = new JButton("View Messages");
 		add(btnViewMessages, "cell 7 3");
 		btnViewMessages.addActionListener(listener);
 		
-		JButton btnRecordASurgery = new JButton("Record a Surgery");
+		btnRecordASurgery = new JButton("Record a Surgery");
 		add(btnRecordASurgery, "cell 2 4");
 		btnRecordASurgery.addActionListener(listener);
 		
-		JButton btnCommunicate = new JButton("Communicate");
+		btnCommunicate = new JButton("Communicate");
 		add(btnCommunicate, "cell 2 5");
 		add(btnEditProfile, "cell 2 6");
 		btnCommunicate.addActionListener(listener);
@@ -72,9 +73,14 @@ public class DoctorHomePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnViewAppointmentCalendar) {
 				//GOTO view appointment calendar
+				ViewAppointmentCalendarPanel vacp = new ViewAppointmentCalendarPanel(parent, username);
+				parent.getContentPane().add(vacp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 				
 			} else if (e.getSource() == btnPatientVisits) {
 				//GOTO patientVisits
+				
 				
 			} else if (e.getSource() == btnRecordASurgery) {
 				//GOTO View Visit History
@@ -84,6 +90,10 @@ public class DoctorHomePanel extends JPanel {
 				
 			} else if (e.getSource() == btnEditProfile) {
 				//GOTO rate a doctor
+				DoctorEditProfile dep = new DoctorEditProfile(parent, username);
+				parent.getContentPane().add(dep);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 				
 			}
 		}

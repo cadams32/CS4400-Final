@@ -56,7 +56,8 @@ public class LoginPanel extends JPanel {
 		
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == btnLogin){
-				
+				//check if username is valid and if the user is an admin, doctor, or patient
+				//take them to the appropriate page.
 			}
 			else if(e.getSource() == btnCreateNewAccount){
 				NewUserPanel nup = new NewUserPanel(parent);

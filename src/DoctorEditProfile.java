@@ -1,9 +1,15 @@
 
 import javax.swing.JPanel;
+
+import java.awt.CardLayout;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JButton;
 
 
 public class DoctorEditProfile extends JPanel {
@@ -22,7 +28,8 @@ public class DoctorEditProfile extends JPanel {
 	private JComboBox toComboBox;
 	private JComboBox dayComboBox;
 	
-	
+	private JButton btnBack;
+	private JButton btnSubmit;
 	
 	public DoctorEditProfile(MedicalFrame parent, String username) {
 		setBackground(SystemColor.textHighlight);
@@ -128,15 +135,44 @@ public class DoctorEditProfile extends JPanel {
 				"10:15 pm", "10:30 pm", "10:45 pm", "11:00 pm", "11:15 pm", "11:30 pm", "11:45 pm"};
 		
 		fromComboBox = new JComboBox(times);
-		fromComboBox.setBounds(602, 339, 77, 27);
+		fromComboBox.setBounds(652, 339, 77, 27);
 		add(fromComboBox);
 		
 		toComboBox = new JComboBox(times);
-		toComboBox.setBounds(740, 339, 61, 27);
+		toComboBox.setBounds(819, 339, 61, 27);
 		add(toComboBox);
 		
+		btnBack = new JButton("Back");
+		btnBack.setBounds(24, 550, 117, 29);
+		add(btnBack);
 		
+		btnSubmit = new JButton("Submit");
+		btnSubmit.setBounds(885, 550, 117, 29);
+		add(btnSubmit);
+		
+	}
+	
+	private class ButtonListener implements ActionListener {
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == btnBack) {
+				
+				//go back
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.first(parent.getContentPane());
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				
+			} else if (e.getSource() == btnSubmit) {
+				
+				//update the database
+				
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.first(parent.getContentPane());
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length - 1);
+			}	
+		}
+		
 	}
 
 }

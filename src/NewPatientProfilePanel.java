@@ -1,3 +1,4 @@
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,6 +32,8 @@ public class NewPatientProfilePanel extends JPanel {
 	public NewPatientProfilePanel(MedicalFrame parent) {
 		
 		this.parent = parent;
+		
+		ButtonListener listener = new ButtonListener();
 		
 		setLayout(new MigLayout("", "[96.00][][319.00,grow][111.00,grow][][]", "[-1.00][110.00][][][][][][][][][][17.00][][-69.00][][][]"));
 		
@@ -101,10 +104,13 @@ public class NewPatientProfilePanel extends JPanel {
 		allergiesTxtField.setColumns(10);
 		
 		allergyButton = new JButton("+");
+		allergyButton.addActionListener(listener);
 		add(allergyButton, "cell 2 11");
 		
 		btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(listener);
 		add(btnSubmit, "cell 3 12");
+		
 		
 	}
 	
@@ -130,6 +136,11 @@ public class NewPatientProfilePanel extends JPanel {
 				if (checkValidity()) {
 					insertDatabase();
 				}
+				//create profile go back to login
+				
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.first(parent.getContentPane());
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-2);
 			}
 		
 		}

@@ -141,7 +141,12 @@ public class NewDoctorProfilePanel extends JPanel {
 				add(cbToTime, "cell 2 9,alignx trailing");
 			}
 			else if(e.getSource() == btnCreateProfile){
-
+				
+				//Create the profile and go back to login
+				
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.first(parent.getContentPane());
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-2);
 			}
 		}
 	}
