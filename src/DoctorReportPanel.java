@@ -1,3 +1,4 @@
+
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
@@ -11,7 +12,15 @@ public class DoctorReportPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public DoctorReportPanel() {
+	
+	MedicalFrame parent;
+	String username;
+	
+	public DoctorReportPanel(MedicalFrame parent, String username) {
+		
+		this.parent = parent;
+		this.username = username;
+		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][449.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();

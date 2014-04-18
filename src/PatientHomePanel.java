@@ -1,3 +1,4 @@
+
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
@@ -10,6 +11,8 @@ public class PatientHomePanel extends JPanel {
 	
 	
 	private MedicalFrame parent;
+	private String username;
+	
 	private JLabel lblPatient;
 	private JLabel lblYouHaveMessages;
 	private JButton btnMakeAppointments;
@@ -23,7 +26,11 @@ public class PatientHomePanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PatientHomePanel(MedicalFrame parent) {
+	public PatientHomePanel(MedicalFrame parent, String username) {
+		
+		this.parent = parent;
+		this.username = username;
+		
 		setLayout(new MigLayout("", "[][][][][][][][]", "[][][][][][][][]"));
 		
 		ButtonListener listener = new ButtonListener();

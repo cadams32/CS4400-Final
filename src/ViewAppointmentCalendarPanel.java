@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.SystemColor;
 
 
 public class ViewAppointmentCalendarPanel extends JPanel {
@@ -64,7 +65,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		this.parent = parent;
 		this.username = username;
 		
-		setBackground(Color.CYAN);
+		setBackground(SystemColor.textHighlight);
 		setLayout(null);
 		
 		JPanel panel = new JPanel();

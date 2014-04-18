@@ -12,7 +12,15 @@ public class InboxPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public InboxPanel() {
+	
+	private MedicalFrame parent;
+	private String username;
+	
+	public InboxPanel(MedicalFrame parent, String username) {
+		
+		this.parent = parent;
+		this.username = username;
+		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();
