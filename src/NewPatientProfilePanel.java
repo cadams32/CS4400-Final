@@ -138,9 +138,6 @@ public class NewPatientProfilePanel extends JPanel {
 				}
 				//create profile go back to login
 				
-				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				cl.first(parent.getContentPane());
-				parent.getContentPane().remove(parent.getContentPane().getComponents().length-2);
 			}
 		
 		}

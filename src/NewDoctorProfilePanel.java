@@ -1,6 +1,7 @@
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
@@ -8,6 +9,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import Backend.Availability;
 
 public class NewDoctorProfilePanel extends JPanel {
 	private JTextField licenseTextField;
@@ -33,6 +36,9 @@ public class NewDoctorProfilePanel extends JPanel {
 	JButton btnAddAvail, btnCreateProfile;
 	MedicalFrame parent;
 	JPanel panel = new JPanel();
+	
+	private ArrayList<Availability> availableList = new ArrayList<Availability>();;
+	
 	String[] user_opSpecial = {"General Physician", "Heart Specialist", "Eye Physician",
 						"Orthopedics", "Psyciatry", "GyneCologist"};
 	String[] user_opDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
@@ -125,28 +131,21 @@ public class NewDoctorProfilePanel extends JPanel {
 		
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == btnAddAvail){
-				cbDays = new JComboBox(user_opDays);
-				add(cbDays, "flowx,cell 2 9,alignx left");
 				
-				fromLabel = new JLabel("From: ");
-				add(fromLabel, "cell 2 9");
+				String day = (String) cbDays.getSelectedItem();
+				String from = (String) cbFromTime.getSelectedItem();
+				String to = (String) cbToTime.getSelectedItem();
+
+				Availability avail = new Availability(day, from, to);
+				availableList.add(avail);
 				
-				cbFromTime = new JComboBox(user_opTime);
-				add(cbFromTime, "cell 2 9,alignx trailing");
 				
-				toLabel = new JLabel("To: ");
-				add(toLabel, "cell 2 9");
-				
-				cbToTime = new JComboBox(user_opTime);
-				add(cbToTime, "cell 2 9,alignx trailing");
 			}
 			else if(e.getSource() == btnCreateProfile){
 				
 				//Create the profile and go back to login
 				
-				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				cl.first(parent.getContentPane());
-				parent.getContentPane().remove(parent.getContentPane().getComponents().length-2);
+		
 			}
 		}
 	}
