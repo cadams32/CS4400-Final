@@ -19,7 +19,7 @@ public class TesterFrame extends JFrame {
 				try {
 					TesterFrame frame = new TesterFrame();
 					frame.setVisible(true);
-					frame.getContentPane().add(new PaymentInfoPanel());
+					frame.getContentPane().add(new ViewPatientHistoryPanel());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

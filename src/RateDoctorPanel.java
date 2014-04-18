@@ -7,6 +7,9 @@ import javax.swing.JComboBox;
 import javax.swing.JSlider;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 
 public class RateDoctorPanel extends JPanel {
@@ -20,34 +23,36 @@ public class RateDoctorPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public RateDoctorPanel(MedicalFrame parent, String username) {
-		
 		this.parent = parent;
 		this.username = username;
 		
-		setLayout(new MigLayout("", "[][][][][][][][][][][][][][grow]", "[][][][][][][][][]"));
+		setBackground(SystemColor.textHighlight);
+		setLayout(null);
 		
-		JLabel lblRateADoctor = new JLabel("Rate a Doctor");
-		add(lblRateADoctor, "cell 13 1");
-		
-		JLabel lblDoctor = new JLabel("Doctor");
-		add(lblDoctor, "cell 12 6,alignx trailing");
-		
-		JComboBox comboBox = new JComboBox();
-		add(comboBox, "cell 13 6");
-		
-		JLabel lblRating = new JLabel("Rating");
-		add(lblRating, "cell 12 7");
+		JLabel lblRateADoctor = new JLabel("Rate A Doctor!");
+		lblRateADoctor.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblRateADoctor.setBounds(385, 20, 289, 52);
+		add(lblRateADoctor);
 		
 		slider = new JSlider();
+		slider.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		slider.setSnapToTicks(true);
 		slider.setPaintTicks(true);
 		slider.setPaintLabels(true);
 		slider.setMaximum(5);
 		slider.setMajorTickSpacing(1);
-		add(slider, "cell 13 7");
+		slider.setBounds(243, 216, 549, 52);
+		add(slider);
+		
+		JLabel lblRating = new JLabel("Rating: ");
+		lblRating.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblRating.setBounds(105, 201, 126, 47);
+		add(lblRating);
 		
 		JButton btnRate = new JButton("Rate");
-		add(btnRate, "cell 13 8");
+		btnRate.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		btnRate.setBounds(429, 334, 117, 29);
+		add(btnRate);
 
 	}
 	
@@ -64,6 +69,4 @@ public class RateDoctorPanel extends JPanel {
 		
 		
 	}
-	
-
 }

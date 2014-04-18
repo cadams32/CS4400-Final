@@ -31,7 +31,7 @@ public class ViewVisitHistoryPanel extends JPanel {
 		this.parent = parent;
 		this.username = username;
 		
-		setLayout(new MigLayout("", "[208.00,grow][25.00][744.00][134.00][grow]", "[][74.00][grow]"));
+		setLayout(new MigLayout("", "[208.00,grow][25.00][744.00][134.00][grow]", "[][156.00][346.00,grow]"));
 		
 		JLabel lblViewVisitHistory = new JLabel("View Visit History");
 		add(lblViewVisitHistory, "cell 2 0,alignx center");
