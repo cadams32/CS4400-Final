@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-/*
+/**
  * Creates queries for manipulating the DB:
  * 
  * 		- login - String - the type of user being logged in "Patient", "Doctor", "Invalid"
@@ -21,16 +21,16 @@ import java.sql.Statement;
  * 
  * 
  */
-public class databaseHandler {
+public class DatabaseHandler {
 	
 	private static Connection connection;
 	
-	public databaseHandler() {
-		dataBaseConnection DBC = new dataBaseConnection();
+	public DatabaseHandler() {
+		DataBaseConnection DBC = new DataBaseConnection();
 		connection = DBC.createConnection();
 	}
-
-	/*
+	
+	/**
 	 * Wanted to return the type of user as a string.
 	 */
 	public static String login(String username, String password) {
@@ -41,16 +41,17 @@ public class databaseHandler {
 			if(searchDoctorForUser(username)) {
 				return "Doctor";
 			}
+			return "Admin";
 		}
 		return "Invalid";
 	}
 	
-	/*
+	/**
 	 * Checks if the username and password combination exists in the DB
 	 */
 	private static boolean validateLogin(String username, String password) {
 		boolean result = false;
-		String query = "SELECT Username, Password FROM User WHERE User.Username = ? AND User.Password = ?";
+		String query = "SELECT 'Username' 'Password' FROM 'User' WHERE 'Username' = ? AND 'Password' = ?";
 		try {
 			//Create the statement
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -73,8 +74,11 @@ public class databaseHandler {
 		return result;
 	}
 	
-	/*
-	 * Checks if the username exists in the Doctor table
+	/**
+	 * Search for a specific Doctor based on user
+	 * 
+	 * @param username
+	 * @return boolean if found
 	 */
 	private static boolean searchDoctorForUser(String username) {
 		String query = "SELECT Username FROM Doctor WHERE Doctor.Username = ?";
@@ -95,8 +99,11 @@ public class databaseHandler {
 		return false;
 	}
 	
-	/*
-	 * Checks if the username exists in the Patient table
+	/**
+	 * search Patient for User
+	 * 
+	 * @param username
+	 * @return
 	 */
 	private static boolean searchPatientForUser(String username) {
 		String query = "SELECT Username FROM Patient WHERE Patient.Username = ?";
@@ -120,8 +127,11 @@ public class databaseHandler {
 	
 	//---------------------------------------------------------------------------------
 	
-	/*
-	 * Returns true if the username exists in the user table
+	/**
+	 * Check if username exists.
+	 * 
+	 * @param username
+	 * @return
 	 */
 	private static boolean doesUsernameExist(String username) {
 		String query = "SELECT Username FROM User WHERE User.Username = ?";
@@ -144,8 +154,11 @@ public class databaseHandler {
 		return false;
 	}
 	
-	/*
-	 * Inserts a new User into the DB
+	/**
+	 * Insert into User
+	 * 
+	 * @param username
+	 * @param password
 	 */
 	public static void addUser(String username, String password) {
 		if(!doesUsernameExist(username)) {
@@ -160,8 +173,22 @@ public class databaseHandler {
 		}
 	}
 	
-	/*
-	 * Inserts a new patient into the DB
+	/**
+	 * Insert into Patient
+	 * 
+	 * @param username
+	 * @param name
+	 * @param dob
+	 * @param gender
+	 * @param address
+	 * @param workPhone
+	 * @param homePhone
+	 * @param emerContactName
+	 * @param emerContactPhone
+	 * @param weight
+	 * @param height
+	 * @param annualIncome
+	 * @param cardNumber
 	 */
 	public static void addNewPatient(String username, String name, String dob, String gender, String address, String workPhone, String homePhone, String emerContactName, String emerContactPhone, String weight, String height, String annualIncome, String cardNumber) {
 		
@@ -191,8 +218,18 @@ public class databaseHandler {
 		}
 	}
 	
-	/*
-	 * Inserts New Doctor into the DB
+	/**
+	 * Insert into Doctor
+	 * 
+	 * @param username
+	 * @param licenseNo
+	 * @param fName
+	 * @param lName
+	 * @param dob
+	 * @param workPhone
+	 * @param homeAddress
+	 * @param specialty
+	 * @param roomNo
 	 */
 	public static void addNewDoctor(String username, String licenseNo, String fName, String lName, String dob, String workPhone, String homeAddress, String specialty, String roomNo) {
 		if(!doesUsernameExist(username)) {
@@ -215,6 +252,12 @@ public class databaseHandler {
 		}
 	}
 	
+	/**
+	 * Insert into patient allergies
+	 * 
+	 * @param username
+	 * @param allergy
+	 */
 	public static void addNewPatientAllergies(String username, String allergy) {
 		try {
 			String query = "INSERT INTO Patient_Allergies (Patient_Username, Allergy) VALUES(?, ?)";
