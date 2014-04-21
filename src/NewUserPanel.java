@@ -80,18 +80,22 @@ public class NewUserPanel extends JPanel {
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == btnRegister){
 				if (comboBox.getSelectedItem().equals("Patient")) {
-					NewPatientProfilePanel nup = new NewPatientProfilePanel(parent);
+					NewPatientProfilePanel nup = new NewPatientProfilePanel(parent, textField.getText());
 					parent.getContentPane().add(nup);
 					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 					cl.next(parent.getContentPane());
 				}
 				else if (comboBox.getSelectedItem().equals("Doctor")) {
-					NewDoctorProfilePanel ndp = new NewDoctorProfilePanel(parent);
+					NewDoctorProfilePanel ndp = new NewDoctorProfilePanel(parent, textField.getText());
 					parent.getContentPane().add(ndp);
 					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 					cl.next(parent.getContentPane());
 				}
 				else {
+					AdminHomePanel ahp = new AdminHomePanel(parent, textField.getText());
+					parent.getContentPane().add(ahp);
+					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+					cl.next(parent.getContentPane());
 					
 				}
 			} else if (e.getSource() == btnBack) {

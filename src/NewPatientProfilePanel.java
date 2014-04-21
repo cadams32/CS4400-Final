@@ -23,15 +23,17 @@ public class NewPatientProfilePanel extends JPanel {
 	private JButton btnSubmit;
 	private JButton allergyButton;
 	private MedicalFrame parent;
+	private String username;
 	
 	private String name, gender, dateOfBirth, address, height, weight, homePhone, workPhone, allergies;
 	
 	/**
 	 * Create the panel.
 	 */
-	public NewPatientProfilePanel(MedicalFrame parent) {
+	public NewPatientProfilePanel(MedicalFrame parent, String username) {
 		
 		this.parent = parent;
+		this.username = username;
 		
 		ButtonListener listener = new ButtonListener();
 		
@@ -137,7 +139,10 @@ public class NewPatientProfilePanel extends JPanel {
 					insertDatabase();
 				}
 				//create profile go back to login
-				
+				PatientHomePanel php = new PatientHomePanel(parent, username);
+				parent.getContentPane().add(php);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 			}
 		
 		}

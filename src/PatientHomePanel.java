@@ -3,6 +3,8 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
+import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -15,13 +17,7 @@ public class PatientHomePanel extends JPanel {
 	
 	private JLabel lblPatient;
 	private JLabel lblYouHaveMessages;
-	private JButton btnMakeAppointments;
-	private JButton btnEditProfile;
-	private JButton btnViewVisitHistory;
-	private JButton btnViewMessages;
-	private JButton btnOrderMedication;
-	private JButton btnCommunicate;
-	private JButton btnRateADoctor;
+	JButton btnMakeAppointments, btnEditProfile, btnViewVisitHistory, btnViewMessages, btnOrderMedication, btnCommunicate, btnRateADoctor;
 
 	/**
 	 * Create the panel.
@@ -79,21 +75,41 @@ public class PatientHomePanel extends JPanel {
 			if(e.getSource() == btnMakeAppointments) {
 				//GOTO make appointments
 				
-			} else if (e.getSource() == btnEditProfile) {
+			}
+			else if (e.getSource() == btnEditProfile) {
 				//GOTO edit profile
-				
-			} else if (e.getSource() == btnViewVisitHistory) {
+				NewPatientProfilePanel nppp = new NewPatientProfilePanel(parent, username);
+				parent.getContentPane().add(nppp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
+			}
+			else if (e.getSource() == btnViewVisitHistory) {
 				//GOTO View Visit History
-				
-			} else if (e.getSource() == btnOrderMedication) {
+				ViewVisitHistoryPanel vvhp = new ViewVisitHistoryPanel(parent, username);
+				parent.getContentPane().add(vvhp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
+			}
+			else if (e.getSource() == btnOrderMedication) {
 				//GOTO Order Medication
-				
-			} else if (e.getSource() == btnCommunicate) {
+				OrderMedicationPanel omp = new OrderMedicationPanel(parent, username);
+				parent.getContentPane().add(omp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
+			}
+			else if (e.getSource() == btnCommunicate) {
 				//GOTO communicate
-				
-			} else if (e.getSource() == btnRateADoctor) {
+				PatientMessagingPanel pmp = new PatientMessagingPanel(parent, username);
+				parent.getContentPane().add(pmp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
+			}
+			else if (e.getSource() == btnRateADoctor) {
 				//GOTO rate a doctor
-				
+				RateDoctorPanel rdp = new RateDoctorPanel(parent, username);
+				parent.getContentPane().add(rdp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 			}
 		}
 		

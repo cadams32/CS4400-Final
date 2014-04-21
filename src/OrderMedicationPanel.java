@@ -1,3 +1,8 @@
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
@@ -15,13 +20,18 @@ public class OrderMedicationPanel extends JPanel {
 	private MedicalFrame parent;
 	private String username;
 	
+	JButton btnAddToCart, btnCheckout;
+	JComboBox boxDosage, boxDurationMonths, boxDurationDays, boxDay, boxMonth, boxYear;
+	ArrayList<String[]> cart;
+	
 	/**
 	 * Create the panel.
 	 */
 	public OrderMedicationPanel(MedicalFrame parent, String username) {
 		
 		this.parent = parent;
-		this.username = username;	
+		this.username = username;
+		cart = new ArrayList<String[]>();
 		
 		setLayout(new MigLayout("", "[1000.00,grow]", "[100.00,grow][436.00,grow][50.00,grow]"));
 		
@@ -44,7 +54,7 @@ public class OrderMedicationPanel extends JPanel {
 		panel_1.add(lblDosage, "cell 1 3");
 		
 		String[] dosage = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-		JComboBox boxDosage = new JComboBox(dosage);
+		boxDosage = new JComboBox(dosage);
 		panel_1.add(boxDosage, "cell 2 3");
 		
 		JLabel lblPerDay = new JLabel("Per Day");
@@ -54,7 +64,7 @@ public class OrderMedicationPanel extends JPanel {
 		panel_1.add(lblDuration, "cell 1 5");
 		
 		String[] durationMonths = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-		JComboBox boxDurationMonths = new JComboBox(durationMonths);
+		boxDurationMonths = new JComboBox(durationMonths);
 		panel_1.add(boxDurationMonths, "cell 2 5");
 		
 		JLabel lblMonths = new JLabel("Months");
@@ -62,7 +72,7 @@ public class OrderMedicationPanel extends JPanel {
 		
 		String[] durationDays = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
 				"16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
-		JComboBox boxDurationDays = new JComboBox(durationDays);
+		boxDurationDays = new JComboBox(durationDays);
 		panel_1.add(boxDurationDays, "cell 4 5");
 		
 		JLabel lblDays = new JLabel("Days");
@@ -79,28 +89,46 @@ public class OrderMedicationPanel extends JPanel {
 		panel_1.add(lblDateOfPrescription, "cell 1 9");
 		
 		String[] months = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
-		JComboBox boxMonth = new JComboBox(months);
+		boxMonth = new JComboBox(months);
 		panel_1.add(boxMonth, "cell 2 9");
 		
 		String[] days = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15",
 			"16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
-		JComboBox boxDay = new JComboBox(days);
+		boxDay = new JComboBox(days);
 		panel_1.add(boxDay, "cell 3 9");
 		
 		String[] year = {"2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"};
-		JComboBox boxYear = new JComboBox(year);
+		boxYear = new JComboBox(year);
 		panel_1.add(boxYear, "cell 4 9");
 		
 		JPanel panel_2 = new JPanel();
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[723.00][][][]", "[]"));
 		
-		JButton btnAddToCart = new JButton("Add to Cart");
+		btnAddToCart = new JButton("Add to Cart");
 		panel_2.add(btnAddToCart, "cell 1 0");
 		
-		JButton btnCheckout = new JButton("Checkout");
+		btnCheckout = new JButton("Checkout");
 		panel_2.add(btnCheckout, "cell 3 0");
 
 	}
 
+	private class ButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == btnAddToCart){
+				String[] str = {(String) textField.getText(),(String) boxDosage.getSelectedItem(),(String) boxDurationMonths.getSelectedItem(),(String) boxDurationDays.getSelectedItem(),
+						(String) textField_1.getText(),(String) boxMonth.getSelectedItem(),(String) boxDay.getSelectedItem(),(String) boxYear.getSelectedItem()};
+				cart.add(str);
+			}
+			else if(e.getSource() == btnCheckout){
+				//Need to send the whole cart to DB here
+				
+				PaymentInfoPanel pip = new PaymentInfoPanel(parent, username);
+				parent.getContentPane().add(pip);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
+			}
+		}
+	}
 }

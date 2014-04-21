@@ -12,9 +12,9 @@ import javax.swing.JLabel;
 public class LoginPanel extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
-	JButton btnLogin, btnCreateNewAccount;
+	JButton btnAdminLogin, btnCreateNewAccount, btnDoctorLogin, btnPatientLogin;
 	MedicalFrame parent;
-
+	
 	/**
 	 * Create the panel.
 	 */
@@ -26,7 +26,7 @@ public class LoginPanel extends JPanel {
 		
 		JPanel panel = new JPanel();
 		add(panel, "cell 0 1,grow");
-		panel.setLayout(new MigLayout("", "[][][][][][grow][][][][][][grow][grow][][][][][][][][][][][][][][][-22.00][]", "[70.00][][][][280.00][]"));
+		panel.setLayout(new MigLayout("", "[][][][][][grow][][][][][][grow][grow][][][][][][][][][][][][][][][-22.00][]", "[70.00][][][][280.00][][][]"));
 		
 		JLabel lblUsername = new JLabel("Username:");
 		panel.add(lblUsername, "cell 9 1");
@@ -42,22 +42,42 @@ public class LoginPanel extends JPanel {
 		panel.add(textField_1, "cell 11 3 10 1,growx");
 		textField_1.setColumns(10);
 		
+		btnPatientLogin = new JButton("Patient Login");
+		panel.add(btnPatientLogin, "cell 28 5");
+		btnPatientLogin.addActionListener(listener);
+		
+		btnDoctorLogin = new JButton("Doctor Login");
+		panel.add(btnDoctorLogin, "cell 28 6");
+		btnDoctorLogin.addActionListener(listener);
+		
 		btnCreateNewAccount = new JButton("Create New Account");
-		panel.add(btnCreateNewAccount, "cell 25 5");
+		panel.add(btnCreateNewAccount, "cell 25 7");
 		btnCreateNewAccount.addActionListener(listener);
 		
-		btnLogin = new JButton("Login");
-		panel.add(btnLogin, "cell 28 5");
-		btnLogin.addActionListener(listener);
+		btnAdminLogin = new JButton("Admin Login");
+		panel.add(btnAdminLogin, "cell 28 7");
+		btnAdminLogin.addActionListener(listener);
 		
 	}
 
 	private class ButtonListener implements ActionListener{
 		
 		public void actionPerformed(ActionEvent e){
-			if(e.getSource() == btnLogin){
+			if(e.getSource() == btnAdminLogin){
 				//check if username is valid and if the user is an admin, doctor, or patient
 				//take them to the appropriate page.
+			}
+			else if(e.getSource() == btnPatientLogin){
+				PatientHomePanel php = new PatientHomePanel(parent, textField.getText());
+				parent.getContentPane().add(php);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
+			}
+			else if(e.getSource() == btnDoctorLogin){
+				DoctorHomePanel dhp = new DoctorHomePanel(parent, textField.getText());
+				parent.getContentPane().add(dhp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 			}
 			else if(e.getSource() == btnCreateNewAccount){
 				NewUserPanel nup = new NewUserPanel(parent);

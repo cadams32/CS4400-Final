@@ -1,3 +1,4 @@
+import java.awt.CardLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
@@ -13,6 +14,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 
 
 public class ViewVisitHistoryPanel extends JPanel {
@@ -22,6 +27,7 @@ public class ViewVisitHistoryPanel extends JPanel {
 	private JTextField diastolicTextField;
 	private MedicalFrame parent;
 	private String username;
+	JButton btnBack;
 
 	/**
 	 * Create the panel.
@@ -31,15 +37,18 @@ public class ViewVisitHistoryPanel extends JPanel {
 		this.parent = parent;
 		this.username = username;
 		
-		setLayout(new MigLayout("", "[208.00,grow][25.00][744.00][134.00][grow]", "[][156.00][346.00,grow]"));
+		setLayout(new MigLayout("", "[208.00,grow][25.00][744.00][134.00][grow]", "[][156.00][][346.00,grow]"));
 		
 		JLabel lblViewVisitHistory = new JLabel("View Visit History");
 		add(lblViewVisitHistory, "cell 2 0,alignx center");
 		
-		String[] listData = {"Jim", "Bob"};
+		String[] listData = {};
+		
+		JLabel lblDatesOfVisits = new JLabel("Dates of Visits");
+		add(lblDatesOfVisits, "cell 0 2");
 		
 		JScrollPane scrollPane = new JScrollPane();
-		add(scrollPane, "cell 0 2,grow");
+		add(scrollPane, "cell 0 3,grow");
 		
 		JList list = new JList(listData);
 		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -49,8 +58,8 @@ public class ViewVisitHistoryPanel extends JPanel {
 		scrollPane.setViewportView(list);
 		
 		JPanel panel = new JPanel();
-		add(panel, "cell 2 2 3 1,grow");
-		panel.setLayout(new MigLayout("", "[][242.00,grow][][grow][][]", "[][][][][][][60.00][142.00][][][66.00][184.00][53.00][grow]"));
+		add(panel, "cell 2 3 3 1,grow");
+		panel.setLayout(new MigLayout("", "[][242.00,grow][][grow][][]", "[][][][][][][60.00][142.00][][][66.00][184.00][53.00][grow][]"));
 		
 		JLabel lblConsultingDoctor = new JLabel("Consulting Doctor:");
 		panel.add(lblConsultingDoctor, "cell 0 0,alignx trailing");
@@ -81,7 +90,7 @@ public class ViewVisitHistoryPanel extends JPanel {
 		panel.add(lblMedicationsPrescribed, "flowx,cell 1 13");
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		panel.add(scrollPane_1, "cell 1 13 5 1,alignx trailing,aligny center");
+		panel.add(scrollPane_1, "cell 1 13,alignx trailing,aligny center");
 		
 		String[] columnNames = {"Medicine Name", "Dosage", "Duration", "Notes"};
 		Object[][] tableData = {{"Aspirin", "3 per day", "10 days", "After Every Meal"}};
@@ -99,8 +108,20 @@ public class ViewVisitHistoryPanel extends JPanel {
 		diastolicTextField.setEditable(false);
 		panel.add(diastolicTextField, "cell 1 3");
 		diastolicTextField.setColumns(10);
+		
+		btnBack = new JButton("Back");
+		panel.add(btnBack, "cell 5 13");
 
 	}
 	
+	private class ButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			if(e.getSource() == btnBack){
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.first(parent.getContentPane());
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+			}
+		}
+	}
 
 }
