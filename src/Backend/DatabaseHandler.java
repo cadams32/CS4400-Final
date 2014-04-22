@@ -65,16 +65,17 @@ public class DatabaseHandler {
 	 * @param password
 	 * @return "Patient", "Doctor", "Admin", or "Invalid" based on the results
 	 */
-	public static String login(String username, String password) {
+	public String login(String username, String password) {
 	
 		if(validateLogin(username, password)) {
 			if(doesPatientExist(username)) {
+				System.out.println("Hi");
 				return "Patient";
-			}
-			if(doesDoctorExist(username)) {
+			} else if (doesDoctorExist(username)) {
 				return "Doctor";
+			} else {
+				return "Admin";
 			}
-			return "Admin";
 		}
 		return "Invalid";
 	}
@@ -85,7 +86,7 @@ public class DatabaseHandler {
 	 * @param password
 	 * @return true if username and password are found in table matching
 	 */
-	private static boolean validateLogin(String username, String password) {
+	private boolean validateLogin(String username, String password) {
 	
 		boolean result = false;
 		String query = "SELECT * FROM `User` WHERE `Username` = '" + username + "' AND `Password` =  '" + password + "'";
@@ -103,7 +104,6 @@ public class DatabaseHandler {
 			statement.close();
 			DBC.closeConnection(connection);
 			if(dbU != null && dbP != null && username.equals(dbU) && password.equals(dbP)) {
-				
 				result = true;
 			}
 		} catch (Exception e) {
@@ -154,6 +154,7 @@ public class DatabaseHandler {
 			while(resultSet.next()) {
 				dbU = resultSet.getString("PatientUsername");
 			}
+			System.out.println(dbU);
 			resultSet.close();
 			statement.close();
 			DBC.closeConnection(connection);
@@ -211,19 +212,24 @@ public class DatabaseHandler {
 	 * @param username
 	 * @param password
 	 */
-	public static void addNewUser(String username, String password) {
+	public static boolean addNewUser(String username, String password) {
 		if(!doesUsernameExist(username)) {
 			String query = "INSERT INTO  `cs4400_Group_37`.`User` (`Username` ,`Password`) VALUES ('"+username+"',  '"+password+"')";
 			try {
+				System.out.println("Swag");
 				connection = DBC.createConnection();
 				Statement statement = connection.createStatement();
 				statement.executeUpdate(query);
 				statement.close();
 				DBC.closeConnection(connection);
+				System.out.println("Swag2");
+				return true;
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
 			}
 		}
+		System.out.println("Not Swag");
+		return false;
 	}
 	
 	/**
@@ -242,8 +248,9 @@ public class DatabaseHandler {
 	 * @param height
 	 * @param annualIncome
 	 */
-	public static void addNewPatient(String username, String password, String name, String DOB, String gender, String address, String workPhone, String homePhone, String eContactName, String eContactPhone, int weight, int height, String annualIncome) {
-		 	addNewUser(username, password);	
+	public static boolean addNewPatient(String username, String password, String name, String DOB, String gender, String address, String workPhone, String homePhone, String eContactName, String eContactPhone, int weight, int height, String annualIncome) {
+		addNewUser(username, password);	
+		if(!doesPatientExist(username)) {	
 			String query = "INSERT INTO  `cs4400_Group_37`.`Patient` (`PatientUsername` ,`Name` ,`DOB` ,`Gender` ,`Address` ,`WorkPhone` ,`HomePhone` ,`EContactName` ,`EContactPhone` ,`Weight` ,`Height` ,`AnnualIncome` ,`CardNo`) VALUES ('"+username+"',  '"+name+"',  '"+DOB+"',  '"+gender+"',  '"+address+"',  '"+workPhone+"',  '"+homePhone+"',  '"+eContactName+"',  '"+eContactPhone+"',  '"+weight+"',  '"+height+"',  '"+annualIncome+"', NULL);";
 			try {
 				connection = DBC.createConnection();
@@ -251,9 +258,12 @@ public class DatabaseHandler {
 				statement.executeUpdate(query);
 				statement.close();
 				DBC.closeConnection(connection);
+				return true;
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
 			}
+		}
+		return false;
 	}
 
 	/**
@@ -262,8 +272,8 @@ public class DatabaseHandler {
 	 * @param allergy
 	 */
 	public static void addNewPatientAllergy(String patientUsername, String allergy) {
-		if(!doesUsernameExist(patientUsername)) {
-			String query = "INSERT INTO  `cs4400_Group_37`.`Patient_Allergies` (`PatientUsername` ,`Allergy`) VALUES ('"+patientUsername+"',  '"+allergy+"');";;
+		if(doesPatientExist(patientUsername)) {
+			String query = "INSERT INTO  `cs4400_Group_37`.`Patient_Allergies` (`PatientUsername` ,`Allergy`) VALUES ('"+patientUsername+"',  '"+allergy+"')";
 			try {
 				connection = DBC.createConnection();
 				Statement statement = connection.createStatement();
@@ -290,7 +300,7 @@ public class DatabaseHandler {
 	 */
 	public static void addNewDoctor(String username, String password, String licenseNo, String fName, String lName, String DOB, String homeAddress, String specialty, int roomNo) {
 		addNewUser(username, password);	
-		if(!doesUsernameExist(username)) {
+		if(!doesDoctorExist(username)) {
 			String query = "INSERT INTO  `cs4400_Group_37`.`Doctor` (`Username` ,`LicenseNo`, `FName`, `LName`, `DOB`, `WorkPhone`, `HomeAddress`, `Specialty`, `RoomNo`,) VALUES ('"+username+"',  '"+licenseNo+"', '"+fName+"', '"+lName+"', '"+DOB+"', '"+homeAddress+"', '"+specialty+"', '"+roomNo+"')";;
 			try {
 				connection = DBC.createConnection();
@@ -387,7 +397,7 @@ public class DatabaseHandler {
 	 */
 	public static ArrayList<Doctor> getSpecialtyDoctors(String specialty){ 
 		ArrayList<Doctor> list = new ArrayList<Doctor>();
-		String query = "SELECT * FROM `Doctor` WHERE `Specialty`='"+specialty+"";
+		String query = "SELECT * FROM `Doctor` WHERE `Specialty`='"+specialty+"'";
 		
 		try {
 			connection = DBC.createConnection();

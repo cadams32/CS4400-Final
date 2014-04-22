@@ -63,38 +63,30 @@ public class LoginPanel extends JPanel {
 	private class ButtonListener implements ActionListener{
 		
 		public void actionPerformed(ActionEvent e){
+			
+			
 			if(e.getSource() == btnAdminLogin){
-				String check = parent.getHandler().login(textField.getText(), textField_1.getText());
-				if (check.equals("Patient")) {
-					PatientHomePanel php = new PatientHomePanel(parent, textField.getText());
-					parent.getContentPane().add(php);
-					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-					cl.next(parent.getContentPane());
-				} else if (check.equals("Doctor")) {
-					DoctorHomePanel dhp = new DoctorHomePanel(parent, textField.getText());
-					parent.getContentPane().add(dhp);
-					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-					cl.next(parent.getContentPane());
-				} else if (check.equals("Admin")) {
-					AdminHomePanel ahp = new AdminHomePanel(parent, textField.getText());
-					parent.getContentPane().add(ahp);
-					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-					cl.next(parent.getContentPane());
-				} else if (check.equals("Invalid")) {
+				if(!textField.getText().equals("") && !textField_1.getText().equals("")) {
+					String check = parent.getHandler().login(textField.getText(), textField_1.getText());
+					if (check.equals("Patient")) {
+						PatientHomePanel php = new PatientHomePanel(parent, textField.getText());
+						parent.getContentPane().add(php);
+						CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+						cl.next(parent.getContentPane());
+					} else if (check.equals("Doctor")) {
+						DoctorHomePanel dhp = new DoctorHomePanel(parent, textField.getText());
+						parent.getContentPane().add(dhp);
+						CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+						cl.next(parent.getContentPane());
+					} else if (check.equals("Admin")) {
+						AdminHomePanel ahp = new AdminHomePanel(parent, textField.getText());
+						parent.getContentPane().add(ahp);
+						CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+						cl.next(parent.getContentPane());
+					} else if (check.equals("Invalid")) {
 					
+					}
 				}
-			}
-			else if(e.getSource() == btnPatientLogin){
-				PatientHomePanel php = new PatientHomePanel(parent, textField.getText());
-				parent.getContentPane().add(php);
-				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				cl.next(parent.getContentPane());
-			}
-			else if(e.getSource() == btnDoctorLogin){
-				DoctorHomePanel dhp = new DoctorHomePanel(parent, textField.getText());
-				parent.getContentPane().add(dhp);
-				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				cl.next(parent.getContentPane());
 			}
 			else if(e.getSource() == btnCreateNewAccount){
 				NewUserPanel nup = new NewUserPanel(parent);
