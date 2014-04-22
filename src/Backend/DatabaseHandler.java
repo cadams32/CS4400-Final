@@ -19,7 +19,9 @@ import java.sql.Statement;
  * - doesUsernameExist - boolean - returns true if the username exists in the User table
  *		- addNewUser - void - inserts new User into User table with given params
  *		- addNewPatient - void - inserts new Patient into Patient table with given params
+ *			-addNewPatientAllergy - void - inserts new Patient_Allergy into Patient_Allergy table
  *		- addNewDoctor - void - inserts new Doctor into Doctor table with given params
+ *			-addNewDoctorAvailable - void inserts new DoctorAvailable into Doctor_Available table
  * 
  * 
  */
@@ -32,15 +34,11 @@ public class DatabaseHandler {
 		DataBaseConnection DBC = new DataBaseConnection();
 	}
 	
-	// ---------------------------------------------------------------------------------------------------------------------
-	// ----------------------------LOGIN------------------------------------------------------------------------------------
-	// ---------------------------------------------------------------------------------------------------------------------
-	
 	/**
-	 * Login returns "Patient", "Doctor", "Admin", or "Invalid" based on the results
+	 * Login
 	 * @param username
 	 * @param password
-	 * @return
+	 * @return "Patient", "Doctor", "Admin", or "Invalid" based on the results
 	 */
 	public static String login(String username, String password) {
 	
@@ -60,7 +58,7 @@ public class DatabaseHandler {
 	 * Check if Username and Password both match in User table
 	 * @param username
 	 * @param password
-	 * @return
+	 * @return true if username and password are found in table matching
 	 */
 	private static boolean validateLogin(String username, String password) {
 	
@@ -142,10 +140,18 @@ public class DatabaseHandler {
 		}
 		return false;
 	}
+
+	/**
+	 * NEW USER
+	 * 
+	 * doesUsernameExist - Check if username is exists in User table
+	 * addNewUser - Insert New User into User table
+	 * addNewPatient - Insert New Patient into Patient table
+	 * 		addNewPatientAllergy - Insert New Patient Allergy into Patient table
+	 * addNewDoctor - Insert New Doctor into Doctor table
+	 * 		addNewDoctorAvailable - Insert New DoctorAvailable into Patient table
+	 */
 	
-	// ---------------------------------------------------------------------------------------------------------------------
-	// ----------------------------INSERTING NEW USERS INTO THE DATABASE----------------------------------------------------
-	// ---------------------------------------------------------------------------------------------------------------------
 	
 	/**
 	 * Check if Username exists.
@@ -221,7 +227,47 @@ public class DatabaseHandler {
 	 * @param username
 	 * @param password
 	 */
+	public static void addNewPatientAllergy(String username, String password) {
+		if(!doesUsernameExist(username)) {
+			String query = "";
+			try {
+				connection = DBC.createConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(query);
+				statement.close();
+				DBC.closeConnection(connection);
+			} catch (Exception e) {
+				System.err.println("Exception: " + e.getMessage());
+			}
+		}
+	}
+	
+	/**
+	 * Insert New Doctor
+	 * @param username
+	 * @param password
+	 */
 	public static void addNewDoctor(String username, String password) {
+		if(!doesUsernameExist(username)) {
+			String query = "";
+			try {
+				connection = DBC.createConnection();
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(query);
+				statement.close();
+				DBC.closeConnection(connection);
+			} catch (Exception e) {
+				System.err.println("Exception: " + e.getMessage());
+			}
+		}
+	}
+	
+	/**
+	 * Insert New Doctor
+	 * @param username
+	 * @param password
+	 */
+	public static void addNewDoctorAvailable(String username, String password) {
 		if(!doesUsernameExist(username)) {
 			String query = "";
 			try {
