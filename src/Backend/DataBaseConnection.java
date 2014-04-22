@@ -2,7 +2,7 @@ package Backend;
 import java.sql.*;
 
 
-public class dataBaseConnection {
+public class DataBaseConnection {
 	private static final String connection = "jdbc:mysql://academic-mysql.cc.gatech.edu/phpmyadmin/cs4400_Group_37";
 	private static final String driverName = "com.mysql.jdbc.Driver";
 	private static final String username = "cs4400_Group_37";

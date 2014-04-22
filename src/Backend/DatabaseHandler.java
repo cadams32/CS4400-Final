@@ -21,12 +21,12 @@ import java.sql.Statement;
  * 
  * 
  */
-public class databaseHandler {
+public class DatabaseHandler {
 	
 	private static Connection connection;
 	
-	public databaseHandler() {
-		dataBaseConnection DBC = new dataBaseConnection();
+	public DatabaseHandler() {
+		DataBaseConnection DBC = new DataBaseConnection();
 		connection = DBC.createConnection();
 	}
 
