@@ -1,13 +1,11 @@
 package Backend;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 
-/*
+/**
  * Creates queries for manipulating the DB:
  * 
  * 		- login - String - the type of user being logged in "Patient", "Doctor", "Invalid"
@@ -24,40 +22,51 @@ import java.sql.Statement;
 public class DatabaseHandler {
 	
 	private static Connection connection;
+	private static DataBaseConnection DBC;
 	
 	public DatabaseHandler() {
 		DataBaseConnection DBC = new DataBaseConnection();
-		connection = DBC.createConnection();
 	}
-
-	/*
+	
+	/**
 	 * Wanted to return the type of user as a string.
 	 */
 	public static String login(String username, String password) {
+		connection = DBC.createConnection();
 		if(validateLogin(username, password)) {
+			DBC.closeConnection(connection);
 			if(searchPatientForUser(username)) {
+				DBC.closeConnection(connection);
 				return "Patient";
 			}
 			if(searchDoctorForUser(username)) {
+				DBC.closeConnection(connection);
 				return "Doctor";
 			}
+			DBC.closeConnection(connection);
+			return "Admin";
 		}
+		DBC.closeConnection(connection);
 		return "Invalid";
 	}
 	
-	/*
-	 * Checks if the username and password combination exists in the DB
+	/**
+	 * 
+	 * 
+	 * @param username
+	 * @param password
+	 * @return
 	 */
 	private static boolean validateLogin(String username, String password) {
 		boolean result = false;
-		String query = "SELECT Username, Password FROM User WHERE User.Username = ? AND User.Password = ?";
+		
+		System.out.println(username + " " + password);
+		
+		String query = "SELECT * FROM `User` WHERE `Username` = '" + username + "' AND `Password` =  '" + password + "'";
+		
 		try {
-			//Create the statement
-			PreparedStatement statement = connection.prepareStatement(query);
-			statement.setString(1, username);
-			statement.setString(2, password);
-			//Execute the statement
-			ResultSet resultSet = (ResultSet) statement.executeQuery();
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = (ResultSet) statement.executeQuery(query);
 			String dbU = "";
 			String dbP = "";
 			while(resultSet.next()) {
@@ -67,68 +76,75 @@ public class DatabaseHandler {
 			if(dbU != null && dbP != null && username.equals(dbU) && password.equals(dbP)) {
 				result = true;
 			}
-		} catch (SQLException e) {
-				e.printStackTrace();
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
 		} 
 		return result;
 	}
 	
-	/*
-	 * Checks if the username exists in the Doctor table
+	/**
+	 * Search for a specific Doctor based on user
+	 * 
+	 * @param username
+	 * @return boolean if found
 	 */
 	private static boolean searchDoctorForUser(String username) {
-		String query = "SELECT Username FROM Doctor WHERE Doctor.Username = ?";
+		String query = "SELECT `DocUsername` FROM `Doctor` WHERE `DocUsername` = '" + username + "'";
 		try {
-			PreparedStatement statement = connection.prepareStatement(query);
-			statement.setString(1, username);
-			ResultSet resultSet = (ResultSet) statement.executeQuery();
+			Statement statement = connection.prepareStatement(query);
+			ResultSet resultSet = (ResultSet) statement.executeQuery(query);
 			String dbU = "";
 			while(resultSet.next()) {
-				dbU = resultSet.getString("Username");
-			}
-			if(dbU != null && username.equals(dbU)) {
-				return true;
-			}
-		} catch (Exception e) {
-			
-		}
-		return false;
-	}
-	
-	/*
-	 * Checks if the username exists in the Patient table
-	 */
-	private static boolean searchPatientForUser(String username) {
-		String query = "SELECT Username FROM Patient WHERE Patient.Username = ?";
-		try {
-			PreparedStatement statement = connection.prepareStatement(query);
-			statement.setString(1, username);
-			ResultSet resultSet = (ResultSet) statement.executeQuery();
-			String dbU = "";
-			while(resultSet.next()) {
-				dbU = resultSet.getString("Username");
+				dbU = resultSet.getString("DocUsername");
 			}
 			statement.close();
 			if(dbU != null && username.equals(dbU)) {
 				return true;
 			}
 		} catch (Exception e) {
-			
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
+	
+	/**
+	 * search Patient for User
+	 * 
+	 * @param username
+	 * @return
+	 */
+	private static boolean searchPatientForUser(String username) {
+		String query = "SELECT `PatientUsername` FROM `Patient` WHERE `PatientUsername` = '" + username + "'";
+		try {
+			Statement statement = connection.prepareStatement(query);
+			ResultSet resultSet = (ResultSet) statement.executeQuery(query);
+			String dbU = "";
+			while(resultSet.next()) {
+				dbU = resultSet.getString("PatientUsername");
+			}
+			statement.close();
+			if(dbU != null && username.equals(dbU)) {
+				return true;
+			}
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
 		}
 		return false;
 	}
 	
 	//---------------------------------------------------------------------------------
 	
-	/*
-	 * Returns true if the username exists in the user table
+	/**
+	 * Check if username exists.
+	 * 
+	 * @param username
+	 * @return
 	 */
 	private static boolean doesUsernameExist(String username) {
-		String query = "SELECT Username FROM User WHERE User.Username = ?";
+		String query = "SELECT  `Username` FROM  `User` WHERE  `Username` = '" + username + "'";
 		try {
-			PreparedStatement statement = connection.prepareStatement(query);
-			statement.setString(1, username);
-			ResultSet resultSet = (ResultSet) statement.executeQuery();
+			Statement statement = connection.prepareStatement(query);
+			ResultSet resultSet = (ResultSet) statement.executeQuery(query);
 			String dbU = "";
 			while(resultSet.next()) {
 				dbU = resultSet.getString("Username");
@@ -139,97 +155,28 @@ public class DatabaseHandler {
 			}
 			return false;
 		} catch (Exception e) {
-			
+			System.err.println("Exception: " + e.getMessage());
 		}
 		return false;
 	}
 	
-	/*
-	 * Inserts a new User into the DB
+	/**
+	 * Insert into User
+	 * 
+	 * @param username
+	 * @param password
 	 */
 	public static void addUser(String username, String password) {
+		connection = DBC.createConnection();
 		if(!doesUsernameExist(username)) {
+			String query = "INSERT INTO  `cs4400_Group_37`.`User` (`Username` ,`Password`) VALUES ('"+username+"',  '"+password+"')";
 			try {
-				String query = "INSERT INTO User (Username, Password) VALUES(?, ?)";
-				PreparedStatement statement = connection.prepareStatement(query);
-				statement.setString(1, username);
-				statement.setString(2, password);
+				Statement statement = connection.createStatement();
+				statement.executeUpdate(query);
 			} catch (Exception e) {
-				
+				System.err.println("Exception: " + e.getMessage());
 			}
 		}
+		DBC.closeConnection(connection);
 	}
-	
-	/*
-	 * Inserts a new patient into the DB
-	 */
-	public static void addNewPatient(String username, String name, String dob, String gender, String address, String workPhone, String homePhone, String emerContactName, String emerContactPhone, String weight, String height, String annualIncome, String cardNumber) {
-		
-		if(!doesUsernameExist(username)) {
-			try {
-				String query = "INSERT INTO Patient (Paitent_Username, Name, DOB, Gender, Address, Work_Phone, Home_Phone, Emer_Contact_Name, Emer_Contact_Phone, Weight, Height, Annual_Income, Card_Number) " +
-						"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				PreparedStatement statement = connection.prepareStatement(query);
-				statement.setString(1, username);
-				statement.setString(2, name);
-				statement.setString(3, dob);
-				statement.setString(4, gender);
-				statement.setString(5, address);
-				statement.setString(6, workPhone);
-				statement.setString(7, homePhone);
-				statement.setString(8, emerContactName);
-				statement.setString(9, emerContactPhone);
-				statement.setString(10, weight);
-				statement.setString(11, height);
-				statement.setString(12, annualIncome);
-				statement.setString(13, cardNumber);
-				statement.executeUpdate();
-				statement.close();
-			} catch (Exception e) {
-				
-			}
-		}
-	}
-	
-	/*
-	 * Inserts New Doctor into the DB
-	 */
-	public static void addNewDoctor(String username, String licenseNo, String fName, String lName, String dob, String workPhone, String homeAddress, String specialty, String roomNo) {
-		if(!doesUsernameExist(username)) {
-			try {
-				String query = "INSERT INTO Doctor (Doctor_Username, LicenseNo, FName, LName, DOB, Work_Phone, Home_Address, Specialty, Room_No)" +
-							"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				PreparedStatement statement = connection.prepareStatement(query);
-				statement.setString(1, username);
-				statement.setString(2, licenseNo);
-				statement.setString(3, fName);
-				statement.setString(4, lName);
-				statement.setString(5, dob);
-				statement.setString(6, workPhone);
-				statement.setString(7, homeAddress);
-				statement.setString(8, specialty);
-				statement.setString(9, roomNo);
-			} catch (Exception e) {
-				
-			}
-		}
-	}
-	
-	public static void addNewPatientAllergies(String username, String allergy) {
-		try {
-			String query = "INSERT INTO Patient_Allergies (Patient_Username, Allergy) VALUES(?, ?)";
-			PreparedStatement statement = connection.prepareStatement(query);
-			statement.setString(1, username);
-			statement.setString(2, allergy);
-		} catch (Exception e) {
-			
-		}
-	}
-	
-	public static void addNewDoctorAvailability(String username, String to, String from, String day) {
-		
-	}
-
-	
 }
-

@@ -3,35 +3,25 @@ import java.sql.*;
 
 
 public class DataBaseConnection {
-	private static final String connection = "jdbc:mysql://academic-mysql.cc.gatech.edu/phpmyadmin/cs4400_Group_37";
-	private static final String driverName = "com.mysql.jdbc.Driver";
-	private static final String username = "cs4400_Group_37";
-	private static final String password = "Vs2GEguW";
 	
-	public Connection createConnection() {
-		
-		Connection conn = null;
-		
-		try {
-			Class.forName(driverName);
-		
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			conn = DriverManager.getConnection(connection, username, password);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		if(conn != null) {
-			return conn;
-			//Success!!!
-		}
-		
-		return null;
-	}
+	public Connection createConnection() {    
+        Connection conn = null; 
+        try { 
+        	System.out.println("Driver");
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Driver Success");
+            conn = DriverManager.getConnection("jdbc:mysql://130.207.114.235/cs4400_Group_37", "cs4400_Group_37", "Vs2GEguW"); 
+            if(!conn.isClosed()) {
+                System.out.println("Successfully connected to " + 
+                "MySQL server using TCP/IP..."); 
+                return conn;
+            }
+        } catch(Exception e) { 
+            System.err.println("Exception: " + e.getMessage()); 
+        }
+        System.out.println("Not Swag");
+        return null;
+    }
 	
 	public void closeConnection(Connection conn) {
 		try {
