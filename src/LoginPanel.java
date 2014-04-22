@@ -64,8 +64,25 @@ public class LoginPanel extends JPanel {
 		
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == btnAdminLogin){
-				//check if username is valid and if the user is an admin, doctor, or patient
-				//take them to the appropriate page.
+				String check = parent.getHandler().login(textField.getText(), textField_1.getText());
+				if (check.equals("Patient")) {
+					PatientHomePanel php = new PatientHomePanel(parent, textField.getText());
+					parent.getContentPane().add(php);
+					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+					cl.next(parent.getContentPane());
+				} else if (check.equals("Doctor")) {
+					DoctorHomePanel dhp = new DoctorHomePanel(parent, textField.getText());
+					parent.getContentPane().add(dhp);
+					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+					cl.next(parent.getContentPane());
+				} else if (check.equals("Admin")) {
+					AdminHomePanel ahp = new AdminHomePanel(parent, textField.getText());
+					parent.getContentPane().add(ahp);
+					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+					cl.next(parent.getContentPane());
+				} else if (check.equals("Invalid")) {
+					
+				}
 			}
 			else if(e.getSource() == btnPatientLogin){
 				PatientHomePanel php = new PatientHomePanel(parent, textField.getText());

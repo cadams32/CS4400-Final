@@ -25,9 +25,10 @@ public class DataBaseConnection {
 		try {
 			if (conn != null) {
 				conn.close();
+				System.out.println("Successfully closed connection.");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.err.println("Exception: " + e.getMessage()); 
 		}
 	}
 	

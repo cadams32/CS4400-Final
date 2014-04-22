@@ -53,7 +53,7 @@ import java.util.ArrayList;
 public class DatabaseHandler {
 	
 	private static Connection connection;
-	private static DataBaseConnection DBC;
+	private static DataBaseConnection DBC = new DataBaseConnection();
 	
 	public DatabaseHandler() {
 		DataBaseConnection DBC = new DataBaseConnection();
@@ -68,7 +68,7 @@ public class DatabaseHandler {
 	public static String login(String username, String password) {
 	
 		if(validateLogin(username, password)) {
-			if(doesPatientExist(username)) {		
+			if(doesPatientExist(username)) {
 				return "Patient";
 			}
 			if(doesDoctorExist(username)) {
@@ -349,7 +349,10 @@ public class DatabaseHandler {
 	
 	//TODO: Copy Pasta
 	
-	public static void addNewPaymentInformation(String cardNumber, String cardHolderName, String CVV, String datOfExpiry, String type) { }
+	public static void addNewPaymentInformation(String cardNumber, String cardHolderName, String CVV, String dateOfExpiry, String type) { 
+		String query = "INSERT INTO `cs4400_Group_37`.`PaymentInformation` (`CardNo`, `CardHolderName`, `CVV`, `Date ";
+		
+	}
 	
 	public static void addNewSurgery(String CPTCode, String surgeryType, int costOfSurgery) { }
 	
@@ -385,6 +388,7 @@ public class DatabaseHandler {
 	public static ArrayList<Doctor> getSpecialtyDoctors(String specialty){ 
 		ArrayList<Doctor> list = new ArrayList<Doctor>();
 		String query = "SELECT * FROM `Doctor` WHERE `Specialty`='"+specialty+"";
+		
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
