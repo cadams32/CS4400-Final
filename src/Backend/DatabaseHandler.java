@@ -9,6 +9,16 @@ import java.util.ArrayList;
 /**
  * Creates queries for manipulating the DB:
  * 
+ * Note:
+ * 		this ` symbol is used when declaring a table name or column name
+ *		this ' symbol is used when we are declaring values
+ *
+ * 	Example:  SELECT * `USER` WHERE `Username` = 'username';
+ * 
+ * I have no idea why it is like this, but it kept yelling at me over it.
+ * 
+ * Note: Note: A lot of these are not fully tested/functional until the GUI is completed.
+ * 
  * LOGIN
  * 		- login - String - the type of user being logged in "Patient", "Doctor", "Invalid"
  *			- validateLogin - boolean - searches the User table for username and password combination
@@ -36,7 +46,7 @@ import java.util.ArrayList;
  * 		- addNewSendMessageToDoc
  * 		- addNewSendMessageToPat
  * 
- * SELECT (UI Creation)
+ * Other Methods (For Populating GUI)
  * 
  * 
  */
@@ -336,28 +346,35 @@ public class DatabaseHandler {
 			}
 		}
 	}
-	//copy pasta later
-	public static void addNewPaymentInformation() { }
 	
-	public static void addNewSurgery() { }
+	//TODO: Copy Pasta
 	
-	public static void addNewSurgeryPreOpMeds(){ }
+	public static void addNewPaymentInformation(String cardNumber, String cardHolderName, String CVV, String datOfExpiry, String type) { }
 	
-	public static void addNewVisit() { }
+	public static void addNewSurgery(String CPTCode, String surgeryType, int costOfSurgery) { }
 	
-	public static void addNewVisitDiagnosis() { }
+	public static void addNewSurgeryPreOpMeds(String CPTCode, String preOpMedication){ }
 	
-	public static void addNewPrescription() { }
+	//Note: VisitID should be an auto-incrementing unsigned integer AKA: automatic
+	public static void addNewVisit(int visitId, String docUsername, String patUsername, String dateOfVisit, int diastolic, int systolic, int billingAmount) { }
 	
-	public static void addNewCommunicatesWith() { }
+	public static void addNewVisitDiagnosis(int visitID, String diagnosis) { }
 	
-	public static void addNewAppointments() { }
+	//Note: Ordered = Yes or No
+	public static void addNewPrescription(int visitID, String medicineName, int dosage, int duration, String notes, String ordered) { }
 	
-	public static void addNewPerforms() { }
+	//Note: Status = Read or Unread
+	public static void addNewCommunicatesWith(String docSender, String docReceiver, String dateTime, String content, String status) { }
 	
-	public static void addNewSendMessageToDoc() { }
+	public static void addNewAppointments(String docUsername, String patientUsername, String date, String time) { }
 	
-	public static void addNewSendMessageToPatient() { }
+	public static void addNewPerforms(String docUsername, String patientUsername, String CPTCode, String surgeryStartTime, String surgeryEndTime, String anesthesiaStart, String complications, int noOfAssistants) { }
+	
+	//Note: Status = Read or Unread
+	public static void addNewSendMessageToDoc(String patUsername, String docUsername, String dateTime, String content, String status) { }
+	
+	//Note: Status = Read or Unread
+	public static void addNewSendMessageToPatient(String docUsername, String patUsername, String dateTime, String content, String status) { }
 	
 	//Creating Appointment Screen
 	/**
@@ -442,7 +459,9 @@ public class DatabaseHandler {
 	//Insert Performs
 	
 	//Messages
+	//TODO
 	
 	//Reports
+	//TODO
 	
 }
