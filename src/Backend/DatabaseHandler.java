@@ -360,7 +360,6 @@ public class DatabaseHandler {
 	public static void addNewSendMessageToPatient() { }
 	
 	//Creating Appointment Screen
-	
 	/**
 	 * Gets the First Name, Last Name, RoomNo, and Username of all doctors of a specific Specialty
 	 * @param specialty
@@ -368,7 +367,7 @@ public class DatabaseHandler {
 	 */
 	public static ArrayList<Doctor> getSpecialtyDoctors(String specialty){ 
 		ArrayList<Doctor> list = new ArrayList<Doctor>();
-		String query = "SELECT * FROM `Doctor` WHERE `Specialty`='"+specialty+"'";
+		String query = "SELECT * FROM `Doctor` WHERE `Specialty`='"+specialty+"";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
@@ -389,16 +388,61 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
-	
-	/**
-	 * 
-	 * @param docUsername
-	 * @return
-	 */
+	//Returns average Doctor rating
 	public static int getDoctorRating(String docUsername) { return -1; }
 	//Returns list of availability
 	public static ArrayList<Availability> getDoctorAvailability(String docUsername) { return null; }
 	
+	//Creating Order Prescription
+	//get the Visits of a Patient
+	public static ArrayList<Visit> getPatientVisits(String username) { return null; }
+	//get Prescriptions for a Visit (not Ordered)
+	public static ArrayList<Prescription> getVisitPrescriptions(int visitID) { return null; }
+	//Get a Doctor
+	public static Doctor getDoctor(String username) { return null; }
+	//Change Prescription Ordered from No to Yes
+	public static void updatePrescription() { }
 	
+	//Creating View Visit History
+	//Reuse getPatientVisits()
+	//get Visit_Diagnosis
+	public static String getVisitDiagnosis(int visitID) { return null; }
+	//Reuse getPrescriptionsForVisit()
+	//Reuse Get a Doctor
+	
+	//Creating Rate A Doctor
+	//Insert Into Doctor...
+	
+	//Creating Edit Profile for Doctor and Patient
+	public static void updatePatientProfile() { }
+	public static void updateDoctorProfile() { }
+	
+	//Creating AppointmentCalendar
+	//get all appointments of a doctor
+	public static ArrayList<Appointment> getAppointmentsForDoctor(String docUsername) { return null; }
+	//get a specific patient
+	public static Patient getPatient(String patUsername) { return null; }
+	
+	//Patient Visit History
+	//get a Patient based on name and homePhone? (May need to return a list)
+	public static Patient getPatient(String name, String homePhone) { return null; }
+	//Reuse getPatientVisits()
+	//Reuse getVisitDiagnosis()
+	//Reuse getVisitPrescriptions()
+	
+	//Record a visit
+	//Insert visit
+	//Insert visit_diagnosis
+	//Insert visit_prescription
+	
+	//Surgery Record
+	//Reuse getPatient(name, homePhone)
+	//Insert Surgery
+	//Insert SurgeryPreOpMed
+	//Insert Performs
+	
+	//Messages
+	
+	//Reports
 	
 }
