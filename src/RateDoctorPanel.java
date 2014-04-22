@@ -7,6 +7,8 @@ import javax.swing.JComboBox;
 import javax.swing.JSlider;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Font;
@@ -16,8 +18,8 @@ public class RateDoctorPanel extends JPanel {
 	
 	private MedicalFrame parent;
 	private String username;
-	private JButton btnRate;
 	private JSlider slider;
+	JButton btnBack, btnRate;
 	
 	/**
 	 * Create the panel.
@@ -49,10 +51,14 @@ public class RateDoctorPanel extends JPanel {
 		lblRating.setBounds(105, 201, 126, 47);
 		add(lblRating);
 		
-		JButton btnRate = new JButton("Rate");
+		btnRate = new JButton("Rate");
 		btnRate.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		btnRate.setBounds(429, 334, 117, 29);
 		add(btnRate);
+		
+		btnBack = new JButton("Back");
+		btnBack.setBounds(439, 404, 97, 25);
+		add(btnBack);
 
 	}
 	
@@ -63,6 +69,11 @@ public class RateDoctorPanel extends JPanel {
 			if(e.getSource() == btnRate) {
 				double rating = slider.getValue();
 				//push rating into DB
+			}
+			else if(e.getSource() == btnBack){
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
 			}
 			
 		}

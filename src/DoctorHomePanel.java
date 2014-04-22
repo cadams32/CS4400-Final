@@ -78,17 +78,31 @@ public class DoctorHomePanel extends JPanel {
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 				cl.next(parent.getContentPane());
 				
-			} else if (e.getSource() == btnPatientVisits) {
+			}
+			else if (e.getSource() == btnPatientVisits) {
 				//GOTO patientVisits
-				
-				
-			} else if (e.getSource() == btnRecordASurgery) {
+				ViewPatientHistoryPanel vphp = new ViewPatientHistoryPanel(parent, username);
+				parent.getContentPane().add(vphp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
+			}
+			else if (e.getSource() == btnRecordASurgery) {
 				//GOTO View Visit History
+				SurgeryPanel sp = new SurgeryPanel(parent, username);
+				parent.getContentPane().add(sp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 				
-			} else if (e.getSource() == btnCommunicate) {
+			}
+			else if (e.getSource() == btnCommunicate) {
 				//GOTO communicate
+				DoctorMessagingPanel dmp = new DoctorMessagingPanel(parent, username);
+				parent.getContentPane().add(dmp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 				
-			} else if (e.getSource() == btnEditProfile) {
+			}
+			else if (e.getSource() == btnEditProfile) {
 				//GOTO rate a doctor
 				DoctorEditProfile dep = new DoctorEditProfile(parent, username);
 				parent.getContentPane().add(dep);

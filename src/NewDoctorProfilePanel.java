@@ -35,6 +35,7 @@ public class NewDoctorProfilePanel extends JPanel {
 	private JComboBox cbToTime; 
 	JButton btnAddAvail, btnCreateProfile;
 	MedicalFrame parent;
+	String username;
 	JPanel panel = new JPanel();
 	
 	private ArrayList<Availability> availableList = new ArrayList<Availability>();;
@@ -51,6 +52,7 @@ public class NewDoctorProfilePanel extends JPanel {
 		setLayout(new MigLayout("", "[][75.00][12.00,grow][123.00][][][][][50.00][50.00,grow][][45.00][][grow]", "[][90.00][30.00][30.00][30.00][30.00][30.00][30.00][30.00][31.00][][65.00][][][]"));
 		ButtonListener listener = new ButtonListener();
 		this.parent = parent;
+		this.username = username;
 		
 		licenseLabel = new JLabel("License Numer");
 		add(licenseLabel, "cell 2 2,alignx center");
@@ -144,7 +146,10 @@ public class NewDoctorProfilePanel extends JPanel {
 			else if(e.getSource() == btnCreateProfile){
 				
 				//Create the profile and go back to login
-				
+				DoctorHomePanel dhp = new DoctorHomePanel(parent, username);
+				parent.getContentPane().add(dhp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 		
 			}
 		}

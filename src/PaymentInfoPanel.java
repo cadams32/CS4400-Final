@@ -1,3 +1,7 @@
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
@@ -11,15 +15,19 @@ public class PaymentInfoPanel extends JPanel {
 	private JTextField textField_1;
 	private JTextField textField_2;
 
-	private MedicalFrame parent;
-	private String username;
+	MedicalFrame parent;
+	String username;
+	JButton btnOrder;
 	
 	/**
 	 * Create the panel.
 	 */
 	public PaymentInfoPanel(MedicalFrame parent, String username) {
 		
+		this.parent = parent;
+		this.username = username;
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
+		ButtonListener listener = new ButtonListener();
 		
 		JPanel panel = new JPanel();
 		add(panel, "cell 0 0,grow");
@@ -72,9 +80,29 @@ public class PaymentInfoPanel extends JPanel {
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[865.00][]", "[]"));
 		
-		JButton btnOrder = new JButton("Order");
+		btnOrder = new JButton("Order");
 		panel_2.add(btnOrder, "cell 1 0");
+		btnOrder.addActionListener(listener);
 
+	}
+	
+	public void populateFields(){
+		//This method needs to populate the fields and make them not editable if there is already payment info for that user.
+		
+	}
+	
+	private class ButtonListener implements ActionListener{
+		
+		public void actionPerformed(ActionEvent e){
+			if(e.getSource() == btnOrder){
+				//DB Transaction
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				for(int i = 0; i<2; i++){
+					parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				}
+				cl.last(parent.getContentPane());
+			}
+		}
 	}
 
 }

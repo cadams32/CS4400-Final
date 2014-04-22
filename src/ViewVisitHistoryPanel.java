@@ -36,6 +36,7 @@ public class ViewVisitHistoryPanel extends JPanel {
 		
 		this.parent = parent;
 		this.username = username;
+		ButtonListener listener = new ButtonListener();
 		
 		setLayout(new MigLayout("", "[208.00,grow][25.00][744.00][134.00][grow]", "[][156.00][][346.00,grow]"));
 		
@@ -111,6 +112,7 @@ public class ViewVisitHistoryPanel extends JPanel {
 		
 		btnBack = new JButton("Back");
 		panel.add(btnBack, "cell 5 13");
+		btnBack.addActionListener(listener);
 
 	}
 	
@@ -118,8 +120,8 @@ public class ViewVisitHistoryPanel extends JPanel {
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == btnBack){
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				cl.first(parent.getContentPane());
 				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
 			}
 		}
 	}

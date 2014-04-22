@@ -139,10 +139,11 @@ public class NewPatientProfilePanel extends JPanel {
 					insertDatabase();
 				}
 				//create profile go back to login
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
 				PatientHomePanel php = new PatientHomePanel(parent, username);
 				parent.getContentPane().add(php);
-				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				cl.next(parent.getContentPane());
+				cl.last(parent.getContentPane());
 			}
 		
 		}

@@ -7,13 +7,20 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Button;
+import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JTable;
 
 
 public class ViewAppointmentPanel extends JPanel {
 
 	private MedicalFrame parent;
 	private String username;
+	private JTable table;
+	JButton btnBack, btnSearch, btnRequestAppointment;
 	
 	/**
 	 * 
@@ -47,22 +54,42 @@ public class ViewAppointmentPanel extends JPanel {
 		JComboBox boxAvailability = new JComboBox(available);
 		panel_2.add(boxAvailability, "cell 1 1");
 		*/
-		JButton btnSearch = new JButton("Search");
+		btnSearch = new JButton("Search");
 		panel_1.add(btnSearch, "cell 2 1");
 		
 		JPanel panel_2 = new JPanel();
-		add(panel_2, "cell 1 2 3 1,grow");
-		panel_2.setLayout(new MigLayout("", "[]", "[]"));
+		add(panel_2, "cell 0 2 5 1,grow");
+		panel_2.setLayout(new MigLayout("", "[grow]", "[grow]"));
 		
-		String[] available = {};//POPULATE THIS WITH THE AVAILABILITY TIMES ONCE THE DB IS WORKING
-		JComboBox boxAvailability = new JComboBox(available);
-		boxAvailability.setMaximumRowCount(15);
-		boxAvailability.setPreferredSize(new Dimension(400, 25));
-		panel_2.add(boxAvailability, "cell 0 0");
+		String[] colNames = {"Doctor Name", "Phone Number", "Room Number", "Availability", "Average Rating"};
+		Object[][] data = {};
+		table = new JTable(data, colNames);
+		panel_2.add(table, "cell 0 0,grow");
 		
-		JButton btnRequestAppointment = new JButton("Request Appointment");
+		btnRequestAppointment = new JButton("Request Appointment");
 		add(btnRequestAppointment, "cell 2 3");
+		
+		btnBack = new JButton("Back");
+		add(btnBack, "cell 3 3");
 
+	}
+	
+	private class ButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			if(e.getSource() == btnSearch){
+				//DB query to populate doctor names
+				
+			}
+			else if(e.getSource() == btnRequestAppointment){
+				//DB quest to request appointment
+				
+			}
+			else if(e.getSource() == btnBack){
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
+			}
+		}
 	}
 
 }

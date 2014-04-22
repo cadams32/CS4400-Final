@@ -32,6 +32,7 @@ public class OrderMedicationPanel extends JPanel {
 		this.parent = parent;
 		this.username = username;
 		cart = new ArrayList<String[]>();
+		ButtonListener listener = new ButtonListener();
 		
 		setLayout(new MigLayout("", "[1000.00,grow]", "[100.00,grow][436.00,grow][50.00,grow]"));
 		
@@ -107,9 +108,11 @@ public class OrderMedicationPanel extends JPanel {
 		
 		btnAddToCart = new JButton("Add to Cart");
 		panel_2.add(btnAddToCart, "cell 1 0");
+		btnAddToCart.addActionListener(listener);
 		
 		btnCheckout = new JButton("Checkout");
 		panel_2.add(btnCheckout, "cell 3 0");
+		btnCheckout.addActionListener(listener);
 
 	}
 

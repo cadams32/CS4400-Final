@@ -74,14 +74,18 @@ public class PatientHomePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnMakeAppointments) {
 				//GOTO make appointments
-				
+				ViewAppointmentPanel vap = new ViewAppointmentPanel(parent, username);
+				parent.getContentPane().add(vap);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 			}
 			else if (e.getSource() == btnEditProfile) {
 				//GOTO edit profile
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
 				NewPatientProfilePanel nppp = new NewPatientProfilePanel(parent, username);
 				parent.getContentPane().add(nppp);
-				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				cl.next(parent.getContentPane());
+				cl.last(parent.getContentPane());
 			}
 			else if (e.getSource() == btnViewVisitHistory) {
 				//GOTO View Visit History
