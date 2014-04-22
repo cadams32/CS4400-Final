@@ -360,10 +360,15 @@ public class DatabaseHandler {
 	public static void addNewSendMessageToPatient() { }
 	
 	//Creating Appointment Screen
-	//Returns Doctors of a certain specialty
+	
+	/**
+	 * Gets the First Name, Last Name, RoomNo, and Username of all doctors of a specific Specialty
+	 * @param specialty
+	 * @return List with Doctors of a specific specialty
+	 */
 	public static ArrayList<Doctor> getSpecialtyDoctors(String specialty){ 
 		ArrayList<Doctor> list = new ArrayList<Doctor>();
-		String query = "SELECT * FROM `Doctor` WHERE `Specialty`="+specialty+"";
+		String query = "SELECT * FROM `Doctor` WHERE `Specialty`='"+specialty+"'";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
@@ -384,7 +389,12 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
-	//Returns average rating
+	
+	/**
+	 * 
+	 * @param docUsername
+	 * @return
+	 */
 	public static int getDoctorRating(String docUsername) { return -1; }
 	//Returns list of availability
 	public static ArrayList<Availability> getDoctorAvailability(String docUsername) { return null; }
