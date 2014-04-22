@@ -104,8 +104,8 @@ public class DoctorHomePanel extends JPanel {
 			}
 			else if (e.getSource() == btnEditProfile) {
 				//GOTO rate a doctor
-				DoctorEditProfile dep = new DoctorEditProfile(parent, username);
-				parent.getContentPane().add(dep);
+				DoctorEditProfilePanel depp = new DoctorEditProfilePanel(parent, username);
+				parent.getContentPane().add(depp);
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 				cl.next(parent.getContentPane());
 				

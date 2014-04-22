@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -20,7 +22,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 
 	private MedicalFrame parent;
 	private String username;
-	private JButton btnGo;
+	JButton btnGo, btnBack;
 	private JComboBox dayComboBox;
 	private JComboBox monthComboBox;
 	private JComboBox yearComboBox;
@@ -64,6 +66,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		
 		this.parent = parent;
 		this.username = username;
+		ButtonListener listener = new ButtonListener();
 		
 		setBackground(SystemColor.textHighlight);
 		setLayout(null);
@@ -645,10 +648,15 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		btnGo = new JButton("Go");
 		btnGo.setBounds(723, 35, 63, 29);
 		add(btnGo);
+		btnGo.addActionListener(listener);
 		
 		JLabel lblLabel = new JLabel("Date:");
 		lblLabel.setBounds(254, 40, 61, 16);
 		add(lblLabel);
+		
+		btnBack = new JButton("Back");
+		btnBack.setBounds(891, 562, 97, 25);
+		add(btnBack);
 	}
 	
 	private class ButtonListener implements ActionListener {
@@ -656,7 +664,16 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnGo) {
-				
+				ViewAppointmentDatePanel vadp = new ViewAppointmentDatePanel(parent, username, Integer.parseInt((String) dayComboBox.getSelectedItem()),
+						(String) monthComboBox.getSelectedItem(), Integer.parseInt((String) yearComboBox.getSelectedItem()));
+				parent.getContentPane().add(vadp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
+			}
+			else if(e.getSource() == btnBack){
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
 			}
 		}
 		

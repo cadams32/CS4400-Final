@@ -1,3 +1,7 @@
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
@@ -16,6 +20,7 @@ public class BillingPanel extends JPanel {
 	
 	private MedicalFrame parent;
 	private String username;
+	JButton btnCreateBill, btnBack;
 
 	/**
 	 * Create the panel.
@@ -42,7 +47,7 @@ public class BillingPanel extends JPanel {
 		panel_1.add(textField, "cell 2 0,growx");
 		textField.setColumns(10);
 		
-		JButton btnCreateBill = new JButton("Create Bill");
+		btnCreateBill = new JButton("Create Bill");
 		panel_1.add(btnCreateBill, "cell 3 0");
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -80,9 +85,26 @@ public class BillingPanel extends JPanel {
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[894.00][]", "[]"));
 		
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		panel_2.add(btnBack, "cell 1 0");
 
+	}
+	private class ButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == btnBack) {
+				//go back
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
+				
+			} else if (e.getSource() == btnCreateBill) {
+				//DB transaction
+				
+			}	
+		}
+		
 	}
 
 }
