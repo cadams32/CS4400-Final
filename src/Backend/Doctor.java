@@ -9,13 +9,13 @@ public class Doctor extends User {
 	private String workphone;
 	private String homeAddress;
 	private String speciality;
-	private String roomNo;
+	private int roomNo;
 
 	public Doctor(String username, String password, String type) {
 		super(username, password, "Doctor");
 	}
 
-	public Doctor(String username, String password, String type, String licenseNo, String fName, String lName, String dob, String workphone, String homeAddress, String speciality, String roomNo) {
+	public Doctor(String username, String password, String type, String licenseNo, String fName, String lName, String dob, String workphone, String homeAddress, String speciality, int roomNo) {
 		super(username, password, "Doctor");
 		this.setLicenseNo(licenseNo);
 		this.setfName(fName);
@@ -25,6 +25,13 @@ public class Doctor extends User {
 		this.setHomeAddress(homeAddress);
 		this.setSpeciality(speciality);
 		this.setRoomNo(roomNo);
+	}
+
+	public Doctor(String username, String fName2, String lName2, int roomNo2) {
+		super(username, "password", "Doctor");
+		this.fName = fName2;
+		this.lName = lName2;
+		this.roomNo = roomNo2;
 	}
 
 	public String getLicenseNo() {
@@ -83,11 +90,11 @@ public class Doctor extends User {
 		this.speciality = speciality;
 	}
 
-	public String getRoomNo() {
+	public int getRoomNo() {
 		return roomNo;
 	}
 
-	public void setRoomNo(String roomNo) {
+	public void setRoomNo(int roomNo) {
 		this.roomNo = roomNo;
 	}
 	
