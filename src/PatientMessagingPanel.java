@@ -1,4 +1,8 @@
 
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
@@ -15,6 +19,7 @@ public class PatientMessagingPanel extends JPanel {
 	 */
 	private MedicalFrame parent;
 	private String username;
+	JButton btnSendMessage, btnBack;
 	
 	public PatientMessagingPanel(MedicalFrame parent, String username) {
 		
@@ -47,11 +52,30 @@ public class PatientMessagingPanel extends JPanel {
 		
 		JPanel panel_2 = new JPanel();
 		add(panel_2, "cell 0 2,grow");
-		panel_2.setLayout(new MigLayout("", "[394.00][]", "[]"));
+		panel_2.setLayout(new MigLayout("", "[394.00][][334.00][]", "[]"));
 		
-		JButton btnSendMessage = new JButton("Send Message");
+		btnSendMessage = new JButton("Send Message");
 		panel_2.add(btnSendMessage, "cell 1 0");
+		
+		btnBack = new JButton("Back");
+		panel_2.add(btnBack, "cell 3 0");
 
 	}
+	
+	private class ButtonListener implements ActionListener {
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == btnSendMessage) {
+				//DB transaction to send message
+			}
+			else if(e.getSource() == btnBack){
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
+			}
+		}
+		
+		
+	}
 }

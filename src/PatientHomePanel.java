@@ -81,11 +81,10 @@ public class PatientHomePanel extends JPanel {
 			}
 			else if (e.getSource() == btnEditProfile) {
 				//GOTO edit profile
+				PatientEditProfilePanel pepp = new PatientEditProfilePanel(parent, username);
+				parent.getContentPane().add(pepp);
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
-				NewPatientProfilePanel nppp = new NewPatientProfilePanel(parent, username);
-				parent.getContentPane().add(nppp);
-				cl.last(parent.getContentPane());
+				cl.next(parent.getContentPane());
 			}
 			else if (e.getSource() == btnViewVisitHistory) {
 				//GOTO View Visit History

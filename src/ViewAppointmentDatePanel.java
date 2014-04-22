@@ -1,9 +1,14 @@
 import javax.swing.JPanel;
+
+import java.awt.CardLayout;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JButton;
 
 
 public class ViewAppointmentDatePanel extends JPanel {
@@ -16,11 +21,12 @@ public class ViewAppointmentDatePanel extends JPanel {
 
 	private MedicalFrame parent;
 	private String username;
+	JButton btnBack;
 	
 	/**
 	 * Create the panel.
 	 */
-	public ViewAppointmentDatePanel(MedicalFrame parent, String username) {
+	public ViewAppointmentDatePanel(MedicalFrame parent, String username,int day,String month,int year) {
 		
 		this.parent = parent;
 		this.username = username;
@@ -60,7 +66,18 @@ public class ViewAppointmentDatePanel extends JPanel {
 		Object[][] data = {};
 		table = new JTable(data, columnNames);
 		scrollPane.setViewportView(table);
+		
+		btnBack = new JButton("Back");
+		btnBack.setBounds(891, 562, 97, 25);
+		add(btnBack);
 
 	}
-
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == btnBack){
+			CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+			parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+			cl.last(parent.getContentPane());
+		}
+	}
 }

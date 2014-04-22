@@ -1,3 +1,7 @@
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
@@ -17,6 +21,7 @@ public class SurgeryPanel extends JPanel {
 
 	private MedicalFrame parent;
 	private String username;
+	JButton btnRecord, btnBack;
 	
 	/**
 	 * Create the panel.
@@ -129,11 +134,29 @@ public class SurgeryPanel extends JPanel {
 		
 		JPanel panel_1 = new JPanel();
 		add(panel_1, "cell 0 2,grow");
-		panel_1.setLayout(new MigLayout("", "[405.00][]", "[]"));
+		panel_1.setLayout(new MigLayout("", "[405.00][][406.00][]", "[]"));
 		
-		JButton btnRecord = new JButton("Record");
+		btnRecord = new JButton("Record");
 		panel_1.add(btnRecord, "cell 1 0");
+		
+		btnBack = new JButton("Back");
+		panel_1.add(btnBack, "cell 3 0");
 
+	}
+	
+	private class ButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == btnBack) {
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
+			}
+			else if(e.getSource() == btnRecord){
+				//DB Transaction
+			}
+		}
 	}
 
 }

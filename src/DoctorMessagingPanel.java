@@ -1,10 +1,15 @@
 
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextPane;
+import javax.swing.JButton;
 
 
 public class DoctorMessagingPanel extends JPanel {
@@ -17,6 +22,7 @@ public class DoctorMessagingPanel extends JPanel {
 	private JComboBox selectPatComboBox;
 	private JTextPane docTextPane;
 	private JTextPane patTextPane;
+	JButton btnBack, btnSend, btnSend_1;
 	
 	/**
 	 * Create the panel.
@@ -25,6 +31,7 @@ public class DoctorMessagingPanel extends JPanel {
 		
 		this.parent = parent;
 		this.username = username;
+		ButtonListener listener = new ButtonListener();
 		
 		setLayout(new MigLayout("", "[986px,grow]", "[93px][442px][grow]"));
 		
@@ -65,10 +72,40 @@ public class DoctorMessagingPanel extends JPanel {
 		patTextPane = new JTextPane();
 		scrollPane_1.setViewportView(patTextPane);
 		
+		btnSend = new JButton("Send");
+		panel_1.add(btnSend, "cell 3 5");
+		btnSend.addActionListener(listener);
+		
+		btnSend_1 = new JButton("Send");
+		panel_1.add(btnSend_1, "cell 6 5");
+		btnSend_1.addActionListener(listener);
+		
 		JPanel panel_2 = new JPanel();
 		add(panel_2, "cell 0 2,grow");
-		panel_2.setLayout(new MigLayout("", "[]", "[]"));
+		panel_2.setLayout(new MigLayout("", "[895.00][]", "[]"));
+		
+		btnBack = new JButton("Back");
+		panel_2.add(btnBack, "cell 1 0");
+		btnBack.addActionListener(listener);
 
 	}
+	private class ButtonListener implements ActionListener {
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == btnBack) {
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
+			}
+			else if(e.getSource() == btnSend){
+				//This is for messaging doctors
+				
+			}
+			else if(e.getSource() == btnSend_1){
+				//This is for messaging patients
+				
+			}
+		}
+	}
 }
