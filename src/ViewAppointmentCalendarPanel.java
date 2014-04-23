@@ -77,7 +77,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel);
 		panel.setLayout(null);
 		
-		label_8 = new JLabel("8");
+		label_8 = new JLabel("");
 		label_8.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_8.setHorizontalAlignment(SwingConstants.CENTER);
 		label_8.setForeground(Color.RED);
@@ -95,7 +95,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_9);
 		panel_9.setLayout(null);
 		
-		label_9 = new JLabel("9");
+		label_9 = new JLabel("");
 		label_9.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_9.setHorizontalAlignment(SwingConstants.CENTER);
 		label_9.setForeground(Color.RED);
@@ -113,7 +113,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_10);
 		panel_10.setLayout(null);
 		
-		label_10 = new JLabel("10");
+		label_10 = new JLabel("");
 		label_10.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_10.setHorizontalAlignment(SwingConstants.CENTER);
 		label_10.setForeground(Color.RED);
@@ -131,7 +131,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_11);
 		panel_11.setLayout(null);
 		
-		label_11 = new JLabel("11");
+		label_11 = new JLabel("");
 		label_11.setHorizontalAlignment(SwingConstants.CENTER);
 		label_11.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_11.setForeground(Color.RED);
@@ -149,7 +149,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_12);
 		panel_12.setLayout(null);
 		
-		label_12 = new JLabel("12");
+		label_12 = new JLabel("");
 		label_12.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_12.setHorizontalAlignment(SwingConstants.CENTER);
 		label_12.setForeground(Color.RED);
@@ -167,7 +167,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_13);
 		panel_13.setLayout(null);
 		
-		label_13 = new JLabel("13");
+		label_13 = new JLabel("");
 		label_13.setHorizontalAlignment(SwingConstants.CENTER);
 		label_13.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_13.setForeground(Color.RED);
@@ -185,7 +185,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_16);
 		panel_16.setLayout(null);
 		
-		label_16 = new JLabel("16");
+		label_16 = new JLabel("");
 		label_16.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_16.setHorizontalAlignment(SwingConstants.CENTER);
 		label_16.setFont(new Font("Dialog", Font.PLAIN, 30));
@@ -203,7 +203,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_17);
 		panel_17.setLayout(null);
 		
-		label_17 = new JLabel("17");
+		label_17 = new JLabel("");
 		label_17.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_17.setHorizontalAlignment(SwingConstants.CENTER);
 		label_17.setFont(new Font("Dialog", Font.PLAIN, 30));
@@ -221,7 +221,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_18);
 		panel_18.setLayout(null);
 		
-		label_18 = new JLabel("18");
+		label_18 = new JLabel("");
 		label_18.setHorizontalAlignment(SwingConstants.CENTER);
 		label_18.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_18.setForeground(Color.RED);
@@ -239,7 +239,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_19);
 		panel_19.setLayout(null);
 		
-		label_19 = new JLabel("19");
+		label_19 = new JLabel("");
 		label_19.setHorizontalAlignment(SwingConstants.CENTER);
 		label_19.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_19.setForeground(Color.RED);
@@ -257,7 +257,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_20);
 		panel_20.setLayout(null);
 		
-		label_20 = new JLabel("20");
+		label_20 = new JLabel("");
 		label_20.setHorizontalAlignment(SwingConstants.CENTER);
 		label_20.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_20.setForeground(Color.RED);
@@ -275,7 +275,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_15);
 		panel_15.setLayout(null);
 		
-		label_15 = new JLabel("15");
+		label_15 = new JLabel("");
 		label_15.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_15.setHorizontalAlignment(SwingConstants.CENTER);
 		label_15.setFont(new Font("Dialog", Font.PLAIN, 30));
@@ -293,7 +293,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_23);
 		panel_23.setLayout(null);
 		
-		label_23 = new JLabel("23");
+		label_23 = new JLabel("");
 		label_23.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_23.setHorizontalAlignment(SwingConstants.CENTER);
 		label_23.setFont(new Font("Dialog", Font.PLAIN, 30));
@@ -311,7 +311,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_24);
 		panel_24.setLayout(null);
 		
-		label_24 = new JLabel("24");
+		label_24 = new JLabel("");
 		label_24.setHorizontalAlignment(SwingConstants.CENTER);
 		label_24.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_24.setFont(new Font("Dialog", Font.PLAIN, 30));
@@ -329,7 +329,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_25);
 		panel_25.setLayout(null);
 		
-		label_25 = new JLabel("25");
+		label_25 = new JLabel("");
 		label_25.setHorizontalAlignment(SwingConstants.CENTER);
 		label_25.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_25.setForeground(Color.RED);
@@ -347,7 +347,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_26);
 		panel_26.setLayout(null);
 		
-		label_26 = new JLabel("26");
+		label_26 = new JLabel("");
 		label_26.setHorizontalAlignment(SwingConstants.CENTER);
 		label_26.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_26.setForeground(Color.RED);
@@ -365,7 +365,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_27);
 		panel_27.setLayout(null);
 		
-		label_27 = new JLabel("27");
+		label_27 = new JLabel("");
 		label_27.setHorizontalAlignment(SwingConstants.CENTER);
 		label_27.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_27.setForeground(Color.RED);
@@ -383,7 +383,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_22);
 		panel_22.setLayout(null);
 		
-		label_22 = new JLabel("22");
+		label_22 = new JLabel("");
 		label_22.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_22.setHorizontalAlignment(SwingConstants.CENTER);
 		label_22.setFont(new Font("Dialog", Font.PLAIN, 30));
@@ -401,7 +401,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_30);
 		panel_30.setLayout(null);
 		
-		label_30 = new JLabel("30");
+		label_30 = new JLabel("");
 		label_30.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_30.setHorizontalAlignment(SwingConstants.CENTER);
 		label_30.setFont(new Font("Dialog", Font.PLAIN, 30));
@@ -419,7 +419,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_29);
 		panel_29.setLayout(null);
 		
-		label_29 = new JLabel("29");
+		label_29 = new JLabel("");
 		label_29.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_29.setHorizontalAlignment(SwingConstants.CENTER);
 		label_29.setFont(new Font("Dialog", Font.PLAIN, 30));
@@ -437,7 +437,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_2);
 		panel_2.setLayout(null);
 		
-		label_2 = new JLabel("2");
+		label_2 = new JLabel("");
 		label_2.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
 		label_2.setFont(new Font("Dialog", Font.PLAIN, 30));
@@ -455,7 +455,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_3);
 		panel_3.setLayout(null);
 		
-		label_3 = new JLabel("3");
+		label_3 = new JLabel("");
 		label_3.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_3.setHorizontalAlignment(SwingConstants.CENTER);
 		label_3.setFont(new Font("Dialog", Font.PLAIN, 30));
@@ -473,7 +473,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_4);
 		panel_4.setLayout(null);
 		
-		label_4 = new JLabel("4");
+		label_4 = new JLabel("");
 		label_4.setHorizontalAlignment(SwingConstants.CENTER);
 		label_4.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_4.setForeground(Color.RED);
@@ -491,7 +491,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_5);
 		panel_5.setLayout(null);
 		
-		label_5 = new JLabel("5");
+		label_5 = new JLabel("");
 		label_5.setHorizontalAlignment(SwingConstants.CENTER);
 		label_5.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_5.setForeground(Color.RED);
@@ -509,7 +509,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_6);
 		panel_6.setLayout(null);
 		
-		label_6 = new JLabel("6");
+		label_6 = new JLabel("");
 		label_6.setHorizontalAlignment(SwingConstants.CENTER);
 		label_6.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_6.setForeground(Color.RED);
@@ -527,7 +527,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_1);
 		panel_1.setLayout(null);
 		
-		label_01 = new JLabel("1");
+		label_01 = new JLabel("");
 		label_01.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_01.setHorizontalAlignment(SwingConstants.CENTER);
 		label_01.setForeground(Color.RED);
@@ -545,7 +545,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_14);
 		panel_14.setLayout(null);
 		
-		label_14 = new JLabel("14");
+		label_14 = new JLabel("");
 		label_14.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_14.setHorizontalAlignment(SwingConstants.CENTER);
 		label_14.setForeground(Color.RED);
@@ -563,7 +563,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_21);
 		panel_21.setLayout(null);
 		
-		label_21 = new JLabel("21");
+		label_21 = new JLabel("");
 		label_21.setHorizontalAlignment(SwingConstants.CENTER);
 		label_21.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_21.setForeground(Color.RED);
@@ -581,7 +581,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_28);
 		panel_28.setLayout(null);
 		
-		label_28 = new JLabel("28");
+		label_28 = new JLabel("");
 		label_28.setHorizontalAlignment(SwingConstants.CENTER);
 		label_28.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_28.setForeground(Color.RED);
@@ -599,7 +599,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		add(panel_7);
 		panel_7.setLayout(null);
 		
-		label_7 = new JLabel("7");
+		label_7 = new JLabel("");
 		label_7.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_7.setHorizontalAlignment(SwingConstants.CENTER);
 		label_7.setForeground(Color.RED);
@@ -617,7 +617,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		panel_31.setBounds(346, 485, 90, 90);
 		add(panel_31);
 		
-		label_31 = new JLabel("31");
+		label_31 = new JLabel("");
 		label_31.setHorizontalTextPosition(SwingConstants.CENTER);
 		label_31.setHorizontalAlignment(SwingConstants.CENTER);
 		label_31.setFont(new Font("Dialog", Font.PLAIN, 30));
@@ -640,7 +640,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		yearComboBox.setBounds(600, 36, 98, 27);
 		add(yearComboBox);
 		
-		String[] days = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" };
+		String[] days = {"-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" };
 		dayComboBox = new JComboBox(days);
 		dayComboBox.setBounds(346, 36, 72, 27);
 		add(dayComboBox);
@@ -664,11 +664,18 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnGo) {
-				ViewAppointmentDatePanel vadp = new ViewAppointmentDatePanel(parent, username, Integer.parseInt((String) dayComboBox.getSelectedItem()),
-						(String) monthComboBox.getSelectedItem(), Integer.parseInt((String) yearComboBox.getSelectedItem()));
-				parent.getContentPane().add(vadp);
-				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				cl.next(parent.getContentPane());
+				if(dayComboBox.getSelectedItem().equals("-")) {
+					ViewAppointmentDatePanel vadp = new ViewAppointmentDatePanel(parent, username, Integer.parseInt((String) dayComboBox.getSelectedItem()),
+							(String) monthComboBox.getSelectedItem(), Integer.parseInt((String) yearComboBox.getSelectedItem()));
+					parent.getContentPane().add(vadp);
+					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+					cl.next(parent.getContentPane());
+				} else {
+					
+					
+					
+					
+				}
 			}
 			else if(e.getSource() == btnBack){
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
