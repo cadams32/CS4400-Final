@@ -711,8 +711,44 @@ public class DatabaseHandler_K {
 	//Insert Into Doctor...
 	
 	//Creating Edit Profile for Doctor and Patient
-	public static void updatePatientProfile() { }
-	public static void updateDoctorProfile() { }
+	public static void updatePatientProfile(String patUsername, String patName, String dob, String gender, String address,
+			String workPhone, String homePhone, String EContactName, String EContactPhone, int weight, int height, String annualInc, String cardNo) {
+		
+		String query = "UPDATE `cs4400_Group_37`.`Patient` SET `PatientUsername` = '" + patUsername + "', `Name` = '" + patName + 
+			"', `DOB` = '" + dob + "', `Gender` = '" + gender + "', `Address` = '" + address + "', `WorkPhone` = '" + workPhone + 
+			"', `HomePhone` = '" + homePhone + "', `EContactName` = '" + EContactName + "', `EContactPhone` = '" + EContactPhone +
+			"', `Weight` = '" + weight + "', `Height` = '" + height + "', `AnnualIncome` = '" + annualInc + "', `CardNo` = '" + cardNo +
+			"' WHERE `PatientUsername` = '" + patUsername + "'";
+
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+	}
+	
+	public static void updateDoctorProfile(String docUsername, String licenseNo, String Fname, String Lname ,String dob, 
+			String workPhone, String homeAddress, String specialty, int roomNo) {
+		
+		String query = "UPDATE `cs4400_Group_37`.`Doctor` SET `DocUsername` = '" + docUsername + "', `LicenseNo` = '" + licenseNo + 
+			"', `Fname` = '" + Fname + "', `Lname` = '" + Lname + "', `DOB` = '" + dob + "', `WorkPhone` = '" + workPhone + 
+			"', `HomeAdress` = '" + homeAddress + "', `Specialty` = '" + specialty + "', `RoomNo` = '" + roomNo + 
+			"' WHERE `DocUsername` = '" + docUsername + "'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+	}
 	
 	//Creating AppointmentCalendar
 	//get all appointments of a doctor
