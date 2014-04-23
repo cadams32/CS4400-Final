@@ -37,7 +37,7 @@ public class NewVisitPanel extends JPanel {
 	
 	private JTextPane textPane;
 		
-	private ArrayList<Prescription> prescriptionList;
+	ArrayList<Prescription> prescriptionList;
 	String patientName, patientHomePhone;
 	
 	public NewVisitPanel(MedicalFrame parent, String username, String patientName, String patientHomePhone) {
@@ -45,6 +45,7 @@ public class NewVisitPanel extends JPanel {
 		this.parent = parent;
 		this.username = username;
 		ButtonListener listener = new ButtonListener();
+		prescriptionList = new ArrayList<Prescription>();
 		
 		setBackground(SystemColor.textHighlight);
 		setLayout(null);
@@ -190,10 +191,11 @@ public class NewVisitPanel extends JPanel {
 				//add prescription to the list for adding to the visit
 				int visitID = 0;
 				String drugName = drugNameTextField.getText();
-				int dosage = (Integer) dosageComboBox.getSelectedItem();
-				int durationDays = (Integer) durationDaysComboBox.getSelectedItem();
+				int dosage = Integer.parseInt((String) dosageComboBox.getSelectedItem());
+				int durationDays = Integer.parseInt((String) durationDaysComboBox.getSelectedItem());
+				int durationMonths = Integer.parseInt((String) durationMonthsComboBox.getSelectedItem());
 				String notes = textPane.getText();
-				prescriptionList.add(new Prescription(visitID, drugName, dosage, durationDays, notes, "No"));
+				prescriptionList.add(new Prescription(visitID, drugName, dosage, durationDays + (durationMonths*30), notes, "No"));
 				
 			}
 			else if (e.getSource() == btnRecordVisit) {
