@@ -119,7 +119,7 @@ public class DatabaseHandler {
 	 * @param username
 	 * @return boolean if found
 	 */
-	private static boolean doesDoctorExist(String username) {
+	public static boolean doesDoctorExist(String username) {
 		String query = "SELECT `DocUsername` FROM `Doctor` WHERE `DocUsername` = '" + username + "'";
 		try {
 			connection = DBC.createConnection();
@@ -146,7 +146,7 @@ public class DatabaseHandler {
 	 * @param username
 	 * @return
 	 */
-	private static boolean doesPatientExist(String username) {
+	public static boolean doesPatientExist(String username) {
 		String query = "SELECT `PatientUsername` FROM `Patient` WHERE `PatientUsername` = '" + username + "'";
 		try {
 			connection = DBC.createConnection();
@@ -186,7 +186,7 @@ public class DatabaseHandler {
 	 * @param username
 	 * @return
 	 */
-	private static boolean doesUsernameExist(String username) {
+	public static boolean doesUsernameExist(String username) {
 		String query = "SELECT  `Username` FROM  `User` WHERE  `Username` = '" + username + "'";
 		try {
 			connection = DBC.createConnection();
@@ -1059,6 +1059,7 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
+
 	
 	//Patient Visit History
 	//get a Patient based on name and homePhone? (May need to return a list)
@@ -1083,7 +1084,130 @@ public class DatabaseHandler {
 	
 	//Messages
 	
+	public static ArrayList<Message> getCommunicatesWith(String username) {
+		ArrayList<Message> msgs = new ArrayList<Message>();
+		String query = "SELECT * FROM `CommunicatesWith` WHERE `DocReceiver`='"+username+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String sender = "";
+			String date = "";
+			String status = "";
+			String message = "";
+			while(rs.next()) {
+				sender = rs.getString("DocSender");
+				date = rs.getString("DateTime");
+				status = rs.getString("Status");
+				message = rs.getString("Message");
+				msgs.add(new Message(message, sender, username, date, status));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return msgs;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+		
+	}
+	
+	public static ArrayList<Message> getSendsMessageToPat(String username) {
+		ArrayList<Message> msgs = new ArrayList<Message>();
+		String query = "SELECT * FROM `SendsMessageToPat` WHERE `PatientUsername`='"+username+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String sender = "";
+			String date = "";
+			String status = "";
+			String message = "";
+			while(rs.next()) {
+				sender = rs.getString("DocSender");
+				date = rs.getString("DateTime");
+				status = rs.getString("Status");
+				message = rs.getString("Message");
+				msgs.add(new Message(message, sender, username, date, status));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return msgs;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
+	public static ArrayList<Message> getSendsMessageToDoc(String username) {
+		ArrayList<Message> msgs = new ArrayList<Message>();
+		String query = "SELECT * FROM `SendsMessageToDoc` WHERE `DocUsername`='"+username+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String sender = "";
+			String date = "";
+			String status = "";
+			String message = "";
+			while(rs.next()) {
+				sender = rs.getString("DocSender");
+				date = rs.getString("DateTime");
+				status = rs.getString("Status");
+				message = rs.getString("Message");
+				msgs.add(new Message(message, sender, username, date, status));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return msgs;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
 	//Reports
 	//TODO
+	//Creating Edit Profile for Doctor and Patient
+	public static void updatePatientProfile(String patUsername, String patName, String dob, String gender, String address,
+			String workPhone, String homePhone, String EContactName, String EContactPhone, int weight, int height, String annualInc, String cardNo) {
+		
+		String query = "UPDATE `cs4400_Group_37`.`Patient` SET `PatientUsername` = '" + patUsername + "', `Name` = '" + patName + 
+			"', `DOB` = '" + dob + "', `Gender` = '" + gender + "', `Address` = '" + address + "', `WorkPhone` = '" + workPhone + 
+			"', `HomePhone` = '" + homePhone + "', `EContactName` = '" + EContactName + "', `EContactPhone` = '" + EContactPhone +
+			"', `Weight` = '" + weight + "', `Height` = '" + height + "', `AnnualIncome` = '" + annualInc + "', `CardNo` = '" + cardNo +
+			"' WHERE `PatientUsername` = '" + patUsername + "'";
+
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+	}
+	
+	public static void updateDoctorProfile(String docUsername, String licenseNo, String Fname, String Lname ,String dob, 
+			String workPhone, String homeAddress, String specialty, int roomNo) {
+		
+		String query = "UPDATE `cs4400_Group_37`.`Doctor` SET `DocUsername` = '" + docUsername + "', `LicenseNo` = '" + licenseNo + 
+			"', `Fname` = '" + Fname + "', `Lname` = '" + Lname + "', `DOB` = '" + dob + "', `WorkPhone` = '" + workPhone + 
+			"', `HomeAdress` = '" + homeAddress + "', `Specialty` = '" + specialty + "', `RoomNo` = '" + roomNo + 
+			"' WHERE `DocUsername` = '" + docUsername + "'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+	}
 	
 }

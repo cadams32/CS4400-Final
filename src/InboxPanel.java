@@ -1,6 +1,7 @@
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
@@ -8,6 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import Backend.Message;
 
 
 public class InboxPanel extends JPanel {
@@ -19,7 +23,11 @@ public class InboxPanel extends JPanel {
 	
 	private MedicalFrame parent;
 	private String username;
-	JButton btnBack;
+	private DefaultTableModel model;
+	private JButton btnBack;
+	private String[] colNames = {"Status", "Date", "From", "Message"};
+	
+	ArrayList<Message> messages;
 	
 	public InboxPanel(MedicalFrame parent, String username) {
 		
@@ -40,9 +48,10 @@ public class InboxPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane, "cell 1 1 7 2,grow");
 		
-		String[] colNames = {"Status", "Date", "From", "Message"};
-		Object[][] data = {};
-		table = new JTable(data, colNames);
+		model = new DefaultTableModel();
+		model.setColumnIdentifiers(colNames);
+
+		table = new JTable(model);
 		scrollPane.setViewportView(table);
 		table.getColumnModel().getColumn(0).setPreferredWidth(100);
 		table.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -56,6 +65,18 @@ public class InboxPanel extends JPanel {
 		btnBack = new JButton("Back");
 		panel_2.add(btnBack, "cell 1 0");
 		btnBack.addActionListener(listener);
+		
+		messages = new ArrayList<Message>();
+		if(parent.getHandler().doesPatientExist(username)) {
+			messages = parent.getHandler().getSendsMessageToPat(username);
+			for(Message m : messages) {
+				
+			}
+			
+		} else if (parent.getHandler().doesDoctorExist(username)){
+			
+		}
+		
 
 	}
 	private class ButtonListener implements ActionListener {
@@ -63,13 +84,11 @@ public class InboxPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnBack) {
-				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
-				cl.last(parent.getContentPane());
+				
+			}
+			
 		}
 	}
 }
 	
 	
-
-}
