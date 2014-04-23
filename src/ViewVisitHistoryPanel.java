@@ -192,7 +192,9 @@ public class ViewVisitHistoryPanel extends JPanel {
 				model.fireTableDataChanged();
 	
 			} else if (e.getSource() == btnBackButton) {
-
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
 			}
 			
 		}

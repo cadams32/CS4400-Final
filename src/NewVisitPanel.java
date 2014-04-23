@@ -2,6 +2,8 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+
+import java.awt.CardLayout;
 import java.awt.SystemColor;
 import javax.swing.JTextPane;
 import java.awt.event.ActionEvent;
@@ -38,6 +40,7 @@ public class NewVisitPanel extends JPanel {
 				
 		this.parent = parent;
 		this.username = username;
+		ButtonListener listener = new ButtonListener();
 		
 		setBackground(SystemColor.textHighlight);
 		setLayout(null);
@@ -139,14 +142,17 @@ public class NewVisitPanel extends JPanel {
 		btnAddPrescription = new JButton("Add Prescription");
 		btnAddPrescription.setBounds(381, 479, 148, 29);
 		add(btnAddPrescription);
+		btnAddPrescription.addActionListener(listener);
 		
 		btnRecordVisit = new JButton("Record Visit");
 		btnRecordVisit.setBounds(862, 553, 117, 29);
 		add(btnRecordVisit);
+		btnRecordVisit.addActionListener(listener);
 		
 		btnBack = new JButton("Back");
 		btnBack.setBounds(10, 565, 97, 29);
 		add(btnBack);
+		btnBack.addActionListener(listener);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(228, 383, 324, 84);
@@ -164,6 +170,9 @@ public class NewVisitPanel extends JPanel {
 			if (e.getSource() == btnBack) {
 				
 				//Go back
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
 				
 			} else if (e.getSource() == btnAddPrescription) {
 				
@@ -184,7 +193,7 @@ public class NewVisitPanel extends JPanel {
 				
 				//ADD VISIT TO DATABASE
 				
-				if (!prescriptionList.isEmpty()) {
+				if (prescriptionList.isEmpty()) {
 					//There are no prescriptions
 				} else {
 					//There are one or more prescriptions

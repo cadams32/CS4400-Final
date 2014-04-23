@@ -1,3 +1,7 @@
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
@@ -9,6 +13,7 @@ public class SurgeryPerformedPanel extends JPanel {
 	private JTable table;
 	private MedicalFrame parent;
 	private String username;
+	JButton btnBack;
 	
 	/**
 	 * Create the panel.
@@ -17,6 +22,7 @@ public class SurgeryPerformedPanel extends JPanel {
 		
 		this.parent = parent;
 		this.username = username;
+		ButtonListener listener = new ButtonListener();
 		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
@@ -40,9 +46,22 @@ public class SurgeryPerformedPanel extends JPanel {
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[880.00][]", "[]"));
 		
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		panel_2.add(btnBack, "cell 1 0");
-
+		btnBack.addActionListener(listener);
 	}
+	
+	private class ButtonListener implements ActionListener {
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == btnBack) {
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
+			}
+			
+		}
+		
+	}
 }

@@ -20,7 +20,7 @@ public class OrderMedicationPanel extends JPanel {
 	private MedicalFrame parent;
 	private String username;
 	
-	JButton btnAddToCart, btnCheckout;
+	JButton btnAddToCart, btnCheckout, btnBack;
 	JComboBox boxDosage, boxDurationMonths, boxDurationDays, boxDay, boxMonth, boxYear;
 	ArrayList<String[]> cart;
 	
@@ -104,7 +104,7 @@ public class OrderMedicationPanel extends JPanel {
 		
 		JPanel panel_2 = new JPanel();
 		add(panel_2, "cell 0 2,grow");
-		panel_2.setLayout(new MigLayout("", "[723.00][][][]", "[]"));
+		panel_2.setLayout(new MigLayout("", "[641.00][][][][][]", "[]"));
 		
 		btnAddToCart = new JButton("Add to Cart");
 		panel_2.add(btnAddToCart, "cell 1 0");
@@ -112,6 +112,9 @@ public class OrderMedicationPanel extends JPanel {
 		
 		btnCheckout = new JButton("Checkout");
 		panel_2.add(btnCheckout, "cell 3 0");
+		
+		btnBack = new JButton("Back");
+		panel_2.add(btnBack, "cell 5 0");
 		btnCheckout.addActionListener(listener);
 
 	}
@@ -131,6 +134,12 @@ public class OrderMedicationPanel extends JPanel {
 				parent.getContentPane().add(pip);
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 				cl.next(parent.getContentPane());
+			}
+			else if(e.getSource() == btnBack){
+				//Go Back
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
 			}
 		}
 	}

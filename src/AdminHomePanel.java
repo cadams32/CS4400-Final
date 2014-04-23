@@ -66,16 +66,28 @@ public class AdminHomePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnBack) {
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				cl.first(parent.getContentPane());
 				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
 			} else if (e.getSource() == btnPatientVisitReport) {
-				
+				PatientVisitPanel pvp = new PatientVisitPanel(parent, username);
+				parent.getContentPane().add(pvp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 			} else if (e.getSource() == btnSurgeryReport) {
-				
+				SurgeryPerformedPanel spp = new SurgeryPerformedPanel(parent, username);
+				parent.getContentPane().add(spp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 			} else if (e.getSource() == btnDoctorPerformanceReport) {
-				
+				DoctorReportPanel drp = new DoctorReportPanel(parent, username);
+				parent.getContentPane().add(drp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 			} else if (e.getSource() == btnBilling) {
-				
+				BillingPanel bp = new BillingPanel(parent, username);
+				parent.getContentPane().add(bp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 			}
 			
 		}

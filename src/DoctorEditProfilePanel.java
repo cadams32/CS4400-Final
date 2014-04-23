@@ -149,7 +149,7 @@ public class DoctorEditProfilePanel extends JPanel {
 		btnBack.addActionListener(listener);
 		
 		btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(885, 550, 117, 29);
+		btnSubmit.setBounds(860, 550, 117, 29);
 		add(btnSubmit);
 		btnSubmit.addActionListener(listener);
 		
