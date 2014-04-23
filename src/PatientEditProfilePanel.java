@@ -217,7 +217,7 @@ public class PatientEditProfilePanel extends JPanel {
 				int height = Integer.parseInt(heightTextField.getText());
 				String annualIncome = (String) annualIncomeComboBox.getSelectedItem();
 				
-				if(parent.getHandler().updatePatientProfile(username, name, DOB, gender, address, 
+				/*if(parent.getHandler().updatePatientProfile(username, name, DOB, gender, address, 
 						workPhone, homePhone, eContactName, eContactPhone, weight, height, annualIncome)) {
 					
 					if(!allergyList.isEmpty()) {
@@ -232,7 +232,7 @@ public class PatientEditProfilePanel extends JPanel {
 					PatientHomePanel php = new PatientHomePanel(parent, username);
 					parent.getContentPane().add(php);
 					cl.last(parent.getContentPane());
-				}
+				}*/
 				
 			} else if (e.getSource() == btnAddAllergy) {
 				allergyList.add(allergyTextField.getText());
