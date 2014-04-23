@@ -1063,9 +1063,25 @@ public class DatabaseHandler {
 	
 	//Patient Visit History
 	//get a Patient based on name and homePhone? (May need to return a list)
-	public static Patient getPatient(String name, String homePhone) {
-		
+	public static String getPatientUsername(String name, String homePhone) {
+		String query = "SELECT `PatientUsername` FROM `Patient` WHERE `Name`='"+name+"', AND `HomePhone`='"+homePhone+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String username = "";
+			while(rs.next()) {
+				username = rs.getString("PatientUsername");
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return username;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
 		return null;
+
 	}
 	//Reuse getPatientVisits()
 	//Reuse getVisitDiagnosis()
