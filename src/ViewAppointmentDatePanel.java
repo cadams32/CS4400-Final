@@ -119,8 +119,6 @@ public class ViewAppointmentDatePanel extends JPanel {
 					Object[] insert = new Object[3];
 					int i = 1;
 					for(Appointment a : appt) {
-						System.out.println("Hi");
-						System.out.print(a.getDate() + " " + date);
 						if(a.getDate().equals(date)) {
 						insert[0] = i;
 						insert[1] = parent.getHandler().getPatient(a.getPatUsername()).getName();

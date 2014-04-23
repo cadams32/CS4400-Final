@@ -2,6 +2,9 @@
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
@@ -10,6 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
+
+import Backend.Doctor;
+import Backend.Patient;
 
 
 public class DoctorMessagingPanel extends JPanel {
@@ -22,7 +28,12 @@ public class DoctorMessagingPanel extends JPanel {
 	private JComboBox selectPatComboBox;
 	private JTextPane docTextPane;
 	private JTextPane patTextPane;
-	JButton btnBack, btnSend, btnSend_1;
+	JButton btnBack, btnSendDoc, btnSendPat;
+	
+	private ArrayList<Doctor> docs;
+	private ArrayList<String> docNames;
+	private ArrayList<Patient> pats;
+	private ArrayList<String> patNames;
 	
 	/**
 	 * Create the panel.
@@ -45,14 +56,12 @@ public class DoctorMessagingPanel extends JPanel {
 		JLabel lblSelectDoctor = new JLabel("Select Doctor");
 		panel_1.add(lblSelectDoctor, "cell 1 1,alignx leading");
 		
-		selectDocComboBox = new JComboBox();
-		panel_1.add(selectDocComboBox, "cell 2 1 2 1,growx");
 		
 		JLabel lblSelectPatient = new JLabel("Select Patient");
 		panel_1.add(lblSelectPatient, "cell 5 1,alignx trailing");
 		
-		selectPatComboBox = new JComboBox();
-		panel_1.add(selectPatComboBox, "cell 6 1,growx");
+	
+
 		
 		JLabel lblMessage = new JLabel("Message");
 		panel_1.add(lblMessage, "cell 1 3,alignx leading");
@@ -72,13 +81,13 @@ public class DoctorMessagingPanel extends JPanel {
 		patTextPane = new JTextPane();
 		scrollPane_1.setViewportView(patTextPane);
 		
-		btnSend = new JButton("Send");
-		panel_1.add(btnSend, "cell 3 5");
-		btnSend.addActionListener(listener);
+		btnSendDoc = new JButton("Send");
+		panel_1.add(btnSendDoc, "cell 3 5");
+		btnSendDoc.addActionListener(listener);
 		
-		btnSend_1 = new JButton("Send");
-		panel_1.add(btnSend_1, "cell 6 5");
-		btnSend_1.addActionListener(listener);
+		btnSendPat = new JButton("Send");
+		panel_1.add(btnSendPat, "cell 6 5");
+		btnSendPat.addActionListener(listener);
 		
 		JPanel panel_2 = new JPanel();
 		add(panel_2, "cell 0 2,grow");
@@ -87,10 +96,27 @@ public class DoctorMessagingPanel extends JPanel {
 		btnBack = new JButton("Back");
 		panel_2.add(btnBack, "cell 1 0");
 		btnBack.addActionListener(listener);
+		docNames = new ArrayList<String>();
+		
+		docs = parent.getHandler().getDoctors();
+		for(Doctor d : docs) {
+			docNames.add("Dr. " + d.getfName() + " " + d.getlName());
+		}
+		selectDocComboBox = new JComboBox(docNames.toArray());
+		panel_1.add(selectDocComboBox, "cell 2 1 2 1,growx");
+		
+		patNames = new ArrayList<String>();
+		pats = parent.getHandler().getPatients();
+		for(Patient p : pats) {
+			patNames.add(p.getName());
+		}
+		selectPatComboBox = new JComboBox(patNames.toArray());
+		panel_1.add(selectPatComboBox, "cell 6 1,growx");
 
 	}
 	private class ButtonListener implements ActionListener {
 
+		Calendar dar;
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnBack) {
@@ -98,12 +124,18 @@ public class DoctorMessagingPanel extends JPanel {
 				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
 				cl.last(parent.getContentPane());
 			}
-			else if(e.getSource() == btnSend){
-				//This is for messaging doctors
-				
+			else if(e.getSource() == btnSendDoc){
+				int index = selectDocComboBox.getSelectedIndex();
+				Doctor doc = docs.get(index);
+				String docReceiver = doc.getUsername();
+				parent.getHandler().addNewCommunicatesWith(username, docReceiver, Calendar.getInstance().getTime().toString(), docTextPane.getText(), "Unread");
 			}
-			else if(e.getSource() == btnSend_1){
+			else if(e.getSource() == btnSendPat){
 				//This is for messaging patients
+				int index = selectPatComboBox.getSelectedIndex();
+				Patient pat = pats.get(index);
+				String patReceiver = pat.getUsername();
+				parent.getHandler().addNewSendMessageToPatient(username, patReceiver, Calendar.getInstance().getTime().toString(), patTextPane.getText(), "Unread");
 				
 			}
 		}

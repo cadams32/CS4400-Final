@@ -911,6 +911,7 @@ public class DatabaseHandler {
 	
 	//Creating Edit Profile for Doctor and Patient
 	public static void updatePatientProfile() { }
+	
 	public static void updateDoctorProfile() { }
 	
 	//Creating AppointmentCalendar
@@ -992,9 +993,79 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	public ArrayList<Patient> getPatients() {
+		ArrayList<Patient> pats = new ArrayList<Patient>();
+		String query = "SELECT * FROM `Patient`";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String name = "";
+			String username = "";
+			while(rs.next()) {
+				username = rs.getString("PatientUsername");
+				name = rs.getString("Name");
+				System.out.println(username + " " + name);
+				pats.add(new Patient(username, name));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return pats;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
+	public ArrayList<String> getPatientsNames() {
+		ArrayList<String> pats = new ArrayList<String>();
+		String query = "SELECT `Name` FROM `Patient`";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String name = "";
+			while(rs.next()) {
+				name = rs.getString("Name");
+				pats.add(name);
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return pats;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
+	public static String getDoctorUsername(String fName, String lName) {
+		String query = "SELECT `DocUsername` FROM `Doctor` WHERE `FnName`='"+fName+"', '"+lName+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String username = "";
+			while(rs.next()) {
+				username = rs.getString("Username");
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return username;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
 	//Patient Visit History
 	//get a Patient based on name and homePhone? (May need to return a list)
-	public static Patient getPatient(String name, String homePhone) { return null; }
+	public static Patient getPatient(String name, String homePhone) {
+		
+		return null;
+	}
 	//Reuse getPatientVisits()
 	//Reuse getVisitDiagnosis()
 	//Reuse getVisitPrescriptions()
@@ -1011,7 +1082,6 @@ public class DatabaseHandler {
 	//Insert Performs
 	
 	//Messages
-	//TODO
 	
 	//Reports
 	//TODO
