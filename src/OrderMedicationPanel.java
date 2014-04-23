@@ -132,8 +132,6 @@ public class OrderMedicationPanel extends JPanel {
 		panel_1.add(consultingDoctorTextField);
 		consultingDoctorTextField.setColumns(10);
 		
-		
-		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(6, 54, 125, 188);
 		panel_1.add(scrollPane);
@@ -216,6 +214,7 @@ public class OrderMedicationPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnSelectDate){
 				int index = dateOfVisitcomboBox.getSelectedIndex();
+				currVisit = parent.getHandler().getVisit()
 				prescs = parent.getHandler().getVisitPrescriptions(visits.get(index).getVisitID());
 				model.removeAllElements();
 				for(Prescription p : prescs) {

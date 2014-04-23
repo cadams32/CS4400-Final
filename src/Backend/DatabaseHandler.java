@@ -799,8 +799,38 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	public Visit getVisit(int visitID) {
+		String query = "SELECT * FROM `Visit` WHERE `VisitID`='"+visitID+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			int visitI2D = -1;
+			String docUsername2 = "";
+			String dateOfVisit = "";
+			int diastolic = -1;
+			int systolic = -1;
+			int billingAmount = -1;
+			while(rs.next()) {
+				visitI2D = rs.getInt("VisitID");
+				docUsername2 = rs.getString("DocUsername");
+				dateOfVisit = rs.getString("DateOfVisit");
+				diastolic = rs.getInt("Diastolic");
+				systolic = rs.getInt("Systolic");
+				billingAmount = rs.getInt("BillingAmount");
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return new Visit(visitI2D, docUsername2, null, dateOfVisit, diastolic, systolic, billingAmount);
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
 	public Visit getVisit(String patUsername, String docUsername, String date) {
-		String query = "SELECT * FROM `Visit` WHERE `PatientUsername`='"+patUsername+"' AND `DocUsername`='"+docUsername+"' AND `Date`='"+date+"'";
+		String query = "SELECT * FROM `Visit` WHERE `PatientUsername`='"+patUsername+"' AND `DocUsername`='"+docUsername+"' AND `DateOfVisit`='"+date+"'";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
