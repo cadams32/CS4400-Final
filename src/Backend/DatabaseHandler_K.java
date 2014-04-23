@@ -549,7 +549,7 @@ public class DatabaseHandler_K {
 	 */
 	public static ArrayList<Doctor> getSpecialtyDoctors(String specialty){ 
 		ArrayList<Doctor> list = new ArrayList<Doctor>();
-		String query = "SELECT * FROM `Doctor` WHERE `Specialty`='"+specialty+"";
+		String query = "SELECT * FROM `Doctor` WHERE `Specialty`='"+specialty+"'";
 		
 		try {
 			connection = DBC.createConnection();
@@ -572,13 +572,81 @@ public class DatabaseHandler_K {
 		return null;
 	}
 	//Returns average Doctor rating
-	public static int getDoctorRating(String docUsername) { return -1; }
+	public static int getDoctorRating(String docUsername) { 
+		String query = "SELECT AVG(`Rating`) as avg FROM `Doctor_Rating` WHERE `DocUsername`='"+docUsername+"'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			
+			int i = Integer.parseInt(rs.getString("avg"));
+			
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return i;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return -1;
+	}
 	//Returns list of availability
-	public static ArrayList<Availability> getDoctorAvailability(String docUsername) { return null; }
+	public static ArrayList<Availability> getDoctorAvailability(String docUsername) {
+		ArrayList<Availability> list = new ArrayList<Availability>();
+		String query = "SELECT * FROM `Doctor_Available` WHERE `DocUsername`='"+docUsername+"'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			while(rs.next()) {
+				String to = rs.getString("To");
+				String from = rs.getString("From");
+				String day = rs.getString("Day");
+				list.add(new Availability(to, from, day));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return list;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
 	
 	//Creating Order Prescription
 	//get the Visits of a Patient
-	public static ArrayList<Visit> getPatientVisits(String username) { return null; }
+	public static ArrayList<Visit> getPatientVisits(String username) {
+		ArrayList<Visit> list = new ArrayList<Visit>();
+		String query = "SELECT * FROM `Doctor_Available` WHERE `PatientUsername`='"+username+"'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			while(rs.next()) {
+				int visitID = rs.getInt("VisitID");
+				String docUsername = rs.getString("DocUsername");
+				String patUsername = rs.getString("PatientUsername");
+				String dateOfVisit = rs.getString("DateOfVisit");
+				int diastolic = rs.getInt("Diastolic");
+				int systolic = rs.getInt("Systolic");
+				int billingAmount = rs.getInt("BillingAmount");
+				
+				list.add(new Visit(visitID, docUsername, patUsername, dateOfVisit, diastolic, systolic, billingAmount));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return list;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
 	//get Prescriptions for a Visit (not Ordered)
 	public static ArrayList<Prescription> getVisitPrescriptions(int visitID) { return null; }
 	//Get a Doctor
