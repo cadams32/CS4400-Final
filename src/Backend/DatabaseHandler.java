@@ -1115,7 +1115,7 @@ public class DatabaseHandler {
 				sender = rs.getString("DocSender");
 				date = rs.getString("DateTime");
 				status = rs.getString("Status");
-				message = rs.getString("Message");
+				message = rs.getString("Content");
 				msgs.add(new Message(message, sender, username, date, status));
 			}
 			rs.close();
@@ -1129,9 +1129,9 @@ public class DatabaseHandler {
 		
 	}
 	
-	public static ArrayList<Message> getSendsMessageToPat(String username) {
+	public static ArrayList<Message> getSendsMessageToPatient(String username) {
 		ArrayList<Message> msgs = new ArrayList<Message>();
-		String query = "SELECT * FROM `SendsMessageToPat` WHERE `PatientUsername`='"+username+"'";
+		String query = "SELECT * FROM `SendsMessageToPatient` WHERE `PatientUsername`='"+username+"'";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
@@ -1141,10 +1141,10 @@ public class DatabaseHandler {
 			String status = "";
 			String message = "";
 			while(rs.next()) {
-				sender = rs.getString("DocSender");
+				sender = rs.getString("DocUsername");
 				date = rs.getString("DateTime");
 				status = rs.getString("Status");
-				message = rs.getString("Message");
+				message = rs.getString("Content");
 				msgs.add(new Message(message, sender, username, date, status));
 			}
 			rs.close();
@@ -1172,7 +1172,7 @@ public class DatabaseHandler {
 				sender = rs.getString("DocSender");
 				date = rs.getString("DateTime");
 				status = rs.getString("Status");
-				message = rs.getString("Message");
+				message = rs.getString("Content");
 				msgs.add(new Message(message, sender, username, date, status));
 			}
 			rs.close();

@@ -71,12 +71,10 @@ public class InboxPanel extends JPanel {
 		
 		messages = new ArrayList<Message>();
 		if(parent.getHandler().doesPatientExist(username)) {
-			messages = parent.getHandler().getSendsMessageToPat(username);
-			ArrayList<String> senderNames = new ArrayList<String>();
+			messages = parent.getHandler().getSendsMessageToPatient(username);
 			Object[] insert = new Object[4];
 			for(Message m : messages) {
 				Doctor doc = parent.getHandler().getDoctor(m.getSender());
-				senderNames.add("Dr. " + doc.getfName() + " " + doc.getlName());
 				insert[0] = m.getStatus();
 				insert[1] = m.getTime();
 				insert[2] = "Dr. " + doc.getfName() + " " + doc.getlName();
@@ -86,6 +84,18 @@ public class InboxPanel extends JPanel {
 			model.fireTableDataChanged();
 
 		} else if (parent.getHandler().doesDoctorExist(username)){
+			
+			messages = parent.getHandler().getSendsMessageToDoc(username);
+			messages.addAll(parent.getHandler().getCommunicatesWith(username));
+			
+			Object[] insert = new Object[4];
+			for(Message m : messages) {
+				insert[0] = m.getStatus();
+				insert[1] = m.getTime();
+				insert[3] = m.getMessage();
+				model.addRow(insert);
+			}
+			model.fireTableDataChanged();
 			
 		}
 		
