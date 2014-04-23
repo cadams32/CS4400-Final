@@ -1,9 +1,12 @@
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -13,6 +16,9 @@ import javax.swing.JSplitPane;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import Backend.Prescription;
+import Backend.Visit;
 
 
 public class ViewPatientHistoryPanel extends JPanel {
@@ -26,10 +32,12 @@ public class ViewPatientHistoryPanel extends JPanel {
 	
 	private MedicalFrame parent;
 	private String username;
-	String name, phone;
+	String name="", phone="", patientUsername="";
 	JButton btnBack, btnSearch, btnView, btnRecordAVisit, btnSelect;
 	DefaultTableModel model, medModel;
+	DefaultListModel listModel;
 	JList list;
+	ArrayList<Visit> visitList;
 	private JLabel lblPatientName;
 	private JLabel lblPhoneNumber;
 	private JTextField textField_6;
@@ -43,6 +51,7 @@ public class ViewPatientHistoryPanel extends JPanel {
 		this.parent = parent;
 		this.username = username;
 		ButtonListener listener = new ButtonListener();
+		visitList = new ArrayList<Visit>();
 		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
@@ -52,7 +61,7 @@ public class ViewPatientHistoryPanel extends JPanel {
 		
 		JPanel panel_1 = new JPanel();
 		add(panel_1, "cell 0 1,grow");
-		panel_1.setLayout(new MigLayout("", "[][189.00,grow][141.00,grow][60.00][28.00,grow][86.00,grow][80.00,grow][90.00][80.00,grow][]", "[][63.00][84.00,grow][][40.00,grow][40.00][40.00][150.00,grow]"));
+		panel_1.setLayout(new MigLayout("", "[][189.00,grow][141.00,grow][60.00][28.00,grow][86.00,grow][80.00,grow][90.00][80.00,grow][]", "[][19.00][36.00,grow][48.00][40.00,grow][40.00][40.00][150.00,grow]"));
 		
 		JLabel lblName = new JLabel("Name");
 		panel_1.add(lblName, "cell 1 0,alignx trailing");
@@ -103,7 +112,8 @@ public class ViewPatientHistoryPanel extends JPanel {
 		JLabel lblDatesOfVisits = new JLabel("Dates of Visits");
 		panel_1.add(lblDatesOfVisits, "cell 1 3");
 		
-		list = new JList();
+		listModel = new DefaultListModel();
+		list = new JList(listModel);
 		panel_1.add(list, "cell 1 4 1 4,grow");
 		
 		btnSelect = new JButton("Select");
@@ -111,7 +121,7 @@ public class ViewPatientHistoryPanel extends JPanel {
 		btnSelect.addActionListener(listener);
 		
 		JLabel lblDateOfVisit = new JLabel("Date of Visit");
-		panel_1.add(lblDateOfVisit, "cell 3 4,aligny top");
+		panel_1.add(lblDateOfVisit, "cell 3 4,aligny center");
 		
 		textField_2 = new JTextField();
 		panel_1.add(textField_2, "cell 5 4,growx");
@@ -119,7 +129,7 @@ public class ViewPatientHistoryPanel extends JPanel {
 		textField_2.setEditable(false);
 		
 		JLabel lblBloodPressure = new JLabel("Blood Pressure");
-		panel_1.add(lblBloodPressure, "cell 3 5,aligny top");
+		panel_1.add(lblBloodPressure, "cell 3 5,aligny center");
 		
 		JLabel lblSystolic = new JLabel("Systolic");
 		lblSystolic.setHorizontalAlignment(SwingConstants.CENTER);
@@ -139,7 +149,7 @@ public class ViewPatientHistoryPanel extends JPanel {
 		textField_4.setEditable(false);
 		
 		JLabel lblDiagnosis = new JLabel("Diagnosis");
-		panel_1.add(lblDiagnosis, "cell 3 6,alignx leading,aligny top");
+		panel_1.add(lblDiagnosis, "cell 3 6,alignx leading,aligny center");
 		
 		textField_5 = new JTextField();
 		panel_1.add(textField_5, "cell 5 6 4 1,growx");
@@ -185,11 +195,21 @@ public class ViewPatientHistoryPanel extends JPanel {
 				//Get a doctor from the text field info
 				name = textField.getText();
 				phone = textField_1.getText();
-				
+				if(!parent.getHandler().getPatientUsername(name, phone).equals("")){
+					patientUsername = parent.getHandler().getPatientUsername(name, phone);
+					textField_6.setText(name);
+					textField_7.setText(phone);
+				}
 			}
 			else if(e.getSource() == btnView){
 				//View visits from the selected doctor
-				
+				if(!textField_6.getText().equals("") && !textField_7.getText().equals("")){
+					visitList = parent.getHandler().getPatientVisits(patientUsername);
+				}
+				listModel.removeAllElements();
+				for(int i=0; i<visitList.size(); i++){
+					listModel.addElement(visitList.get(i).getDateOfVisit());
+				}
 			}
 			else if(e.getSource() == btnRecordAVisit){
 				NewVisitPanel nvp = new NewVisitPanel(parent, username);
@@ -201,6 +221,27 @@ public class ViewPatientHistoryPanel extends JPanel {
 			else if(e.getSource() == btnSelect){
 				//Populate fields based off the selected date
 				String date = (String) list.getSelectedValue();
+				int index = -1;
+				for(int k=0; k<visitList.size(); k++){
+					if(visitList.get(k).getDateOfVisit().equals(date)){
+						index = k;
+					}
+				}
+				Visit v = visitList.get(index);
+				textField_2.setText(date);
+				textField_3.setText("" + v.getSystolicPressure());
+				textField_4.setText("" + v.getDiastolicPressure());
+				textField_5.setText(parent.getHandler().getVisitDiagnosis(v.getVisitID()));
+				for(int y=0; y<medModel.getRowCount(); y++){
+					medModel.removeRow(0);
+				}
+				ArrayList<Prescription> prescriptionList = parent.getHandler().getVisitPrescriptions(v.getVisitID());
+				for(int x=0; x<prescriptionList.size(); x++){
+					Prescription cur = prescriptionList.get(x);
+					Object[] row = {cur.getMedicineName(), cur.getDosage(), cur.getDuration(), cur.getNotes()};
+					medModel.addRow(row);
+				}
+				
 			}
 		}
 	}
