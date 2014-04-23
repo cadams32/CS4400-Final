@@ -25,6 +25,7 @@ public class InboxPanel extends JPanel {
 		
 		this.parent = parent;
 		this.username = username;
+		ButtonListener listener = new ButtonListener();
 		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
@@ -54,6 +55,7 @@ public class InboxPanel extends JPanel {
 		
 		btnBack = new JButton("Back");
 		panel_2.add(btnBack, "cell 1 0");
+		btnBack.addActionListener(listener);
 
 	}
 	private class ButtonListener implements ActionListener {

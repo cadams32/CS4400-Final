@@ -112,10 +112,11 @@ public class OrderMedicationPanel extends JPanel {
 		
 		btnCheckout = new JButton("Checkout");
 		panel_2.add(btnCheckout, "cell 3 0");
+		btnCheckout.addActionListener(listener);
 		
 		btnBack = new JButton("Back");
 		panel_2.add(btnBack, "cell 5 0");
-		btnCheckout.addActionListener(listener);
+		btnBack.addActionListener(listener);
 
 	}
 

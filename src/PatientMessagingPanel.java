@@ -25,6 +25,7 @@ public class PatientMessagingPanel extends JPanel {
 		
 		this.parent = parent;
 		this.username = username;
+		ButtonListener listener = new ButtonListener();
 		
 		setLayout(new MigLayout("", "[986px,grow]", "[93px][442px][grow]"));
 		
@@ -56,9 +57,11 @@ public class PatientMessagingPanel extends JPanel {
 		
 		btnSendMessage = new JButton("Send Message");
 		panel_2.add(btnSendMessage, "cell 1 0");
+		btnSendMessage.addActionListener(listener);
 		
 		btnBack = new JButton("Back");
 		panel_2.add(btnBack, "cell 3 0");
+		btnBack.addActionListener(listener);
 
 	}
 	
