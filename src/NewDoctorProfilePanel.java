@@ -194,8 +194,7 @@ public class NewDoctorProfilePanel extends JPanel {
 					for(Availability a : availableList) {
 						parent.getHandler().addNewDoctorAvailable(username, (String)a.getTo(), (String)a.getFrom(), (String)a.getDay());
 					}
-					
-					
+				
 					
 					DoctorHomePanel dhp = new DoctorHomePanel(parent, username);
 					parent.getContentPane().add(dhp);

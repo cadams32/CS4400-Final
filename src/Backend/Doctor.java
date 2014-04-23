@@ -11,10 +11,6 @@ public class Doctor extends User {
 	private String speciality;
 	private int roomNo;
 
-	public Doctor(String username, String password, String type) {
-		super(username, password, "Doctor");
-	}
-
 	public Doctor(String username, String password, String type, String licenseNo, String fName, String lName, String dob, String workphone, String homeAddress, String speciality, int roomNo) {
 		super(username, password, "Doctor");
 		this.setLicenseNo(licenseNo);
@@ -32,6 +28,12 @@ public class Doctor extends User {
 		this.fName = fName2;
 		this.lName = lName2;
 		this.roomNo = roomNo2;
+	}
+	
+	public Doctor(String username, String fName, String lName) {
+		super(username, "", "Doctor");
+		this.fName = fName;
+		this.lName = lName;
 	}
 
 	public String getLicenseNo() {

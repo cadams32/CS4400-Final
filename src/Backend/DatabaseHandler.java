@@ -346,7 +346,7 @@ public class DatabaseHandler {
 	 * @param patUsername
 	 * @param rating
 	 */
-	public static void addNewDoctorRating(String docUsername, String patUsername, int rating) {
+	public boolean addNewDoctorRating(String docUsername, String patUsername, int rating) {
 		if(doesDoctorExist(docUsername) && doesPatientExist(patUsername)) {
 			String query = "INSERT INTO  `cs4400_Group_37`.`Doctor_Rating` (`DocUsername` ,`PatientUsername` ,`Rating`) VALUES ('"+docUsername+"',  '"+patUsername+"',  '"+rating+"')";
 			try {
@@ -355,44 +355,197 @@ public class DatabaseHandler {
 				statement.executeUpdate(query);
 				statement.close();
 				DBC.closeConnection(connection);
+				System.out.println("Hi");
+				return true;
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
 			}
 		}
+		return false;
 	}
 	
 	//TODO: Copy Pasta
 	
-	public static void addNewPaymentInformation(String cardNumber, String cardHolderName, String CVV, String dateOfExpiry, String type) { 
-		String query = "INSERT INTO `cs4400_Group_37`.`PaymentInformation` (`CardNo`, `CardHolderName`, `CVV`, `Date ";
-		
+	public static boolean addNewPaymentInformation(String cardNumber, String cardHolderName, String CVV, String dateOfExpiry, String type) { 
+		String query = "INSERT INTO `cs4400_Group_37`.`Payment_Information` (`CardNo`, `CardHolderName`, `CVV`, `DateOfExpiry`, `Type`) VALUES ('" +
+				cardNumber + "', '" + cardHolderName + "', '" + CVV + "', '" + dateOfExpiry + "', '" + type + "')";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
 	}
 	
-	public static void addNewSurgery(String CPTCode, String surgeryType, int costOfSurgery) { }
+	public static boolean addNewSurgery(String CPTCode, String surgeryType, int costOfSurgery) {
+		String query = "INSERT INTO `cs4400_Group_37`.`Surgery` (`CPTCode`, `SurgeryType`, `CostOfSurgery`) VALUES ('" +
+				CPTCode + "', '" + surgeryType + "', '" + costOfSurgery + "')";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
 	
-	public static void addNewSurgeryPreOpMeds(String CPTCode, String preOpMedication){ }
+	public static boolean addNewSurgeryPreOpMeds(String CPTCode, String preOpMedication){
+		String query = "INSERT INTO `cs4400_Group_37`.`SurgeryPreOpMeds` (`CPTCode`, `PreOpMedication`) VALUES ('" +
+				 CPTCode + "', '" + preOpMedication + "')";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
 	
 	//Note: VisitID should be an auto-incrementing unsigned integer AKA: automatic
-	public static void addNewVisit(int visitId, String docUsername, String patUsername, String dateOfVisit, int diastolic, int systolic, int billingAmount) { }
+	public static boolean addNewVisit(int visitId, String docUsername, String patUsername, String dateOfVisit, int diastolic, int systolic, int billingAmount) {
+		String query = "INSERT INTO `cs4400_Group_37`.`Visit` (`VisitID`, `DocUsername`, `PatientUsername`, `DateOfVisit`, `Diastolic`, `Systolic`, `BillingAmount`) VALUES ('" +
+				visitId + "', '" + docUsername + "', '" + patUsername + "', '" + dateOfVisit + "', '" + diastolic + "', '" + systolic + "', '" + billingAmount + "')";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
 	
-	public static void addNewVisitDiagnosis(int visitID, String diagnosis) { }
+	public static boolean addNewVisitDiagnosis(int visitID, String diagnosis) {
+		String query = "INSERT INTO `cs4400_Group_37`.`Visit_Diagnosis` (`VisitID`, `Diagnosis`) VALUES ('" +
+				visitID + "', '" + diagnosis + "')";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
 	
 	//Note: Ordered = Yes or No
-	public static void addNewPrescription(int visitID, String medicineName, int dosage, int duration, String notes, String ordered) { }
+	public static boolean addNewPrescription(int visitID, String medicineName, int dosage, int duration, String notes, String ordered) {
+		String query = "INSERT INTO `cs4400_Group_37`.`Prescription` (`VisitID`, `MedicineName`, `Dosage`, `Duration`, `Notes`, `Ordered(Yes/No)`) VALUES ('" +
+				visitID + "', '" + medicineName + "', '" + dosage + "', '" + duration + "', '" + notes + "', '" + ordered + "')";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
 	
 	//Note: Status = Read or Unread
-	public static void addNewCommunicatesWith(String docSender, String docReceiver, String dateTime, String content, String status) { }
+	public static boolean addNewCommunicatesWith(String docSender, String docReceiver, String dateTime, String content, String status) {
+		String query = "INSERT INTO `cs4400_Group_37`.`CommunicatesWith` (`Doc_Sender`, `Doc_Receiver`, `DateTime`, `Content`, `Status`) VALUES ('" +
+				docSender + "', '" + docReceiver + "', '" + dateTime + "', '" + content + "', '" + status + "')";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
 	
-	public static void addNewAppointments(String docUsername, String patientUsername, String date, String time) { }
+	public static boolean addNewAppointments(String docUsername, String patientUsername, String date, String time) {
+		String query = "INSERT INTO `cs4400_Group_37`.`Appointment` (`DocUsername`, `PatientUsername`, `Date`, `Time`) VALUES ('" +
+				docUsername + "', '" + patientUsername + "', '" + date + "', '" + time + "')";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
 	
-	public static void addNewPerforms(String docUsername, String patientUsername, String CPTCode, String surgeryStartTime, String surgeryEndTime, String anesthesiaStart, String complications, int noOfAssistants) { }
+	public static boolean addNewPerforms(String docUsername, String patientUsername, String CPTCode, String surgeryStartTime, String surgeryEndTime, String anesthesiaStart, String complications, int noOfAssistants) {
+		String query = "INSERT INTO `cs4400_Group_37`.`Performs` (`DocUsername`, `PatientUsername`, `CPTCode`, `SurgeryStartTime`, `SurgeryEndTime`, `AnethesiaStartTIme`, `Complications`, `NoOfAssistants`) VALUES ('" +
+				docUsername + "', '" + patientUsername + "', '" + CPTCode + "', '" + surgeryStartTime + "', '" + surgeryEndTime + "', '" + anesthesiaStart + "', '" + complications + "', '" + noOfAssistants + "')";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
 	
 	//Note: Status = Read or Unread
-	public static void addNewSendMessageToDoc(String patUsername, String docUsername, String dateTime, String content, String status) { }
+	public static boolean addNewSendMessageToDoc(String patUsername, String docUsername, String dateTime, String content, String status) {
+		String query = "INSERT INTO `cs4400_Group_37`.`SendsMessageToDoc` (`PatientUsername`, `DocUsername`, `DateTime`, `Content`, `Status`) VALUES ('" +
+				patUsername + "', '" + docUsername + "', '" + dateTime + "', '" + content + "', '" + status + "')";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
 	
 	//Note: Status = Read or Unread
-	public static void addNewSendMessageToPatient(String docUsername, String patUsername, String dateTime, String content, String status) { }
-	
+	public static boolean addNewSendMessageToPatient(String docUsername, String patUsername, String dateTime, String content, String status) {
+		String query = "INSERT INTO `cs4400_Group_37`.`SendsMessageToPatient` (`DocUsername`, `PatientUsername`, `DateTime`, `Content`, `Status`) VALUES ('" +
+				docUsername + "', '" + patUsername + "', '" + dateTime + "', '" + content + "', '" + status + "')";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
 	//Creating Appointment Screen
 	/**
 	 * Gets the First Name, Last Name, RoomNo, and Username of all doctors of a specific Specialty
@@ -433,8 +586,36 @@ public class DatabaseHandler {
 	public static ArrayList<Visit> getPatientVisits(String username) { return null; }
 	//get Prescriptions for a Visit (not Ordered)
 	public static ArrayList<Prescription> getVisitPrescriptions(int visitID) { return null; }
+	
 	//Get a Doctor
-	public static Doctor getDoctor(String username) { return null; }
+	public static Doctor getDoctor(String username) { 
+		String query = "SELECT * FROM `Doctor` WHERE `DocUsername`='"+username+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String fName = ""; 
+			String lName = "";
+			String docUsername = "";
+			int roomNo = -1;
+			//while(rs.next()) {
+				docUsername = rs.getString("DocUsername");
+				fName = rs.getString("FName");
+				lName = rs.getString("LName");
+				roomNo = rs.getInt("RoomNo");
+		//	}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return new Doctor(docUsername, fName, lName, roomNo);
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+		
+	}
+	
+	
 	//Change Prescription Ordered from No to Yes
 	public static void updatePrescription() { }
 	
@@ -447,6 +628,33 @@ public class DatabaseHandler {
 	
 	//Creating Rate A Doctor
 	//Insert Into Doctor...
+	public ArrayList<Doctor> getDoctors() { 
+		ArrayList<Doctor> docs = new ArrayList<Doctor>();
+		String query = "SELECT `DocUsername`, `FName`, `LName` FROM `Doctor`";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String fName = ""; 
+			String lName = "";
+			String docUsername = "";
+			while(rs.next()) {
+				docUsername = rs.getString("DocUsername");
+				fName = rs.getString("FName");
+				lName = rs.getString("LName");
+				System.out.println(fName + " " + lName);
+				docs.add(new Doctor(docUsername, fName, lName));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return docs;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+		
+	}
 	
 	//Creating Edit Profile for Doctor and Patient
 	public static void updatePatientProfile() { }

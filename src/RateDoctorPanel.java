@@ -8,10 +8,13 @@ import javax.swing.JSlider;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
+import Backend.Doctor;
+
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Font;
+import java.util.ArrayList;
 
 
 public class RateDoctorPanel extends JPanel {
@@ -20,6 +23,10 @@ public class RateDoctorPanel extends JPanel {
 	private String username;
 	private JSlider slider;
 	JButton btnBack, btnRate;
+	private JComboBox comboBox;
+	private JLabel lblNewLabel;
+	
+	private ArrayList<Doctor> docs;
 	
 	/**
 	 * Create the panel.
@@ -27,6 +34,8 @@ public class RateDoctorPanel extends JPanel {
 	public RateDoctorPanel(MedicalFrame parent, String username) {
 		this.parent = parent;
 		this.username = username;
+		
+		ButtonListener listener = new ButtonListener();
 		
 		setBackground(SystemColor.textHighlight);
 		setLayout(null);
@@ -54,11 +63,27 @@ public class RateDoctorPanel extends JPanel {
 		btnRate = new JButton("Rate");
 		btnRate.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		btnRate.setBounds(429, 334, 117, 29);
+		btnRate.addActionListener(listener);
 		add(btnRate);
 		
 		btnBack = new JButton("Back");
 		btnBack.setBounds(439, 404, 97, 25);
+		btnBack.addActionListener(listener);
 		add(btnBack);
+		
+		docs = parent.getHandler().getDoctors();
+		ArrayList<String> s = new ArrayList<String>();
+		for(Doctor d : docs) {
+			s.add("Dr. " + d.getfName() + " " + d.getlName());
+		}
+		
+		comboBox = new JComboBox(s.toArray());
+		comboBox.setBounds(415, 105, 176, 27);
+		add(comboBox);
+		
+		lblNewLabel = new JLabel("Doctor");
+		lblNewLabel.setBounds(321, 109, 61, 16);
+		add(lblNewLabel);
 
 	}
 	
@@ -67,8 +92,13 @@ public class RateDoctorPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnRate) {
-				double rating = slider.getValue();
-				//push rating into DB
+				int rating = slider.getValue();
+				int index = comboBox.getSelectedIndex();
+				System.out.println("Rate");
+				parent.getHandler().addNewDoctorRating(docs.get(index).getUsername(), username, rating);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
 			}
 			else if(e.getSource() == btnBack){
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
