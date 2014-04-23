@@ -87,7 +87,7 @@ public class NewUserPanel extends JPanel {
 					cl.next(parent.getContentPane());
 				}
 				else if (comboBox.getSelectedItem().equals("Doctor")) {
-					NewDoctorProfilePanel ndp = new NewDoctorProfilePanel(parent, textField.getText());
+					NewDoctorProfilePanel ndp = new NewDoctorProfilePanel(parent, textField.getText(), textField_1.getText());
 					parent.getContentPane().add(ndp);
 					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 					cl.next(parent.getContentPane());

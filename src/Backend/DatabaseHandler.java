@@ -298,20 +298,23 @@ public class DatabaseHandler {
 	 * @param specialty
 	 * @param roomNo
 	 */
-	public static void addNewDoctor(String username, String password, String licenseNo, String fName, String lName, String DOB, String homeAddress, String specialty, int roomNo) {
+	public static boolean addNewDoctor(String username, String password, String licenseNo, String fName, String lName, String DOB, String workPhone, String homeAddress, String specialty, int roomNo) {
 		addNewUser(username, password);	
 		if(!doesDoctorExist(username)) {
-			String query = "INSERT INTO  `cs4400_Group_37`.`Doctor` (`Username` ,`LicenseNo`, `FName`, `LName`, `DOB`, `WorkPhone`, `HomeAddress`, `Specialty`, `RoomNo`,) VALUES ('"+username+"',  '"+licenseNo+"', '"+fName+"', '"+lName+"', '"+DOB+"', '"+homeAddress+"', '"+specialty+"', '"+roomNo+"')";;
+			String query = "INSERT INTO  `cs4400_Group_37`.`Doctor` (`DocUsername` ,`LicenseNo`, `FName`, `LName`, `DOB`, `WorkPhone`, `HomeAddress`, `Specialty`, `RoomNo`) VALUES ('"+username+"',  '"+licenseNo+"', '"+fName+"', '"+lName+"', '"+DOB+"', '"+workPhone+"','"+homeAddress+"', '"+specialty+"', '"+roomNo+"')";;
 			try {
 				connection = DBC.createConnection();
 				Statement statement = connection.createStatement();
 				statement.executeUpdate(query);
 				statement.close();
 				DBC.closeConnection(connection);
+				System.out.println("Doc");
+				return true;
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
 			}
 		}
+		return false;
 	}
 	
 	/**
@@ -322,14 +325,15 @@ public class DatabaseHandler {
 	 * @param day
 	 */
 	public static void addNewDoctorAvailable(String username, String to, String from, String day) {
-		if(!doesUsernameExist(username)) {
-			String query = "INSERT INTO  `cs4400_Group_37`.`Doctor_Available` (`Username`, `To`, `From`, `Day`) VALUES ('"+username+"', '"+to+"', '"+from+"', '"+day+"')";
+		if(doesUsernameExist(username)) {
+			String query = "INSERT INTO  `cs4400_Group_37`.`Doctor_Available` (`DocUsername`, `To`, `From`, `Day`) VALUES ('"+username+"', '"+to+"', '"+from+"', '"+day+"')";
 			try {
 				connection = DBC.createConnection();
 				Statement statement = connection.createStatement();
 				statement.executeUpdate(query);
 				statement.close();
 				DBC.closeConnection(connection);
+				System.out.println("avail");
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
 			}
