@@ -46,6 +46,7 @@ public class ViewVisitHistoryPanel extends JPanel {
 	
 	private ArrayList<Visit> visitList;
 	private ArrayList<String> dates;
+	private String[] columnNames = {"Medicine Name", "Dosage", "Duration", "Notes"};
 	
 	/**
 	 * Create the panel.
@@ -124,7 +125,7 @@ public class ViewVisitHistoryPanel extends JPanel {
 		
 		btnBackButton = new JButton("Back");
 		
-		String[] columnNames = {"Medicine Name", "Dosage", "Duration", "Notes"};
+		
 		model = new DefaultTableModel();
 		model.setColumnIdentifiers(columnNames);
 		table = new JTable(model);
@@ -164,6 +165,10 @@ public class ViewVisitHistoryPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnGetVisit) {
 				
+				model = new DefaultTableModel();
+				model.setColumnIdentifiers(columnNames);
+				table.setModel(model);
+				
 				Visit v = visitList.get(comboBox.getSelectedIndex());		
 				Integer systolic = v.getSystolicPressure();
 				Integer diastolic = v.getDiastolicPressure();
@@ -186,6 +191,8 @@ public class ViewVisitHistoryPanel extends JPanel {
 				}
 				model.fireTableDataChanged();
 	
+			} else if (e.getSource() == btnBackButton) {
+
 			}
 			
 		}
