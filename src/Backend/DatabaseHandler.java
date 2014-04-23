@@ -447,9 +447,8 @@ public class DatabaseHandler {
 	 * @param billingAmount
 	 * @return
 	 */
-	public static boolean addNewVisit(int visitId, String docUsername, String patUsername, String dateOfVisit, int diastolic, int systolic, int billingAmount) {
-		String query = "INSERT INTO `cs4400_Group_37`.`Visit` (`VisitID`, `DocUsername`, `PatientUsername`, `DateOfVisit`, `Diastolic`, `Systolic`, `BillingAmount`) VALUES ('" +
-				visitId + "', '" + docUsername + "', '" + patUsername + "', '" + dateOfVisit + "', '" + diastolic + "', '" + systolic + "', '" + billingAmount + "')";
+	public static boolean addNewVisit(String docUsername, String patUsername, String dateOfVisit, int diastolic, int systolic, int billingAmount) {
+		String query = "INSERT INTO `cs4400_Group_37`.`Visit` (`DocUsername`, `PatientUsername`, `DateOfVisit`, `Diastolic`, `Systolic`, `BillingAmount`) VALUES ('" + docUsername + "', '" + patUsername + "', '" + dateOfVisit + "', '" + diastolic + "', '" + systolic + "', '" + billingAmount + "')";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();

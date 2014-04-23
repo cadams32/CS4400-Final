@@ -11,111 +11,180 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.SystemColor;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
+
+import Backend.Prescription;
+import Backend.Visit;
 
 
 public class OrderMedicationPanel extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField medNameTextField;
+	private JTextField consultingDoctorTextField;
 
 	private MedicalFrame parent;
 	private String username;
 	
-	JButton btnAddToCart, btnCheckout, btnBack;
-	JComboBox boxDosage, boxDurationMonths, boxDurationDays, boxDay, boxMonth, boxYear;
-	ArrayList<String[]> cart;
+	private JButton btnAddToCart, btnCheckout, btnBack;
+	private JComboBox boxDosage, boxDurationMonths, boxDurationDays;
+	private ArrayList<Prescription> cart;
+	private ArrayList<Visit> visits;
+	
+	private JButton btnSelectDate;
+	private JButton btnSelect;
+	
+	private JList medList;
+	private JList cartList;
+	
+	String[] dosage = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+	String[] durationMonths = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+	String[] durationDays = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
+			"16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
+	String[] months = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+	
+	String[] days = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15",
+		"16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
+	
+	String[] year = {"2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"};
 	
 	/**
 	 * Create the panel.
 	 */
 	public OrderMedicationPanel(MedicalFrame parent, String username) {
+		setBackground(SystemColor.textHighlight);
 		
 		this.parent = parent;
 		this.username = username;
-		cart = new ArrayList<String[]>();
 		ButtonListener listener = new ButtonListener();
-		
-		setLayout(new MigLayout("", "[1000.00,grow]", "[100.00,grow][436.00,grow][50.00,grow]"));
+		setLayout(null);
 		
 		JPanel panel = new JPanel();
-		add(panel, "cell 0 0,grow");
-		panel.setLayout(new MigLayout("", "[]", "[]"));
+		panel.setBounds(16, 16, 784, 32);
+		panel.setBackground(SystemColor.controlHighlight);
+		add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblOrderMedication = new JLabel("ORDER MEDICATION");
+		lblOrderMedication.setForeground(SystemColor.menu);
+		lblOrderMedication.setBounds(160, 6, 138, 16);
+		panel.add(lblOrderMedication);
 		
 		JPanel panel_1 = new JPanel();
-		add(panel_1, "cell 0 1,alignx leading,growy");
-		panel_1.setLayout(new MigLayout("", "[180.00][138.00][49.00,grow][][][96.00,grow][460.00]", "[][][][][][][][][][]"));
+		panel_1.setBounds(16, 52, 784, 291);
+		panel_1.setBackground(SystemColor.textHighlight);
+		add(panel_1);
+		panel_1.setLayout(null);
 		
 		JLabel lblMedicineName = new JLabel("Medicine Name");
-		panel_1.add(lblMedicineName, "cell 1 1,alignx leading");
+		lblMedicineName.setBounds(158, 93, 96, 16);
+		panel_1.add(lblMedicineName);
 		
-		textField = new JTextField();
-		panel_1.add(textField, "cell 2 1 4 1,growx");
-		textField.setColumns(10);
+		medNameTextField = new JTextField();
+		medNameTextField.setBounds(287, 87, 275, 28);
+		panel_1.add(medNameTextField);
+		medNameTextField.setColumns(10);
 		
 		JLabel lblDosage = new JLabel("Dosage");
-		panel_1.add(lblDosage, "cell 1 3");
+		lblDosage.setBounds(158, 144, 47, 16);
+		panel_1.add(lblDosage);
 		
-		String[] dosage = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 		boxDosage = new JComboBox(dosage);
-		panel_1.add(boxDosage, "cell 2 3");
+		boxDosage.setBounds(287, 140, 64, 27);
+		panel_1.add(boxDosage);
 		
 		JLabel lblPerDay = new JLabel("Per Day");
-		panel_1.add(lblPerDay, "cell 3 3");
+		lblPerDay.setBounds(363, 144, 47, 16);
+		panel_1.add(lblPerDay);
 		
 		JLabel lblDuration = new JLabel("Duration");
-		panel_1.add(lblDuration, "cell 1 5");
-		
-		String[] durationMonths = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+		lblDuration.setBounds(158, 197, 55, 16);
+		panel_1.add(lblDuration);		
+
 		boxDurationMonths = new JComboBox(durationMonths);
-		panel_1.add(boxDurationMonths, "cell 2 5");
+		boxDurationMonths.setBounds(287, 193, 72, 27);
+		panel_1.add(boxDurationMonths);
 		
 		JLabel lblMonths = new JLabel("Months");
-		panel_1.add(lblMonths, "cell 3 5");
+		lblMonths.setBounds(363, 197, 47, 16);
+		panel_1.add(lblMonths);	
 		
-		String[] durationDays = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
-				"16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
 		boxDurationDays = new JComboBox(durationDays);
-		panel_1.add(boxDurationDays, "cell 4 5");
+		boxDurationDays.setBounds(439, 193, 72, 27);
+		panel_1.add(boxDurationDays);
 		
 		JLabel lblDays = new JLabel("Days");
-		panel_1.add(lblDays, "cell 5 5");
+		lblDays.setBounds(531, 197, 31, 16);
+		panel_1.add(lblDays);
 		
 		JLabel lblConsultingDoctor = new JLabel("Consulting Doctor");
-		panel_1.add(lblConsultingDoctor, "cell 1 7,alignx leading");
+		lblConsultingDoctor.setBounds(158, 251, 116, 16);
+		panel_1.add(lblConsultingDoctor);
 		
-		textField_1 = new JTextField();
-		panel_1.add(textField_1, "cell 2 7 4 1,growx");
-		textField_1.setColumns(10);
+		consultingDoctorTextField = new JTextField();
+		consultingDoctorTextField.setBounds(287, 245, 275, 28);
+		panel_1.add(consultingDoctorTextField);
+		consultingDoctorTextField.setColumns(10);
 		
-		JLabel lblDateOfPrescription = new JLabel("Date of Prescription");
-		panel_1.add(lblDateOfPrescription, "cell 1 9");
 		
-		String[] months = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
-		boxMonth = new JComboBox(months);
-		panel_1.add(boxMonth, "cell 2 9");
 		
-		String[] days = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15",
-			"16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
-		boxDay = new JComboBox(days);
-		panel_1.add(boxDay, "cell 3 9");
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(6, 54, 125, 188);
+		panel_1.add(scrollPane);
+
+		btnSelect = new JButton("Select");
+		btnSelect.setBounds(6, 245, 117, 29);
+		panel_1.add(btnSelect);
 		
-		String[] year = {"2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"};
-		boxYear = new JComboBox(year);
-		panel_1.add(boxYear, "cell 4 9");
+		JLabel lblMediccations = new JLabel("Medications");
+		lblMediccations.setBounds(24, 35, 99, 16);
+		panel_1.add(lblMediccations);
+		
+		JLabel lblDateOfVisit = new JLabel("Date Of Visit");
+		lblDateOfVisit.setBounds(193, 24, 99, 16);
+		panel_1.add(lblDateOfVisit);
+		
+		JComboBox dateOfVisitcomboBox = new JComboBox();
+		dateOfVisitcomboBox.setBounds(284, 20, 165, 27);
+		panel_1.add(dateOfVisitcomboBox);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(612, 76, 152, 166);
+		panel_1.add(scrollPane_1);
+		
+		JLabel lblCart = new JLabel("Cart");
+		lblCart.setBounds(669, 53, 31, 16);
+		panel_1.add(lblCart);
+		
+		cartList = new JList();
+		scrollPane_1.setViewportView(cartList);
+		
+		medList = new JList();
+		scrollPane.setViewportView(medList);	
+		
+		btnSelectDate = new JButton("Select Date");
+		btnSelectDate.setBounds(461, 19, 117, 29);
+		panel_1.add(btnSelectDate);
 		
 		JPanel panel_2 = new JPanel();
-		add(panel_2, "cell 0 2,grow");
-		panel_2.setLayout(new MigLayout("", "[641.00][][][][][]", "[]"));
+		panel_2.setBounds(16, 347, 784, 61);
+		panel_2.setBackground(SystemColor.textHighlight);
+		add(panel_2);
+		panel_2.setLayout(null);
 		
 		btnAddToCart = new JButton("Add to Cart");
-		panel_2.add(btnAddToCart, "cell 1 0");
+		btnAddToCart.setBounds(254, 16, 116, 29);
+		panel_2.add(btnAddToCart);
 		btnAddToCart.addActionListener(listener);
 		
 		btnCheckout = new JButton("Checkout");
-		panel_2.add(btnCheckout, "cell 3 0");
+		btnCheckout.setBounds(378, 16, 104, 29);
+		panel_2.add(btnCheckout);
 		btnCheckout.addActionListener(listener);
 		
 		btnBack = new JButton("Back");
-		panel_2.add(btnBack, "cell 5 0");
+		btnBack.setBounds(490, 16, 75, 29);
+		panel_2.add(btnBack);
 		btnBack.addActionListener(listener);
 
 	}
@@ -124,12 +193,14 @@ public class OrderMedicationPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnAddToCart){
-				String[] str = {(String) textField.getText(),(String) boxDosage.getSelectedItem(),(String) boxDurationMonths.getSelectedItem(),(String) boxDurationDays.getSelectedItem(),
-						(String) textField_1.getText(),(String) boxMonth.getSelectedItem(),(String) boxDay.getSelectedItem(),(String) boxYear.getSelectedItem()};
-				cart.add(str);
+				
+				
 			}
 			else if(e.getSource() == btnCheckout){
 				//Need to send the whole cart to DB here
+				
+				
+				
 				
 				PaymentInfoPanel pip = new PaymentInfoPanel(parent, username);
 				parent.getContentPane().add(pip);
