@@ -364,8 +364,15 @@ public class DatabaseHandler {
 		return false;
 	}
 	
-	//TODO: Copy Pasta
-	
+	/**
+	 * Add New Payment Information
+	 * @param cardNumber
+	 * @param cardHolderName
+	 * @param CVV
+	 * @param dateOfExpiry
+	 * @param type
+	 * @return
+	 */
 	public static boolean addNewPaymentInformation(String cardNumber, String cardHolderName, String CVV, String dateOfExpiry, String type) { 
 		String query = "INSERT INTO `cs4400_Group_37`.`Payment_Information` (`CardNo`, `CardHolderName`, `CVV`, `DateOfExpiry`, `Type`) VALUES ('" +
 				cardNumber + "', '" + cardHolderName + "', '" + CVV + "', '" + dateOfExpiry + "', '" + type + "')";
@@ -382,6 +389,13 @@ public class DatabaseHandler {
 		return false;
 	}
 	
+	/**
+	 * Add New Surgery
+	 * @param CPTCode
+	 * @param surgeryType
+	 * @param costOfSurgery
+	 * @return
+	 */
 	public static boolean addNewSurgery(String CPTCode, String surgeryType, int costOfSurgery) {
 		String query = "INSERT INTO `cs4400_Group_37`.`Surgery` (`CPTCode`, `SurgeryType`, `CostOfSurgery`) VALUES ('" +
 				CPTCode + "', '" + surgeryType + "', '" + costOfSurgery + "')";
@@ -398,6 +412,12 @@ public class DatabaseHandler {
 		return false;
 	}
 	
+	/**
+	 * Add New SurgeryPreOpMeds
+	 * @param CPTCode
+	 * @param preOpMedication
+	 * @return
+	 */
 	public static boolean addNewSurgeryPreOpMeds(String CPTCode, String preOpMedication){
 		String query = "INSERT INTO `cs4400_Group_37`.`SurgeryPreOpMeds` (`CPTCode`, `PreOpMedication`) VALUES ('" +
 				 CPTCode + "', '" + preOpMedication + "')";
@@ -414,7 +434,17 @@ public class DatabaseHandler {
 		return false;
 	}
 	
-	//Note: VisitID should be an auto-incrementing unsigned integer AKA: automatic
+	/**
+	 * Add New Visit
+	 * @param visitId
+	 * @param docUsername
+	 * @param patUsername
+	 * @param dateOfVisit
+	 * @param diastolic
+	 * @param systolic
+	 * @param billingAmount
+	 * @return
+	 */
 	public static boolean addNewVisit(int visitId, String docUsername, String patUsername, String dateOfVisit, int diastolic, int systolic, int billingAmount) {
 		String query = "INSERT INTO `cs4400_Group_37`.`Visit` (`VisitID`, `DocUsername`, `PatientUsername`, `DateOfVisit`, `Diastolic`, `Systolic`, `BillingAmount`) VALUES ('" +
 				visitId + "', '" + docUsername + "', '" + patUsername + "', '" + dateOfVisit + "', '" + diastolic + "', '" + systolic + "', '" + billingAmount + "')";
@@ -431,6 +461,12 @@ public class DatabaseHandler {
 		return false;
 	}
 	
+	/**
+	 * Add New Visit Diagnosis
+	 * @param visitID
+	 * @param diagnosis
+	 * @return
+	 */
 	public static boolean addNewVisitDiagnosis(int visitID, String diagnosis) {
 		String query = "INSERT INTO `cs4400_Group_37`.`Visit_Diagnosis` (`VisitID`, `Diagnosis`) VALUES ('" +
 				visitID + "', '" + diagnosis + "')";
@@ -447,7 +483,16 @@ public class DatabaseHandler {
 		return false;
 	}
 	
-	//Note: Ordered = Yes or No
+	/**
+	 * Add New Prescription
+	 * @param visitID
+	 * @param medicineName
+	 * @param dosage
+	 * @param duration
+	 * @param notes
+	 * @param ordered
+	 * @return
+	 */
 	public static boolean addNewPrescription(int visitID, String medicineName, int dosage, int duration, String notes, String ordered) {
 		String query = "INSERT INTO `cs4400_Group_37`.`Prescription` (`VisitID`, `MedicineName`, `Dosage`, `Duration`, `Notes`, `Ordered(Yes/No)`) VALUES ('" +
 				visitID + "', '" + medicineName + "', '" + dosage + "', '" + duration + "', '" + notes + "', '" + ordered + "')";
@@ -464,7 +509,15 @@ public class DatabaseHandler {
 		return false;
 	}
 	
-	//Note: Status = Read or Unread
+	/**
+	 * Add New ComunicatesWith
+	 * @param docSender
+	 * @param docReceiver
+	 * @param dateTime
+	 * @param content
+	 * @param status
+	 * @return
+	 */
 	public static boolean addNewCommunicatesWith(String docSender, String docReceiver, String dateTime, String content, String status) {
 		String query = "INSERT INTO `cs4400_Group_37`.`CommunicatesWith` (`Doc_Sender`, `Doc_Receiver`, `DateTime`, `Content`, `Status`) VALUES ('" +
 				docSender + "', '" + docReceiver + "', '" + dateTime + "', '" + content + "', '" + status + "')";
@@ -481,6 +534,14 @@ public class DatabaseHandler {
 		return false;
 	}
 	
+	/**
+	 * Add New Appointments
+	 * @param docUsername
+	 * @param patientUsername
+	 * @param date
+	 * @param time
+	 * @return
+	 */
 	public static boolean addNewAppointments(String docUsername, String patientUsername, String date, String time) {
 		String query = "INSERT INTO `cs4400_Group_37`.`Appointment` (`DocUsername`, `PatientUsername`, `Date`, `Time`) VALUES ('" +
 				docUsername + "', '" + patientUsername + "', '" + date + "', '" + time + "')";
@@ -497,6 +558,18 @@ public class DatabaseHandler {
 		return false;
 	}
 	
+	/**
+	 * Add New Performs
+	 * @param docUsername
+	 * @param patientUsername
+	 * @param CPTCode
+	 * @param surgeryStartTime
+	 * @param surgeryEndTime
+	 * @param anesthesiaStart
+	 * @param complications
+	 * @param noOfAssistants
+	 * @return
+	 */
 	public static boolean addNewPerforms(String docUsername, String patientUsername, String CPTCode, String surgeryStartTime, String surgeryEndTime, String anesthesiaStart, String complications, int noOfAssistants) {
 		String query = "INSERT INTO `cs4400_Group_37`.`Performs` (`DocUsername`, `PatientUsername`, `CPTCode`, `SurgeryStartTime`, `SurgeryEndTime`, `AnethesiaStartTIme`, `Complications`, `NoOfAssistants`) VALUES ('" +
 				docUsername + "', '" + patientUsername + "', '" + CPTCode + "', '" + surgeryStartTime + "', '" + surgeryEndTime + "', '" + anesthesiaStart + "', '" + complications + "', '" + noOfAssistants + "')";
@@ -513,7 +586,15 @@ public class DatabaseHandler {
 		return false;
 	}
 	
-	//Note: Status = Read or Unread
+	/**
+	 * Add New Send Message to Doc
+	 * @param patUsername
+	 * @param docUsername
+	 * @param dateTime
+	 * @param content
+	 * @param status
+	 * @return
+	 */
 	public static boolean addNewSendMessageToDoc(String patUsername, String docUsername, String dateTime, String content, String status) {
 		String query = "INSERT INTO `cs4400_Group_37`.`SendsMessageToDoc` (`PatientUsername`, `DocUsername`, `DateTime`, `Content`, `Status`) VALUES ('" +
 				patUsername + "', '" + docUsername + "', '" + dateTime + "', '" + content + "', '" + status + "')";
@@ -530,7 +611,15 @@ public class DatabaseHandler {
 		return false;
 	}
 	
-	//Note: Status = Read or Unread
+	/**
+	 * Add New Sedn Message to Patient
+	 * @param docUsername
+	 * @param patUsername
+	 * @param dateTime
+	 * @param content
+	 * @param status
+	 * @return
+	 */
 	public static boolean addNewSendMessageToPatient(String docUsername, String patUsername, String dateTime, String content, String status) {
 		String query = "INSERT INTO `cs4400_Group_37`.`SendsMessageToPatient` (`DocUsername`, `PatientUsername`, `DateTime`, `Content`, `Status`) VALUES ('" +
 				docUsername + "', '" + patUsername + "', '" + dateTime + "', '" + content + "', '" + status + "')";
@@ -546,7 +635,15 @@ public class DatabaseHandler {
 		}
 		return false;
 	}
-	//Creating Appointment Screen
+	
+	/**
+	 * Other
+	 */
+	
+	/**
+	 * Creating Appointment Screen
+	 */
+	
 	/**
 	 * Gets the First Name, Last Name, RoomNo, and Username of all doctors of a specific Specialty
 	 * @param specialty
@@ -576,18 +673,137 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
-	//Returns average Doctor rating
-	public static int getDoctorRating(String docUsername) { return -1; }
-	//Returns list of availability
-	public static ArrayList<Availability> getDoctorAvailability(String docUsername) { return null; }
 	
-	//Creating Order Prescription
-	//get the Visits of a Patient
-	public static ArrayList<Visit> getPatientVisits(String username) { return null; }
-	//get Prescriptions for a Visit (not Ordered)
-	public static ArrayList<Prescription> getVisitPrescriptions(int visitID) { return null; }
+	/**
+	 * Get the Average Doctor Rating of a particular doctor (using their username)
+	 * @param docUsername
+	 * @return
+	 */
+	public static int getDoctorRating(String docUsername) { 
+		String query = "SELECT AVG(`Rating`) as avg FROM `Doctor_Rating` WHERE `DocUsername`='"+docUsername+"'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			
+			int i = Integer.parseInt(rs.getString("avg"));
+			
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return i;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return -1;
+	} 
 	
-	//Get a Doctor
+	/**
+	 * Returns a list of all of the Availabilities of a specific doctor (Using Username of the doctor)
+	 * @param docUsername
+	 * @return
+	 */
+	public static ArrayList<Availability> getDoctorAvailability(String docUsername) {
+		ArrayList<Availability> list = new ArrayList<Availability>();
+		String query = "SELECT * FROM `Doctor_Available` WHERE `DocUsername`='"+docUsername+"'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			while(rs.next()) {
+				String to = rs.getString("To");
+				String from = rs.getString("From");
+				String day = rs.getString("Day");
+				list.add(new Availability(to, from, day));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return list;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
+	/**
+	 * Creating Order Prescription
+	 */
+	
+	/**
+	 * Get all of the Visits of a Particular Patient (Using PatientUsername)
+	 * @param username
+	 * @return
+	 */
+	public static ArrayList<Visit> getPatientVisits(String username) {
+		ArrayList<Visit> list = new ArrayList<Visit>();
+		String query = "SELECT * FROM `Visit` WHERE `PatientUsername`='"+username+"'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			while(rs.next()) {
+				int visitID = rs.getInt("VisitID");
+				String docUsername = rs.getString("DocUsername");
+				String dateOfVisit = rs.getString("DateOfVisit");
+				int diastolic = rs.getInt("Diastolic");
+				int systolic = rs.getInt("Systolic");
+				int billingAmount = rs.getInt("BillingAmount");
+				
+				list.add(new Visit(visitID, docUsername, null, dateOfVisit, diastolic, systolic, billingAmount));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return list;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
+	/**
+	 * Get all of the Prescriptions of a particular visit (Using VisitID)
+	 * @param visitID
+	 * @return
+	 */
+	public static ArrayList<Prescription> getVisitPrescriptions(int visitID) {
+		ArrayList<Prescription> list = new ArrayList<Prescription>();
+		String query = "SELECT * FROM `Prescription` WHERE `VisitID`='"+visitID+"'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			while(rs.next()) {
+				int visitId = rs.getInt("VisitID");
+				String medicineName = rs.getString("MedicineName");
+				int dosage = rs.getInt("Dosage");
+				int duration = rs.getInt("Duration");
+				String notes = rs.getString("Notes");
+				String ordered = rs.getString("Ordered(Yes/No)");
+				
+				list.add(new Prescription(visitId, medicineName, dosage, duration, notes, ordered));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return list;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+
+	/**
+	 * Get everything from Doctor Using Doctor Username
+	 * Actually just returning fName, lName and roomNo
+	 * @param username
+	 * @return
+	 */
 	public static Doctor getDoctor(String username) { 
 		String query = "SELECT * FROM `Doctor` WHERE `DocUsername`='"+username+"'";
 		try {
@@ -598,12 +814,10 @@ public class DatabaseHandler {
 			String lName = "";
 			String docUsername = "";
 			int roomNo = -1;
-			//while(rs.next()) {
-				docUsername = rs.getString("DocUsername");
-				fName = rs.getString("FName");
-				lName = rs.getString("LName");
-				roomNo = rs.getInt("RoomNo");
-		//	}
+			docUsername = rs.getString("DocUsername");
+			fName = rs.getString("FName");
+			lName = rs.getString("LName");
+			roomNo = rs.getInt("RoomNo");
 			rs.close();
 			statement.close();
 			DBC.closeConnection(connection);
@@ -615,9 +829,13 @@ public class DatabaseHandler {
 		
 	}
 	
-	
 	//Change Prescription Ordered from No to Yes
 	public static void updatePrescription() { }
+	
+	
+	/**
+	 * Creating View Visit History
+	 */
 	
 	//Creating View Visit History
 	//Reuse getPatientVisits()
@@ -626,8 +844,15 @@ public class DatabaseHandler {
 	//Reuse getPrescriptionsForVisit()
 	//Reuse Get a Doctor
 	
-	//Creating Rate A Doctor
-	//Insert Into Doctor...
+
+	/**
+	 * Rate A Doctor
+	 */
+	
+	/**
+	 * Get Doctors returns all Doctors
+	 * @return
+	 */
 	public ArrayList<Doctor> getDoctors() { 
 		ArrayList<Doctor> docs = new ArrayList<Doctor>();
 		String query = "SELECT `DocUsername`, `FName`, `LName` FROM `Doctor`";
@@ -653,7 +878,6 @@ public class DatabaseHandler {
 			System.err.println("Exception: " + e.getMessage());
 		}
 		return null;
-		
 	}
 	
 	//Creating Edit Profile for Doctor and Patient
