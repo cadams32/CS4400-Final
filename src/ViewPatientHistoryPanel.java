@@ -212,10 +212,12 @@ public class ViewPatientHistoryPanel extends JPanel {
 				}
 			}
 			else if(e.getSource() == btnRecordAVisit){
-				NewVisitPanel nvp = new NewVisitPanel(parent, username);
-				parent.getContentPane().add(nvp);
-				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				cl.last(parent.getContentPane());
+				if(!textField.getText().equals("") && !textField_1.getText().equals("")){
+					NewVisitPanel nvp = new NewVisitPanel(parent, username, textField.getText(), textField_1.getText());
+					parent.getContentPane().add(nvp);
+					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+					cl.last(parent.getContentPane());
+				}
 				
 			}
 			else if(e.getSource() == btnSelect){

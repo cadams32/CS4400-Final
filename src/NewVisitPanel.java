@@ -66,6 +66,8 @@ public class NewVisitPanel extends JPanel {
 		patientNameTextField.setBounds(381, 137, 134, 28);
 		add(patientNameTextField);
 		patientNameTextField.setColumns(10);
+		patientNameTextField.setText(patientName);
+		patientNameTextField.setEditable(false);
 		
 		JLabel lblBloodPressure = new JLabel("Blood Pressure: ");
 		lblBloodPressure.setBounds(194, 183, 115, 16);
@@ -214,13 +216,18 @@ public class NewVisitPanel extends JPanel {
 				}
 				
 				Patient p = parent.getHandler().getPatient(patUsername);
+				if(p.getAnnualIncome().equals("10000-25000")){
+					billingAmount *= .8;
+				}
 				
 				parent.getHandler().addNewVisit(username, patUsername, dateOfVisit,Integer.parseInt(diastolic),Integer.parseInt(systolic), billingAmount);
 				
-				if (prescriptionList.isEmpty()) {
-					//There are no prescriptions\
-				} else {
-					//There are one or more prescriptions
+				int VID = parent.getHandler().getVisit(username, patUsername, dateOfVisit).getVisitID();
+				
+				for(Prescription presc: prescriptionList){
+					presc.setVisitID(VID);
+					parent.getHandler().addNewPrescription(presc.getVisitID(), presc.getMedicineName(),
+							presc.getDosage(), presc.getDuration(), presc.getNotes(), presc.getOrdered());
 				}
 				
 				
