@@ -31,15 +31,11 @@ public class NewVisitPanel extends JPanel {
 	private JComboBox durationDaysComboBox;
 	
 	private JTextPane textPane;
-	
-	private String visitID;
-	
+		
 	private ArrayList<Prescription> prescriptionList;
 	
 	public NewVisitPanel(MedicalFrame parent, String username) {
-		
-		this.visitID = generateVisitID();
-		
+				
 		this.parent = parent;
 		this.username = username;
 		
@@ -161,15 +157,6 @@ public class NewVisitPanel extends JPanel {
 
 	}
 	
-	/**
-	 * We need to generate a unique visitID
-	 * 
-	 * @return
-	 */
-	private String generateVisitID() {
-		return "";
-	}
-	
 	private class ButtonListener implements ActionListener {
 
 		@Override
@@ -181,13 +168,12 @@ public class NewVisitPanel extends JPanel {
 			} else if (e.getSource() == btnAddPrescription) {
 				
 				//add prescription to the list for adding to the visit
-				
+				int visitID = 0;
 				String drugName = drugNameTextField.getText();
 				int dosage = (Integer) dosageComboBox.getSelectedItem();
 				int durationDays = (Integer) durationDaysComboBox.getSelectedItem();
-				int durationMonths = (Integer) durationMonthsComboBox.getSelectedItem();
 				String notes = textPane.getText();
-				prescriptionList.add(new Prescription(visitID, drugName, dosage, durationDays, durationMonths, notes, "No"));
+				prescriptionList.add(new Prescription(visitID, drugName, dosage, durationDays, notes, "No"));
 				
 			} else if (e.getSource() == btnRecordVisit) {
 				String dateOfVisit = dateOfVisitTextField.getText();

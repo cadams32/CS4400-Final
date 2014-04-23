@@ -2,29 +2,27 @@ package Backend;
 
 public class Prescription {
 	
-	private String visitID;
+	private int visitID;
 	private String medicineName;
 	private int dosage;
-	private int durationDays;
-	private int durationMonths;
+	private int duration;
 	private String notes;
 	private String ordered;
 	
-	public Prescription(String visitID, String medicineName, int dosage, int durationDays, int durationMonths, String notes, String ordered) {
-		this.visitID = visitID;
-		this.medicineName = medicineName;
-		this.dosage = dosage;
-		this.durationDays = durationDays;
-		this.durationMonths = durationMonths;
-		this.notes = notes;
-		this.ordered = ordered;
+	public Prescription(int visitID, String medicineName, int dosage, int duration, String notes, String ordered) {
+		this.setVisitID(visitID);
+		this.setMedicineName(medicineName);
+		this.setDosage(dosage);
+		this.setDuration(duration);
+		this.setNotes(notes);
+		this.setOrdered(ordered);
 	}
-	
-	public String getVisitID() {
+
+	public int getVisitID() {
 		return visitID;
 	}
 
-	public void setVisitID(String visitID) {
+	public void setVisitID(int visitID) {
 		this.visitID = visitID;
 	}
 
@@ -44,20 +42,12 @@ public class Prescription {
 		this.dosage = dosage;
 	}
 
-	public int getDurationDays() {
-		return durationDays;
+	public int getDuration() {
+		return duration;
 	}
 
-	public void setDurationDays(int durationDays) {
-		this.durationDays = durationDays;
-	}
-
-	public int getDurationMonths() {
-		return durationMonths;
-	}
-
-	public void setDurationMonths(int durationMonths) {
-		this.durationMonths = durationMonths;
+	public void setDuration(int duration) {
+		this.duration = duration;
 	}
 
 	public String getNotes() {
@@ -75,5 +65,5 @@ public class Prescription {
 	public void setOrdered(String ordered) {
 		this.ordered = ordered;
 	}
-
+	
 }

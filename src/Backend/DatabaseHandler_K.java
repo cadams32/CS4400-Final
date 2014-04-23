@@ -620,7 +620,7 @@ public class DatabaseHandler_K {
 	//get the Visits of a Patient
 	public static ArrayList<Visit> getPatientVisits(String username) {
 		ArrayList<Visit> list = new ArrayList<Visit>();
-		String query = "SELECT * FROM `Doctor_Available` WHERE `PatientUsername`='"+username+"'";
+		String query = "SELECT * FROM `Visit` WHERE `PatientUsername`='"+username+"'";
 		
 		try {
 			connection = DBC.createConnection();
@@ -629,13 +629,12 @@ public class DatabaseHandler_K {
 			while(rs.next()) {
 				int visitID = rs.getInt("VisitID");
 				String docUsername = rs.getString("DocUsername");
-				String patUsername = rs.getString("PatientUsername");
 				String dateOfVisit = rs.getString("DateOfVisit");
 				int diastolic = rs.getInt("Diastolic");
 				int systolic = rs.getInt("Systolic");
 				int billingAmount = rs.getInt("BillingAmount");
 				
-				list.add(new Visit(visitID, docUsername, patUsername, dateOfVisit, diastolic, systolic, billingAmount));
+				list.add(new Visit(visitID, docUsername, null, dateOfVisit, diastolic, systolic, billingAmount));
 			}
 			rs.close();
 			statement.close();
@@ -648,7 +647,54 @@ public class DatabaseHandler_K {
 	}
 	
 	//get Prescriptions for a Visit (not Ordered)
-	public static ArrayList<Prescription> getVisitPrescriptions(int visitID) { return null; }
+	public static ArrayList<Prescription> getVisitPrescriptions(int visitID) {
+		ArrayList<Prescription> list = new ArrayList<Prescription>();
+		String query = "SELECT * FROM `Prescription` WHERE `VisitID`='"+visitID+"'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			while(rs.next()) {
+				int visitId = rs.getInt("VisitID");
+				String medicineName = rs.getString("MedicineName");
+				int dosage = rs.getInt("Dosage");
+				int duration = rs.getInt("Duration");
+				String notes = rs.getString("Notes");
+				String ordered = rs.getString("Ordered(Yes/No)");
+				
+				list.add(new Prescription(visitId, medicineName, dosage, duration, notes, ordered));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return list;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
+	public static int getVisitID(String patUsername) {
+		String query = "SELECT * FROM `Visit` WHERE `PatientUsername`='"+patUsername+"'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			
+			int visitId = rs.getInt("VisitID");
+			
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return visitId;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return -1;
+	}
+	
 	//Get a Doctor
 	public static Doctor getDoctor(String username) { return null; }
 	//Change Prescription Ordered from No to Yes
