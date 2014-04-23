@@ -1210,4 +1210,19 @@ public class DatabaseHandler {
 		}
 	}
 	
+	public static boolean updatePatientAllergies(String patUsername, String Allergy) {
+		String query = "UPDATE `cs4400_Group_37`.`Patient_Allergies` SET `Allergy` = '" + Allergy + "' WHERE `PatientUsername` = '" + patUsername + "'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
 }
