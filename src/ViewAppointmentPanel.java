@@ -30,6 +30,7 @@ public class ViewAppointmentPanel extends JPanel {
 		
 		this.parent = parent;
 		this.username = username;
+		ButtonListener listener = new ButtonListener();
 		
 		setLayout(new MigLayout("", "[279.00][67.00][145.00][279.00,grow][177.00]", "[100.00,grow][100.00,grow][400.00,grow][]"));
 		
@@ -56,6 +57,7 @@ public class ViewAppointmentPanel extends JPanel {
 		*/
 		btnSearch = new JButton("Search");
 		panel_1.add(btnSearch, "cell 2 1");
+		btnSearch.addActionListener(listener);
 		
 		JPanel panel_2 = new JPanel();
 		add(panel_2, "cell 0 2 5 1,grow");
@@ -68,9 +70,11 @@ public class ViewAppointmentPanel extends JPanel {
 		
 		btnRequestAppointment = new JButton("Request Appointment");
 		add(btnRequestAppointment, "cell 2 3");
+		btnRequestAppointment.addActionListener(listener);
 		
 		btnBack = new JButton("Back");
 		add(btnBack, "cell 3 3");
+		btnBack.addActionListener(listener);
 
 	}
 	

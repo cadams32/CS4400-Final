@@ -30,6 +30,7 @@ public class SurgeryPanel extends JPanel {
 		
 		this.parent = parent;
 		this.username = username;
+		ButtonListener listener = new ButtonListener();
 		
 		setLayout(new MigLayout("", "[grow]", "[100.00][450.00,grow][50.00,grow]"));
 		
@@ -138,9 +139,11 @@ public class SurgeryPanel extends JPanel {
 		
 		btnRecord = new JButton("Record");
 		panel_1.add(btnRecord, "cell 1 0");
+		btnRecord.addActionListener(listener);
 		
 		btnBack = new JButton("Back");
 		panel_1.add(btnBack, "cell 3 0");
+		btnBack.addActionListener(listener);
 
 	}
 	

@@ -667,6 +667,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		btnBack = new JButton("Back");
 		btnBack.setBounds(891, 562, 97, 25);
 		add(btnBack);
+		btnBack.addActionListener(listener);
 		
 		labels.add(label_01);
 		labels.add(label_2);

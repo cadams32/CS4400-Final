@@ -41,6 +41,7 @@ public class PatientEditProfilePanel extends JPanel {
 		
 		this.parent = parent;
 		this.username = username;
+		ButtonListener listener = new ButtonListener();
 		
 		setBackground(SystemColor.textHighlight);
 		setLayout(null);
@@ -140,14 +141,17 @@ public class PatientEditProfilePanel extends JPanel {
 		btnAddAllergy = new JButton("Add Allergy");
 		btnAddAllergy.setBounds(605, 453, 117, 29);
 		add(btnAddAllergy);
+		btnAddAllergy.addActionListener(listener);
 		
 		btnDone = new JButton("Done");
-		btnDone.setBounds(849, 547, 117, 29);
+		btnDone.setBounds(848, 510, 117, 29);
 		add(btnDone);
+		btnDone.addActionListener(listener);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(41, 547, 117, 29);
+		btnBack.setBounds(41, 510, 117, 29);
 		add(btnBack);
+		btnBack.addActionListener(listener);
 
 	}
 	

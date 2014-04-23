@@ -1,3 +1,7 @@
+import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
@@ -22,6 +26,7 @@ public class ViewPatientHistoryPanel extends JPanel {
 	
 	private MedicalFrame parent;
 	private String username;
+	JButton btnBack, btnSearch, btnView, btnRecordAVisit;
 
 	/**
 	 * Create the panel.
@@ -30,6 +35,7 @@ public class ViewPatientHistoryPanel extends JPanel {
 		
 		this.parent = parent;
 		this.username = username;
+		ButtonListener listener = new ButtonListener();
 		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
@@ -55,8 +61,9 @@ public class ViewPatientHistoryPanel extends JPanel {
 		panel_1.add(textField_1, "cell 5 0,growx");
 		textField_1.setColumns(10);
 		
-		JButton btnSearch = new JButton("Search");
+		btnSearch = new JButton("Search");
 		panel_1.add(btnSearch, "cell 7 0");
+		btnSearch.addActionListener(listener);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane, "cell 1 1 2 1,grow");
@@ -66,11 +73,13 @@ public class ViewPatientHistoryPanel extends JPanel {
 		table = new JTable(data, colNames);
 		scrollPane.setViewportView(table);
 		
-		JButton btnView = new JButton("View");
+		btnView = new JButton("View");
 		panel_1.add(btnView, "cell 3 1,alignx right");
+		btnView.addActionListener(listener);
 		
-		JButton btnRecordAVisit = new JButton("Record a visit");
+		btnRecordAVisit = new JButton("Record a visit");
 		panel_1.add(btnRecordAVisit, "cell 4 1 2 1");
+		btnRecordAVisit.addActionListener(listener);
 		
 		JLabel lblDatesOfVisits = new JLabel("Dates of Visits");
 		panel_1.add(lblDatesOfVisits, "cell 1 2");
@@ -129,9 +138,21 @@ public class ViewPatientHistoryPanel extends JPanel {
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[][]", "[]"));
 		
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
 		panel_2.add(btnBack, "cell 1 0");
+		btnBack.addActionListener(listener);
+		
 
 	}
-
+	private class ButtonListener implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == btnBack) {
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
+			}
+		}
+	}
 }
