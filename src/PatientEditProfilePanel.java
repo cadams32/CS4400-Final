@@ -41,7 +41,8 @@ public class PatientEditProfilePanel extends JPanel {
 	
 	private JList list;
 	private DefaultListModel model;
-	
+
+	private Object[] listData = {"Nothing"};
 	private ArrayList<String> allergyList;
 
 	/**
@@ -76,7 +77,7 @@ public class PatientEditProfilePanel extends JPanel {
 		dateOfBirthTextField.setColumns(10);
 		
 		JLabel lblGender = new JLabel("Gender");
-		lblGender.setBounds(147, 132, 44, 16);
+		lblGender.setBounds(138, 129, 42, 16);
 		add(lblGender);
 		
 		String[] genderOption = {"Male", "Female"};
@@ -85,7 +86,7 @@ public class PatientEditProfilePanel extends JPanel {
 		add(genderComboBox);
 		
 		JLabel lblAddress = new JLabel("Address");
-		lblAddress.setBounds(140, 165, 51, 16);
+		lblAddress.setBounds(132, 165, 51, 16);
 		add(lblAddress);
 		
 		addressTextField = new JTextField();
@@ -112,43 +113,43 @@ public class PatientEditProfilePanel extends JPanel {
 		workPhoneTextField.setColumns(10);
 		
 		JLabel lblWeight = new JLabel("Weight");
-		lblWeight.setBounds(151, 320, 43, 16);
+		lblWeight.setBounds(138, 330, 43, 16);
 		add(lblWeight);
 		
 		weightTextField = new JTextField();
-		weightTextField.setBounds(198, 314, 134, 28);
+		weightTextField.setBounds(195, 324, 134, 28);
 		add(weightTextField);
 		weightTextField.setColumns(10);
 		
 		JLabel lblHeight = new JLabel("Height");
-		lblHeight.setBounds(152, 352, 42, 16);
+		lblHeight.setBounds(138, 359, 42, 16);
 		add(lblHeight);
 		
 		heightTextField = new JTextField();
-		heightTextField.setBounds(198, 346, 134, 28);
+		heightTextField.setBounds(195, 353, 134, 28);
 		add(heightTextField);
 		heightTextField.setColumns(10);
 		
 		JLabel lblAnnualIncome = new JLabel("Annual Income ($)");
-		lblAnnualIncome.setBounds(80, 378, 114, 16);
+		lblAnnualIncome.setBounds(77, 386, 114, 16);
 		add(lblAnnualIncome);
 		
 		JLabel lblAllergies = new JLabel("Allergies");
-		lblAllergies.setBounds(139, 404, 55, 16);
+		lblAllergies.setBounds(132, 425, 55, 16);
 		add(lblAllergies);
 		
 		allergiesTxtField = new JTextField();
-		allergiesTxtField.setBounds(198, 398, 134, 28);
+		allergiesTxtField.setBounds(198, 419, 134, 28);
 		add(allergiesTxtField);
 		allergiesTxtField.setColumns(10);
 		
 		btnAddAllergy = new JButton("+");
-		btnAddAllergy.setBounds(336, 399, 75, 29);
+		btnAddAllergy.setBounds(342, 419, 75, 29);
 		btnAddAllergy.addActionListener(listener);
 		add(btnAddAllergy);
 		
 		btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(512, 385, 88, 29);
+		btnSubmit.setBounds(577, 509, 88, 29);
 		btnSubmit.addActionListener(listener);
 		add(btnSubmit);
 		
@@ -158,11 +159,11 @@ public class PatientEditProfilePanel extends JPanel {
 		
 		String[] annualIncomeBox = {"10000-25000", "25000-50000", "50000-75000", "75000-100000", "100000-150000", "1500000-200000", "More than 200000"};
 		annualIncomeComboBox = new JComboBox(annualIncomeBox);
-		annualIncomeComboBox.setBounds(198, 374, 150, 27);
+		annualIncomeComboBox.setBounds(195, 385, 150, 27);
 		add(annualIncomeComboBox);
 		
 		JLabel lblEmergencyContact = new JLabel("Emergency Contact Name");
-		lblEmergencyContact.setBounds(25, 261, 178, 16);
+		lblEmergencyContact.setBounds(46, 261, 134, 16);
 		add(lblEmergencyContact);
 		
 		eContactNameTxtField = new JTextField();
@@ -171,12 +172,12 @@ public class PatientEditProfilePanel extends JPanel {
 		eContactNameTxtField.setColumns(10);
 		
 		JLabel eContactPhonelbl = new JLabel("Emergency Contact Phone");
-		eContactPhonelbl.setBounds(25, 292, 188, 16);
+		eContactPhonelbl.setBounds(46, 293, 134, 16);
 		add(eContactPhonelbl);
 		
 		eContactPhoneTxtField = new JTextField();
 		eContactPhoneTxtField.setColumns(10);
-		eContactPhoneTxtField.setBounds(195, 286, 145, 28);
+		eContactPhoneTxtField.setBounds(195, 287, 145, 28);
 		add(eContactPhoneTxtField);	
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -188,7 +189,7 @@ public class PatientEditProfilePanel extends JPanel {
 		scrollPane.setViewportView(list);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(41, 547, 117, 29);
+		btnBack.setBounds(39, 509, 117, 29);
 		add(btnBack);
 	}
 	
@@ -217,13 +218,13 @@ public class PatientEditProfilePanel extends JPanel {
 				int height = Integer.parseInt(heightTextField.getText());
 				String annualIncome = (String) annualIncomeComboBox.getSelectedItem();
 				
-				/*if(parent.getHandler().updatePatientProfile(username, name, DOB, gender, address, 
+				if(parent.getHandler().updatePatientProfile(username, name, DOB, gender, address, 
 						workPhone, homePhone, eContactName, eContactPhone, weight, height, annualIncome)) {
 					
 					if(!allergyList.isEmpty()) {
 						for(String s : allergyList) {
 							System.out.println(s);
-							parent.getHandler().updatePatientAllergies(username, s);
+							parent.getHandler().addNewPatientAllergy(username, s);
 						}
 					}
 					
@@ -232,11 +233,11 @@ public class PatientEditProfilePanel extends JPanel {
 					PatientHomePanel php = new PatientHomePanel(parent, username);
 					parent.getContentPane().add(php);
 					cl.last(parent.getContentPane());
-				}*/
+				}
 				
 			} else if (e.getSource() == btnAddAllergy) {
-				allergyList.add(allergyTextField.getText());
-				model.addElement(allergyTextField.getText());
+				allergyList.add(allergiesTxtField.getText());
+				model.addElement(allergiesTxtField.getText());
 				list = new JList(model);
 			}
 			
