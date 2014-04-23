@@ -105,6 +105,11 @@ public class DoctorHomePanel extends JPanel {
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 				cl.next(parent.getContentPane());
 				
+			} else if (e.getSource() == btnViewMessages) {
+				InboxPanel ip = new InboxPanel(parent, username);
+				parent.getContentPane().add(ip);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 			}
 		}
 		
