@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Backend.Doctor;
 import Backend.Message;
 
 
@@ -66,13 +67,24 @@ public class InboxPanel extends JPanel {
 		panel_2.add(btnBack, "cell 1 0");
 		btnBack.addActionListener(listener);
 		
+		ArrayList<Doctor> docs;
+		
 		messages = new ArrayList<Message>();
 		if(parent.getHandler().doesPatientExist(username)) {
 			messages = parent.getHandler().getSendsMessageToPat(username);
+			ArrayList<String> senderNames = new ArrayList<String>();
+			Object[] insert = new Object[4];
 			for(Message m : messages) {
-				
+				Doctor doc = parent.getHandler().getDoctor(m.getSender());
+				senderNames.add("Dr. " + doc.getfName() + " " + doc.getlName());
+				insert[0] = m.getStatus();
+				insert[1] = m.getTime();
+				insert[2] = "Dr. " + doc.getfName() + " " + doc.getlName();
+				insert[3] = m.getMessage();
+				model.addRow(insert);
 			}
-			
+			model.fireTableDataChanged();
+
 		} else if (parent.getHandler().doesDoctorExist(username)){
 			
 		}

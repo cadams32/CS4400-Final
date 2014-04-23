@@ -12,8 +12,8 @@ public class Message {
 		this.setMessage(message);
 		this.setSender(sender);
 		this.setReceiver(receiver);
-		this.time = time;
-		this.status = status;
+		this.setTime(time);
+		this.setStatus(status);
 	}
 
 	public String getMessage() {
@@ -38,6 +38,22 @@ public class Message {
 
 	public void setReceiver(String receiver) {
 		this.receiver = receiver;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

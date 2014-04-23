@@ -1192,7 +1192,7 @@ public class DatabaseHandler {
 		
 		String query = "UPDATE `cs4400_Group_37`.`Patient` SET `Name` = '" + patName + "', `DOB` = '" + dob + "', `Gender` = '" + gender + 
 			"', `Address` = '" + address + "', `WorkPhone` = '" + workPhone + "', `HomePhone` = '" + homePhone + 
-			"', `EContactName` = '" + EContactName + "', `EContactPhone` = '" + EContactPhone + "' " +
+			"', `EContactName` = '" + EContactName + "', `EContactPhone` = '" + EContactPhone +
 			"', `Weight` = '" + weight + "', `Height` = '" + height + "', `AnnualIncome` = '" + annualInc +
 			"' WHERE `PatientUsername` = '" + patUsername + "'";
 
