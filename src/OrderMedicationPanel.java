@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -27,15 +28,18 @@ public class OrderMedicationPanel extends JPanel {
 	private String username;
 	
 	private JButton btnAddToCart, btnCheckout, btnBack;
-	private JComboBox boxDosage, boxDurationMonths, boxDurationDays;
+	private JComboBox boxDosage, boxDurationMonths, boxDurationDays, dateOfVisitcomboBox;
 	private ArrayList<Prescription> cart;
 	private ArrayList<Visit> visits;
+	private ArrayList<String> dates;
 	
 	private JButton btnSelectDate;
 	private JButton btnSelect;
 	
 	private JList medList;
 	private JList cartList;
+	
+	private DefaultListModel model;
 	
 	String[] dosage = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 	String[] durationMonths = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
@@ -144,10 +148,6 @@ public class OrderMedicationPanel extends JPanel {
 		lblDateOfVisit.setBounds(193, 24, 99, 16);
 		panel_1.add(lblDateOfVisit);
 		
-		JComboBox dateOfVisitcomboBox = new JComboBox();
-		dateOfVisitcomboBox.setBounds(284, 20, 165, 27);
-		panel_1.add(dateOfVisitcomboBox);
-		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(612, 76, 152, 166);
 		panel_1.add(scrollPane_1);
@@ -155,13 +155,7 @@ public class OrderMedicationPanel extends JPanel {
 		JLabel lblCart = new JLabel("Cart");
 		lblCart.setBounds(669, 53, 31, 16);
 		panel_1.add(lblCart);
-		
-		cartList = new JList();
-		scrollPane_1.setViewportView(cartList);
-		
-		medList = new JList();
-		scrollPane.setViewportView(medList);	
-		
+
 		btnSelectDate = new JButton("Select Date");
 		btnSelectDate.setBounds(461, 19, 117, 29);
 		panel_1.add(btnSelectDate);
@@ -187,16 +181,35 @@ public class OrderMedicationPanel extends JPanel {
 		panel_2.add(btnBack);
 		btnBack.addActionListener(listener);
 
+		//Get all visits
+		visits = parent.getHandler().getPatientVisits(username);
+		//Fill String of dates
+		dates = new ArrayList<String>();
+		for(Visit v : visits) {
+			dates.add(v.getDateOfVisit());
+		}
+
+		dateOfVisitcomboBox = new JComboBox(dates.toArray());
+		dateOfVisitcomboBox.setBounds(284, 20, 165, 27);
+		panel_1.add(dateOfVisitcomboBox);
+
+		model = new DefaultListModel();
+		
+		cartList = new JList();
+		scrollPane_1.setViewportView(cartList);
+		
+		medList = new JList();
+		scrollPane.setViewportView(medList);	
 	}
 
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == btnAddToCart){
+			if(e.getSource() == btnSelectDate){
 				
 				
 			}
-			else if(e.getSource() == btnCheckout){
+			else if(e.getSource() == btnSelect){
 				//Need to send the whole cart to DB here
 				
 				
@@ -206,6 +219,12 @@ public class OrderMedicationPanel extends JPanel {
 				parent.getContentPane().add(pip);
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 				cl.next(parent.getContentPane());
+			}
+			else if (e.getSource() == btnAddToCart) {
+				
+			} 
+			else if (e.getSource() == btnCheckout) {
+				
 			}
 			else if(e.getSource() == btnBack){
 				//Go Back

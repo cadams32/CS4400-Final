@@ -14,6 +14,7 @@ public class Patient extends User{
 	private String height;
 	//Annual Income
 	private String cardNumber;
+	private String annualIncome;
 	
 	public Patient(String username, String password, String type) {
 		super(username, password, "Patient");
@@ -22,6 +23,12 @@ public class Patient extends User{
 	public Patient(String username, String name) {
 		super(username, "", "Patient");
 		this.name = name;
+	}
+	
+	public Patient(String username, String name, String annualIncome, String type) {
+		super(username, "", type);
+		this.name = name;
+		this.annualIncome = annualIncome;
 	}
 	
 	public Patient(String username, String password, String name, String dob, String gender, String address, String workphone, String homephone, String emerContactName, String emerContactPhone, String weight, String height) {
@@ -124,6 +131,14 @@ public class Patient extends User{
 
 	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
+	}
+
+	public String getAnnualIncome() {
+		return annualIncome;
+	}
+
+	public void setAnnualIncome(String annualIncome) {
+		this.annualIncome = annualIncome;
 	}
 	
 	

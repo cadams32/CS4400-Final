@@ -908,11 +908,6 @@ public class DatabaseHandler {
 		return null;
 	}
 	
-	//Creating Edit Profile for Doctor and Patient
-	public static void updatePatientProfile() { }
-	
-	public static void updateDoctorProfile() { }
-	
 	//Creating AppointmentCalendar
 	//get all appointments of a doctor
 	public ArrayList<Appointment> getAppointmentsForDoctor(String username) { 
@@ -973,19 +968,21 @@ public class DatabaseHandler {
 	 * @return
 	 */
 	public static Patient getPatient(String username) { 
-		String query = "SELECT `Name` FROM `Patient` WHERE `PatientUsername`='"+username+"'";
+		String query = "SELECT `Name`, `AnnualIncome` FROM `Patient` WHERE `PatientUsername`='"+username+"'";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
 			String name = "";
+			String ai = "";
 			while(rs.next()) {
 				name = rs.getString("Name");
+				ai = rs.getString("AnnualIncome");
 			}
 			rs.close();
 			statement.close();
 			DBC.closeConnection(connection);
-			return new Patient(username, name);
+			return new Patient(username, name, ai, "Patient");
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
 		}
