@@ -1,8 +1,10 @@
 package Backend;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 
 
@@ -913,9 +915,82 @@ public class DatabaseHandler {
 	
 	//Creating AppointmentCalendar
 	//get all appointments of a doctor
-	public static ArrayList<Appointment> getAppointmentsForDoctor(String docUsername) { return null; }
-	//get a specific patient
-	public static Patient getPatient(String patUsername) { return null; }
+	public ArrayList<Appointment> getAppointmentsForDoctor(String username) { 
+		ArrayList<Appointment> appts = new ArrayList<Appointment>();
+		String query = "SELECT * FROM `Appointment` WHERE `DocUsername`='"+username+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String docUsername = ""; 
+			String patUsername = "";
+			Date date;
+			Time time;
+			while(rs.next()) {
+				docUsername = rs.getString("DocUsername");
+				patUsername = rs.getString("PatientUsername");
+				date = rs.getDate("Date");
+				time = rs.getTime("Time");
+				appts.add(new Appointment(docUsername, patUsername, date, time));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return appts;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
+	public ArrayList<Appointment> getAppointmentsForDoctorByDate(String username, Date date) {
+		ArrayList<Appointment> appts = new ArrayList<Appointment>();
+		String query = "SELECT * FROM `Appointment` WHERE `DocUsername`='"+username+"' AND `Date`='"+date+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String patUsername = "";
+			Time time;
+			while(rs.next()) {
+				patUsername = rs.getString("PatientUsername");
+				time = rs.getTime("Time");
+				appts.add(new Appointment(username, patUsername, date, time));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return appts;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
+	/**
+	 * Just returns the name at them moment modify it to return whatever you want
+	 * @param username
+	 * @return
+	 */
+	public static Patient getPatient(String username) { 
+		String query = "SELECT `Name` FROM `Patient` WHERE `PatientUsername`='"+username+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String name = "";
+			while(rs.next()) {
+				name = rs.getString("Name");
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return new Patient(username, name);
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
 	
 	//Patient Visit History
 	//get a Patient based on name and homePhone? (May need to return a list)

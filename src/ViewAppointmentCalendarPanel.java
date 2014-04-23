@@ -15,7 +15,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+
+import Backend.Appointment;
+
 import java.awt.SystemColor;
+import java.sql.Date;
+import java.util.ArrayList;
 
 
 public class ViewAppointmentCalendarPanel extends JPanel {
@@ -27,6 +32,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 	private JComboBox monthComboBox;
 	private JComboBox yearComboBox;
 	
+	private ArrayList<JLabel> labels;
 	private JLabel label_01;
 	private JLabel label_2;
 	private JLabel label_3;
@@ -59,6 +65,8 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 	private JLabel label_30;
 	private JLabel label_31;
 	
+	private ArrayList<Appointment> apptList;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -76,6 +84,8 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		panel.setBounds(142, 177, 90, 90);
 		add(panel);
 		panel.setLayout(null);
+		
+		labels = new ArrayList<JLabel>();
 		
 		label_8 = new JLabel("");
 		label_8.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -657,24 +667,80 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		btnBack = new JButton("Back");
 		btnBack.setBounds(891, 562, 97, 25);
 		add(btnBack);
+		
+		labels.add(label_01);
+		labels.add(label_2);
+		labels.add(label_3);
+		labels.add(label_3);
+		labels.add(label_4);
+		labels.add(label_5);
+		labels.add(label_6);
+		labels.add(label_7);
+		labels.add(label_8);
+		labels.add(label_9);
+		labels.add(label_10);
+		labels.add(label_11);
+		labels.add(label_12);
+		labels.add(label_13);
+		labels.add(label_14);
+		labels.add(label_15);
+		labels.add(label_16);
+		labels.add(label_17);
+		labels.add(label_18);
+		labels.add(label_19);
+		labels.add(label_20);
+		labels.add(label_21);
+		labels.add(label_22);
+		labels.add(label_23);
+		labels.add(label_24);
+		labels.add(label_25);
+		labels.add(label_26);
+		labels.add(label_27);
+		labels.add(label_28);
+		labels.add(label_29);
+		labels.add(label_30);
+		labels.add(label_31);
+		
 	}
 	
 	private class ButtonListener implements ActionListener {
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnGo) {
-				if(dayComboBox.getSelectedItem().equals("-")) {
+				if(!dayComboBox.getSelectedItem().equals("-")) {
 					ViewAppointmentDatePanel vadp = new ViewAppointmentDatePanel(parent, username, Integer.parseInt((String) dayComboBox.getSelectedItem()),
 							(String) monthComboBox.getSelectedItem(), Integer.parseInt((String) yearComboBox.getSelectedItem()));
 					parent.getContentPane().add(vadp);
 					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 					cl.next(parent.getContentPane());
 				} else {
-					
-					
-					
-					
+					//Reset All labels
+					for(JLabel l : labels) {
+						l.setText("");
+					}
+					//Get the entire list of Appointments for this particular Doctor
+					apptList = parent.getHandler().getAppointmentsForDoctor(username);
+					ArrayList<Date> dateList = new ArrayList<Date>();
+					int monthIndex = monthComboBox.getSelectedIndex();
+					Object years = yearComboBox.getSelectedItem();
+					int[] noVisits = new int[31];
+					//Get the Number of Appointments for the selected Month and Year
+					for(Appointment a : apptList) {
+						int year = a.getDate().getYear()+1900;
+						int month = a.getDate().getMonth();
+						if(month == monthIndex && year == Integer.parseInt(years.toString())) {
+							noVisits[a.getDate().getDate()]++;
+							dateList.add(a.getDate());
+						}
+					}
+					//Update the label for each affected date
+					for(Date d : dateList) {
+						Integer i = noVisits[d.getDate()];
+						labels.get(d.getDate()).setText(i.toString());
+					}
+
 				}
 			}
 			else if(e.getSource() == btnBack){
