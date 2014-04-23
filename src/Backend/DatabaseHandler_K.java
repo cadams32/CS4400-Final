@@ -711,13 +711,13 @@ public class DatabaseHandler_K {
 	//Insert Into Doctor...
 	
 	//Creating Edit Profile for Doctor and Patient
-	public static void updatePatientProfile(String patUsername, String patName, String dob, String gender, String address,
-			String workPhone, String homePhone, String EContactName, String EContactPhone, int weight, int height, String annualInc, String cardNo) {
+	public static boolean updatePatientProfile(String patUsername, String patName, String dob, String gender, String address,
+			String workPhone, String homePhone, String EContactName, String EContactPhone, int weight, int height, String annualInc) {
 		
-		String query = "UPDATE `cs4400_Group_37`.`Patient` SET `PatientUsername` = '" + patUsername + "', `Name` = '" + patName + 
-			"', `DOB` = '" + dob + "', `Gender` = '" + gender + "', `Address` = '" + address + "', `WorkPhone` = '" + workPhone + 
-			"', `HomePhone` = '" + homePhone + "', `EContactName` = '" + EContactName + "', `EContactPhone` = '" + EContactPhone +
-			"', `Weight` = '" + weight + "', `Height` = '" + height + "', `AnnualIncome` = '" + annualInc + "', `CardNo` = '" + cardNo +
+		String query = "UPDATE `cs4400_Group_37`.`Patient` SET `Name` = '" + patName + "', `DOB` = '" + dob + "', `Gender` = '" + gender + 
+			"', `Address` = '" + address + "', `WorkPhone` = '" + workPhone + "', `HomePhone` = '" + homePhone + 
+			"', `EContactName` = '" + EContactName + "', `EContactPhone` = '" + EContactPhone + "' " +
+			"', `Weight` = '" + weight + "', `Height` = '" + height + "', `AnnualIncome` = '" + annualInc +
 			"' WHERE `PatientUsername` = '" + patUsername + "'";
 
 		try {
@@ -726,17 +726,19 @@ public class DatabaseHandler_K {
 			statement.executeUpdate(query);
 			statement.close();
 			DBC.closeConnection(connection);
+			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
 		}
+		return false;
 	}
 	
-	public static void updateDoctorProfile(String docUsername, String licenseNo, String Fname, String Lname ,String dob, 
+	public static boolean updateDoctorProfile(String docUsername, String licenseNo, String Fname, String Lname ,String dob, 
 			String workPhone, String homeAddress, String specialty, int roomNo) {
 		
-		String query = "UPDATE `cs4400_Group_37`.`Doctor` SET `DocUsername` = '" + docUsername + "', `LicenseNo` = '" + licenseNo + 
-			"', `Fname` = '" + Fname + "', `Lname` = '" + Lname + "', `DOB` = '" + dob + "', `WorkPhone` = '" + workPhone + 
-			"', `HomeAdress` = '" + homeAddress + "', `Specialty` = '" + specialty + "', `RoomNo` = '" + roomNo + 
+		String query = "UPDATE `cs4400_Group_37`.`Doctor` SET `LicenseNo` = '" + licenseNo + "', `Fname` = '" + Fname + 
+			"', `Lname` = '" + Lname + "', `DOB` = '" + dob + "', `WorkPhone` = '" + workPhone + 
+			"', `HomeAddress` = '" + homeAddress + "', `Specialty` = '" + specialty + "', `RoomNo` = '" + roomNo + 
 			"' WHERE `DocUsername` = '" + docUsername + "'";
 		
 		try {
@@ -745,9 +747,27 @@ public class DatabaseHandler_K {
 			statement.executeUpdate(query);
 			statement.close();
 			DBC.closeConnection(connection);
+			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
 		}
+		return false;
+	}
+	
+	public static boolean updatePatientAllergies(String patUsername, String Allergy) {
+		String query = "UPDATE `cs4400_Group_37`.`Patient_Allergies` SET `Allergy` = '" + Allergy + "' WHERE `PatientUsername` = '" + patUsername + "'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
 	}
 	
 	//Creating AppointmentCalendar
