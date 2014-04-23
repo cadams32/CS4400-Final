@@ -11,7 +11,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+
+import Backend.Patient;
 import Backend.Prescription;
+import Backend.Visit;
 
 public class NewVisitPanel extends JPanel {
 	
@@ -35,8 +38,9 @@ public class NewVisitPanel extends JPanel {
 	private JTextPane textPane;
 		
 	private ArrayList<Prescription> prescriptionList;
+	String patientName, patientHomePhone;
 	
-	public NewVisitPanel(MedicalFrame parent, String username) {
+	public NewVisitPanel(MedicalFrame parent, String username, String patientName, String patientHomePhone) {
 				
 		this.parent = parent;
 		this.username = username;
@@ -110,15 +114,19 @@ public class NewVisitPanel extends JPanel {
 		lblDuration.setBounds(153, 352, 79, 16);
 		add(lblDuration);
 		
-		durationMonthsComboBox = new JComboBox();
+		String[] months = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+		durationMonthsComboBox = new JComboBox(months);
 		durationMonthsComboBox.setBounds(232, 348, 52, 27);
 		add(durationMonthsComboBox);
 		
-		dosageComboBox = new JComboBox();
+		String[] dosage = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+		dosageComboBox = new JComboBox(dosage);
 		dosageComboBox.setBounds(232, 309, 52, 27);
 		add(dosageComboBox);
 		
-		durationDaysComboBox = new JComboBox();
+		String[] days = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
+				"16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
+		durationDaysComboBox = new JComboBox(days);
 		durationDaysComboBox.setBounds(363, 348, 52, 27);
 		add(durationDaysComboBox);
 		
@@ -174,7 +182,8 @@ public class NewVisitPanel extends JPanel {
 				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
 				cl.last(parent.getContentPane());
 				
-			} else if (e.getSource() == btnAddPrescription) {
+			}
+			else if (e.getSource() == btnAddPrescription) {
 				
 				//add prescription to the list for adding to the visit
 				int visitID = 0;
@@ -184,17 +193,32 @@ public class NewVisitPanel extends JPanel {
 				String notes = textPane.getText();
 				prescriptionList.add(new Prescription(visitID, drugName, dosage, durationDays, notes, "No"));
 				
-			} else if (e.getSource() == btnRecordVisit) {
+			}
+			else if (e.getSource() == btnRecordVisit) {
 				String dateOfVisit = dateOfVisitTextField.getText();
 				String patientName = patientNameTextField.getText();
 				String systolic = systolicTextField.getText();
 				String diastolic = diastolicTextField.getText();
 				String notes = textPane.getText();
+				int billingAmount = 0;
 				
 				//ADD VISIT TO DATABASE
+				String patUsername = parent.getHandler().getPatientUsername(patientName, patientHomePhone);
+				//Check to see if it's the patient's first visit
+				ArrayList<Visit> vl = parent.getHandler().getPatientVisits(patUsername);
+				if(vl.size() > 0){
+					billingAmount = 150;
+				}
+				else{
+					billingAmount = 200;
+				}
+				
+				Patient p = parent.getHandler().getPatient(patUsername);
+				
+				parent.getHandler().addNewVisit(username, patUsername, dateOfVisit,Integer.parseInt(diastolic),Integer.parseInt(systolic), billingAmount);
 				
 				if (prescriptionList.isEmpty()) {
-					//There are no prescriptions
+					//There are no prescriptions\
 				} else {
 					//There are one or more prescriptions
 				}
