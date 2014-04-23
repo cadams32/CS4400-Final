@@ -771,7 +771,7 @@ public class DatabaseHandler {
 	 * @param visitID
 	 * @return
 	 */
-	public static ArrayList<Prescription> getVisitPrescriptions(int visitID) {
+	public ArrayList<Prescription> getVisitPrescriptions(int visitID) {
 		ArrayList<Prescription> list = new ArrayList<Prescription>();
 		String query = "SELECT * FROM `Prescription` WHERE `VisitID`='"+visitID+"'";
 		
@@ -793,6 +793,36 @@ public class DatabaseHandler {
 			statement.close();
 			DBC.closeConnection(connection);
 			return list;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
+	public Visit getVisit(String patUsername, String docUsername, String date) {
+		String query = "SELECT * FROM `Visit` WHERE `PatientUsername`='"+patUsername+"', `DocUsername`='"+docUsername+"', `Date`='"+date+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			int visitID = -1;
+			String docUsername2 = "";
+			String dateOfVisit = "";
+			int diastolic = -1;
+			int systolic = -1;
+			int billingAmount = -1;
+			while(rs.next()) {
+				visitID = rs.getInt("VisitID");
+				docUsername2 = rs.getString("DocUsername");
+				dateOfVisit = rs.getString("DateOfVisit");
+				diastolic = rs.getInt("Diastolic");
+				systolic = rs.getInt("Systolic");
+				billingAmount = rs.getInt("BillingAmount");
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return new Visit(visitID, docUsername, null, dateOfVisit, diastolic, systolic, billingAmount);
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
 		}

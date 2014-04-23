@@ -40,7 +40,7 @@ public class OrderMedicationPanel extends JPanel {
 	private JList cartList;
 	
 	private DefaultListModel model;
-	
+	private DefaultListModel model2;
 	String[] dosage = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 	String[] durationMonths = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
 	String[] durationDays = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
@@ -139,6 +139,7 @@ public class OrderMedicationPanel extends JPanel {
 		btnSelect = new JButton("Select");
 		btnSelect.setBounds(6, 245, 117, 29);
 		panel_1.add(btnSelect);
+		btnSelect.addActionListener(listener);
 		
 		JLabel lblMediccations = new JLabel("Medications");
 		lblMediccations.setBounds(24, 35, 99, 16);
@@ -159,6 +160,7 @@ public class OrderMedicationPanel extends JPanel {
 		btnSelectDate = new JButton("Select Date");
 		btnSelectDate.setBounds(461, 19, 117, 29);
 		panel_1.add(btnSelectDate);
+		btnSelectDate.addActionListener(listener);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(16, 347, 784, 61);
@@ -194,11 +196,12 @@ public class OrderMedicationPanel extends JPanel {
 		panel_1.add(dateOfVisitcomboBox);
 
 		model = new DefaultListModel();
+		model2 = new DefaultListModel();
 		
-		cartList = new JList();
+		cartList = new JList(model2);
 		scrollPane_1.setViewportView(cartList);
 		
-		medList = new JList();
+		medList = new JList(model);
 		scrollPane.setViewportView(medList);	
 	}
 
@@ -206,25 +209,36 @@ public class OrderMedicationPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnSelectDate){
-				
+				int index = dateOfVisitcomboBox.getSelectedIndex();
+				ArrayList<Prescription> prescs = parent.getHandler().getVisitPrescriptions(visits.get(index).getVisitID());
+				model.removeAllElements();
+				for(Prescription p : prescs) {
+					model.addElement(p.getMedicineName());
+				}
+			
 				
 			}
 			else if(e.getSource() == btnSelect){
-				//Need to send the whole cart to DB here
+				//Populate fields based off the selected date
+				String medName = (String) medList.getSelectedValue();
 				
 				
 				
 				
-				PaymentInfoPanel pip = new PaymentInfoPanel(parent, username);
-				parent.getContentPane().add(pip);
-				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				cl.next(parent.getContentPane());
+				
+				
+
 			}
 			else if (e.getSource() == btnAddToCart) {
 				
 			} 
 			else if (e.getSource() == btnCheckout) {
 				
+				
+				PaymentInfoPanel pip = new PaymentInfoPanel(parent, username);
+				parent.getContentPane().add(pip);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 			}
 			else if(e.getSource() == btnBack){
 				//Go Back
