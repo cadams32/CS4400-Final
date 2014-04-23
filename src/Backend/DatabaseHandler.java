@@ -1064,7 +1064,7 @@ public class DatabaseHandler {
 	//Patient Visit History
 	//get a Patient based on name and homePhone? (May need to return a list)
 	public static String getPatientUsername(String name, String homePhone) {
-		String query = "SELECT `PatientUsername` FROM `Patient` WHERE `Name`='"+name+"', AND `HomePhone`='"+homePhone+"'";
+		String query = "SELECT `PatientUsername` FROM `Patient` WHERE `Name`='"+name+"' AND `HomePhone`='"+homePhone+"'";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
@@ -1102,7 +1102,7 @@ public class DatabaseHandler {
 	
 	public static ArrayList<Message> getCommunicatesWith(String username) {
 		ArrayList<Message> msgs = new ArrayList<Message>();
-		String query = "SELECT * FROM `CommunicatesWith` WHERE `DocReceiver`='"+username+"'";
+		String query = "SELECT * FROM `CommunicatesWith` WHERE `Doc_Receiver`='"+username+"'";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
@@ -1112,7 +1112,7 @@ public class DatabaseHandler {
 			String status = "";
 			String message = "";
 			while(rs.next()) {
-				sender = rs.getString("DocSender");
+				sender = rs.getString("Doc_Sender");
 				date = rs.getString("DateTime");
 				status = rs.getString("Status");
 				message = rs.getString("Content");
@@ -1169,7 +1169,7 @@ public class DatabaseHandler {
 			String status = "";
 			String message = "";
 			while(rs.next()) {
-				sender = rs.getString("DocSender");
+				sender = rs.getString("DocUsername");
 				date = rs.getString("DateTime");
 				status = rs.getString("Status");
 				message = rs.getString("Content");

@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Backend.Doctor;
 import Backend.Message;
+import Backend.Patient;
 
 
 public class InboxPanel extends JPanel {
@@ -92,6 +93,13 @@ public class InboxPanel extends JPanel {
 			for(Message m : messages) {
 				insert[0] = m.getStatus();
 				insert[1] = m.getTime();
+				if(parent.getHandler().doesPatientExist(m.getSender())) {
+					Patient pat = parent.getHandler().getPatient(m.getSender());
+					insert[2] = pat.getName();
+				} else if (parent.getHandler().doesDoctorExist(m.getSender())) {
+					Doctor doc = parent.getHandler().getDoctor(m.getSender());
+					insert[2] = "Dr. " + doc.getfName() + " " + doc.getlName();
+				}
 				insert[3] = m.getMessage();
 				model.addRow(insert);
 			}
@@ -106,7 +114,9 @@ public class InboxPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnBack) {
-				
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
 			}
 			
 		}
