@@ -7,7 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -22,13 +25,22 @@ public class PatientEditProfilePanel extends JPanel {
 	private JTextField weightTextField;
 	private JTextField heightTextField;
 	private JTextField allergyTextField;
+	private JTextField eContactNameTxtField;
+	private JTextField eContactPhoneTxtField;
+	private JTextField allergiesTxtField;
 	
 	private MedicalFrame parent;
 	private String username;
 	
-	private JButton btnDone;
+	private JButton btnSubmit;
 	private JButton btnBack;
 	private JButton btnAddAllergy;
+	
+	private JComboBox genderComboBox;
+	private JComboBox annualIncomeComboBox;
+	
+	private JList list;
+	private DefaultListModel model;
 	
 	private ArrayList<String> allergyList;
 
@@ -41,118 +53,143 @@ public class PatientEditProfilePanel extends JPanel {
 		
 		this.parent = parent;
 		this.username = username;
-		ButtonListener listener = new ButtonListener();
 		
-		setBackground(SystemColor.textHighlight);
+		ButtonListener listener = new ButtonListener();
 		setLayout(null);
 		
-		JLabel lblPatientEditProfile = new JLabel("Patient Edit Profile");
-		lblPatientEditProfile.setBounds(441, 38, 126, 16);
-		add(lblPatientEditProfile);
-		
-		JLabel lblPatientName = new JLabel("Patient Name : ");
-		lblPatientName.setBounds(326, 125, 109, 16);
+		JLabel lblPatientName = new JLabel("Patient Name");
+		lblPatientName.setBounds(108, 70, 83, 16);
 		add(lblPatientName);
 		
 		patientNameTextField = new JTextField();
-		patientNameTextField.setBounds(431, 119, 134, 28);
+		patientNameTextField.setBounds(195, 64, 134, 28);
 		add(patientNameTextField);
 		patientNameTextField.setColumns(10);
 		
-		JLabel lblDateOfBirth = new JLabel("Date of Birth : ");
-		lblDateOfBirth.setBounds(326, 162, 91, 16);
+		JLabel lblDateOfBirth = new JLabel("Date of Birth");
+		lblDateOfBirth.setBounds(112, 102, 79, 16);
 		add(lblDateOfBirth);
 		
 		dateOfBirthTextField = new JTextField();
-		dateOfBirthTextField.setBounds(431, 153, 134, 28);
+		dateOfBirthTextField.setBounds(195, 96, 134, 28);
 		add(dateOfBirthTextField);
 		dateOfBirthTextField.setColumns(10);
 		
-		JLabel lblGender = new JLabel("Gender : ");
-		lblGender.setBounds(362, 197, 61, 16);
+		JLabel lblGender = new JLabel("Gender");
+		lblGender.setBounds(147, 132, 44, 16);
 		add(lblGender);
 		
-		JComboBox genderComboBox = new JComboBox();
-		genderComboBox.setBounds(431, 193, 52, 27);
+		String[] genderOption = {"Male", "Female"};
+		genderComboBox = new JComboBox(genderOption);
+		genderComboBox.setBounds(195, 128, 100, 27);
 		add(genderComboBox);
 		
-		JLabel lblAddress = new JLabel("Address : ");
-		lblAddress.setBounds(356, 232, 79, 16);
+		JLabel lblAddress = new JLabel("Address");
+		lblAddress.setBounds(140, 165, 51, 16);
 		add(lblAddress);
 		
 		addressTextField = new JTextField();
-		addressTextField.setBounds(431, 226, 134, 28);
+		addressTextField.setBounds(195, 159, 134, 28);
 		add(addressTextField);
 		addressTextField.setColumns(10);
 		
-		JLabel lblHomePhone = new JLabel("Home Phone : ");
-		lblHomePhone.setBounds(326, 268, 97, 16);
+		JLabel lblHomePhone = new JLabel("Home Phone");
+		lblHomePhone.setBounds(112, 197, 79, 16);
 		add(lblHomePhone);
 		
 		homePhoneTextField = new JTextField();
-		homePhoneTextField.setBounds(431, 260, 134, 28);
+		homePhoneTextField.setBounds(195, 191, 134, 28);
 		add(homePhoneTextField);
 		homePhoneTextField.setColumns(10);
 		
-		JLabel lblWorkPhone = new JLabel("Work Phone : ");
-		lblWorkPhone.setBounds(326, 305, 91, 16);
+		JLabel lblWorkPhone = new JLabel("Work Phone");
+		lblWorkPhone.setBounds(117, 229, 74, 16);
 		add(lblWorkPhone);
 		
 		workPhoneTextField = new JTextField();
-		workPhoneTextField.setBounds(431, 300, 134, 28);
+		workPhoneTextField.setBounds(195, 223, 134, 28);
 		add(workPhoneTextField);
 		workPhoneTextField.setColumns(10);
 		
-		JLabel lblHeight = new JLabel("Height : ");
-		lblHeight.setBounds(362, 380, 61, 16);
-		add(lblHeight);
-		
-		JLabel lblWeight = new JLabel("Weight : ");
-		lblWeight.setBounds(356, 341, 61, 16);
+		JLabel lblWeight = new JLabel("Weight");
+		lblWeight.setBounds(151, 320, 43, 16);
 		add(lblWeight);
 		
 		weightTextField = new JTextField();
-		weightTextField.setBounds(431, 340, 134, 28);
+		weightTextField.setBounds(198, 314, 134, 28);
 		add(weightTextField);
 		weightTextField.setColumns(10);
 		
+		JLabel lblHeight = new JLabel("Height");
+		lblHeight.setBounds(152, 352, 42, 16);
+		add(lblHeight);
+		
 		heightTextField = new JTextField();
-		heightTextField.setBounds(431, 374, 134, 28);
+		heightTextField.setBounds(198, 346, 134, 28);
 		add(heightTextField);
 		heightTextField.setColumns(10);
 		
-		JLabel lblAnnualIncome = new JLabel("Annual Income : ");
-		lblAnnualIncome.setBounds(314, 422, 109, 16);
+		JLabel lblAnnualIncome = new JLabel("Annual Income ($)");
+		lblAnnualIncome.setBounds(80, 378, 114, 16);
 		add(lblAnnualIncome);
 		
-		JComboBox annualIncomeComboBox = new JComboBox();
-		annualIncomeComboBox.setBounds(431, 414, 205, 27);
-		add(annualIncomeComboBox);
-		
-		JLabel lblAllergies = new JLabel("Allergies : ");
-		lblAllergies.setBounds(338, 460, 79, 16);
+		JLabel lblAllergies = new JLabel("Allergies");
+		lblAllergies.setBounds(139, 404, 55, 16);
 		add(lblAllergies);
 		
-		allergyTextField = new JTextField();
-		allergyTextField.setBounds(431, 454, 162, 28);
-		add(allergyTextField);
-		allergyTextField.setColumns(10);
+		allergiesTxtField = new JTextField();
+		allergiesTxtField.setBounds(198, 398, 134, 28);
+		add(allergiesTxtField);
+		allergiesTxtField.setColumns(10);
 		
-		btnAddAllergy = new JButton("Add Allergy");
-		btnAddAllergy.setBounds(605, 453, 117, 29);
-		add(btnAddAllergy);
+		btnAddAllergy = new JButton("+");
+		btnAddAllergy.setBounds(336, 399, 75, 29);
 		btnAddAllergy.addActionListener(listener);
+		add(btnAddAllergy);
 		
-		btnDone = new JButton("Done");
-		btnDone.setBounds(848, 510, 117, 29);
-		add(btnDone);
-		btnDone.addActionListener(listener);
+		btnSubmit = new JButton("Submit");
+		btnSubmit.setBounds(512, 385, 88, 29);
+		btnSubmit.addActionListener(listener);
+		add(btnSubmit);
+		
+		JLabel lblAllergies_1 = new JLabel("Allergies");
+		lblAllergies_1.setBounds(461, 48, 61, 16);
+		add(lblAllergies_1);
+		
+		String[] annualIncomeBox = {"10000-25000", "25000-50000", "50000-75000", "75000-100000", "100000-150000", "1500000-200000", "More than 200000"};
+		annualIncomeComboBox = new JComboBox(annualIncomeBox);
+		annualIncomeComboBox.setBounds(198, 374, 150, 27);
+		add(annualIncomeComboBox);
+		
+		JLabel lblEmergencyContact = new JLabel("Emergency Contact Name");
+		lblEmergencyContact.setBounds(25, 261, 178, 16);
+		add(lblEmergencyContact);
+		
+		eContactNameTxtField = new JTextField();
+		eContactNameTxtField.setBounds(195, 255, 145, 28);
+		add(eContactNameTxtField);
+		eContactNameTxtField.setColumns(10);
+		
+		JLabel eContactPhonelbl = new JLabel("Emergency Contact Phone");
+		eContactPhonelbl.setBounds(25, 292, 188, 16);
+		add(eContactPhonelbl);
+		
+		eContactPhoneTxtField = new JTextField();
+		eContactPhoneTxtField.setColumns(10);
+		eContactPhoneTxtField.setBounds(195, 286, 145, 28);
+		add(eContactPhoneTxtField);	
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(423, 67, 145, 178);
+		add(scrollPane);
+		
+		model = new DefaultListModel();
+		list = new JList(model);
+		scrollPane.setViewportView(list);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(41, 510, 117, 29);
+		btnBack.setBounds(41, 547, 117, 29);
 		add(btnBack);
-		btnBack.addActionListener(listener);
-
 	}
 	
 	private class ButtonListener implements ActionListener {
@@ -165,13 +202,42 @@ public class PatientEditProfilePanel extends JPanel {
 				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
 				cl.last(parent.getContentPane());
 				
-			} else if (e.getSource() == btnDone) {
-				
+			} else if (e.getSource() == btnSubmit) {
 				//update the DB with the changes
 				
+				String name = patientNameTextField.getText();
+				String DOB = dateOfBirthTextField.getText();
+				String gender = (String) genderComboBox.getSelectedItem();
+				String address = addressTextField.getText();
+				String workPhone = workPhoneTextField.getText();
+				String homePhone = homePhoneTextField.getText();
+				String eContactName = eContactNameTxtField.getText();
+				String eContactPhone = eContactPhoneTxtField.getText();
+				int weight = Integer.parseInt(weightTextField.getText());
+				int height = Integer.parseInt(heightTextField.getText());
+				String annualIncome = (String) annualIncomeComboBox.getSelectedItem();
+				
+				if(parent.getHandler().updatePatientProfile(username, name, DOB, gender, address, 
+						workPhone, homePhone, eContactName, eContactPhone, weight, height, annualIncome)) {
+					
+					if(!allergyList.isEmpty()) {
+						for(String s : allergyList) {
+							System.out.println(s);
+							parent.getHandler().updatePatientAllergies(username, s);
+						}
+					}
+					
+					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+					parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+					PatientHomePanel php = new PatientHomePanel(parent, username);
+					parent.getContentPane().add(php);
+					cl.last(parent.getContentPane());
+				}
+				
 			} else if (e.getSource() == btnAddAllergy) {
-				String allergyName = allergyTextField.getText();
-				allergyList.add(allergyName);
+				allergyList.add(allergyTextField.getText());
+				model.addElement(allergyTextField.getText());
+				list = new JList(model);
 			}
 			
 		}
