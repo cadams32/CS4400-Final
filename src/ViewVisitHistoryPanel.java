@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
@@ -19,111 +20,175 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import Backend.Doctor;
+import Backend.Prescription;
+import Backend.Visit;
+
+import java.awt.SystemColor;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.JComboBox;
+
 
 public class ViewVisitHistoryPanel extends JPanel {
-	private JTable table;
-	private JTextField txtDoctor;
-	private JTextField systolicTextField;
-	private JTextField diastolicTextField;
 	private MedicalFrame parent;
 	private String username;
-	JButton btnBack;
-
+	private JTextField consultingDoctorTxtField;
+	private JTextField systolicTextField;
+	private JTextField diastolicTextField;
+	private JTable table;
+	private JButton btnBackButton;
+	private JButton btnGetVisit;
+	private JComboBox comboBox;
+	private JTextPane textPane;
+	
+	private DefaultTableModel model;
+	
+	private ArrayList<Visit> visitList;
+	private ArrayList<String> dates;
+	
 	/**
 	 * Create the panel.
 	 */
 	public ViewVisitHistoryPanel(MedicalFrame parent, String username) {
-		
 		this.parent = parent;
 		this.username = username;
-		ButtonListener listener = new ButtonListener();
 		
-		setLayout(new MigLayout("", "[208.00,grow][25.00][744.00][134.00][grow]", "[][156.00][][346.00,grow]"));
-		
-		JLabel lblViewVisitHistory = new JLabel("View Visit History");
-		add(lblViewVisitHistory, "cell 2 0,alignx center");
-		
-		String[] listData = {};
+		setBackground(SystemColor.textHighlight);
+		setLayout(null);
 		
 		JLabel lblDatesOfVisits = new JLabel("Dates of Visits");
-		add(lblDatesOfVisits, "cell 0 2");
+		lblDatesOfVisits.setBounds(33, 177, 121, 16);
+		add(lblDatesOfVisits);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		add(scrollPane, "cell 0 3,grow");
+		JLabel lblConsultingDoctor = new JLabel("Consulting Doctor");
+		lblConsultingDoctor.setBounds(390, 104, 121, 16);
+		add(lblConsultingDoctor);
 		
-		JList list = new JList(listData);
-		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		list.setLayoutOrientation(JList.VERTICAL);
-		list.setVisibleRowCount(-1);
-
-		scrollPane.setViewportView(list);
+		JLabel lblBloodPressure = new JLabel("Blood Pressure : ");
+		lblBloodPressure.setBounds(341, 141, 140, 16);
+		add(lblBloodPressure);
 		
-		JPanel panel = new JPanel();
-		add(panel, "cell 2 3 3 1,grow");
-		panel.setLayout(new MigLayout("", "[][242.00,grow][][grow][][]", "[][][][][][][60.00][142.00][][][66.00][184.00][53.00][grow][]"));
+		JLabel lblSystolic = new JLabel("Systolic");
+		lblSystolic.setBounds(462, 141, 61, 16);
+		add(lblSystolic);
 		
-		JLabel lblConsultingDoctor = new JLabel("Consulting Doctor:");
-		panel.add(lblConsultingDoctor, "cell 0 0,alignx trailing");
+		JLabel lblDiastolic = new JLabel("Diastolic");
+		lblDiastolic.setBounds(462, 177, 61, 16);
+		add(lblDiastolic);
 		
-		txtDoctor = new JTextField();
-		txtDoctor.setEditable(false);
-		txtDoctor.setText("Doctor");
-		panel.add(txtDoctor, "cell 1 0,alignx left");
-		txtDoctor.setColumns(10);
-		
-		JLabel lblBloodPressure = new JLabel("Blood Pressure:");
-		panel.add(lblBloodPressure, "cell 0 2,alignx trailing");
-		
-		JLabel lblSystolic = new JLabel("Systolic: ");
-		panel.add(lblSystolic, "flowx,cell 1 2");
-		
-		JLabel lblDiastolic = new JLabel("Diastolic:");
-		panel.add(lblDiastolic, "flowx,cell 1 3");
-		
-		JLabel lblDiagnosis = new JLabel("Diagnosis:");
-		panel.add(lblDiagnosis, "cell 0 7,alignx trailing");
-		
-		TextArea diagnosisTextArea = new TextArea();
-		diagnosisTextArea.setEditable(false);
-		panel.add(diagnosisTextArea, "cell 1 7");
-		
-		JLabel lblMedicationsPrescribed = new JLabel("Medications Prescribed:");
-		panel.add(lblMedicationsPrescribed, "flowx,cell 1 13");
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		panel.add(scrollPane_1, "cell 1 13,alignx trailing,aligny center");
-		
-		String[] columnNames = {"Medicine Name", "Dosage", "Duration", "Notes"};
-		Object[][] tableData = {{"Aspirin", "3 per day", "10 days", "After Every Meal"}};
-		table = new JTable(tableData, columnNames);
-		table.setEnabled(false);
-		scrollPane_1.setLayout(new FlowLayout());
-		scrollPane_1.setViewportView(table);
+		consultingDoctorTxtField = new JTextField();
+		consultingDoctorTxtField.setEditable(false);
+		consultingDoctorTxtField.setBounds(523, 98, 134, 28);
+		add(consultingDoctorTxtField);
+		consultingDoctorTxtField.setColumns(10);
 		
 		systolicTextField = new JTextField();
 		systolicTextField.setEditable(false);
-		panel.add(systolicTextField, "cell 1 2");
+		systolicTextField.setBounds(523, 135, 134, 28);
+		add(systolicTextField);
 		systolicTextField.setColumns(10);
 		
 		diastolicTextField = new JTextField();
 		diastolicTextField.setEditable(false);
-		panel.add(diastolicTextField, "cell 1 3");
 		diastolicTextField.setColumns(10);
+		diastolicTextField.setBounds(523, 171, 134, 28);
+		add(diastolicTextField);
 		
-		btnBack = new JButton("Back");
-		panel.add(btnBack, "cell 5 13");
-		btnBack.addActionListener(listener);
+		JLabel lblDiagnosis = new JLabel("Diagnosis");
+		lblDiagnosis.setBounds(362, 211, 75, 16);
+		add(lblDiagnosis);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(454, 211, 225, 84);
+		add(scrollPane_1);
+		
+		textPane = new JTextPane();
+		textPane.setEditable(false);
+		scrollPane_1.setViewportView(textPane);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(393, 319, 391, 115);
+		add(scrollPane_2);
+		
+		JLabel lblMedications = new JLabel("Medications");
+		lblMedications.setBounds(285, 320, 96, 16);
+		add(lblMedications);
+		
+		JLabel lblViewVisitHistory = new JLabel("View Visit History");
+		lblViewVisitHistory.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lblViewVisitHistory.setBounds(302, 17, 140, 16);
+		add(lblViewVisitHistory);
+		
+		ButtonListener listener = new ButtonListener();
+		
+		btnBackButton = new JButton("Back");
+		
+		String[] columnNames = {"Medicine Name", "Dosage", "Duration", "Notes"};
+		model = new DefaultTableModel();
+		model.setColumnIdentifiers(columnNames);
+		table = new JTable(model);
+		scrollPane_2.setViewportView(table);
+		
+		
+		btnBackButton.setBounds(16, 499, 121, 28);
+		btnBackButton.addActionListener(listener);
+		add(btnBackButton);
+		
+		//Get all visits
+		visitList = parent.getHandler().getPatientVisits(username);
+		//Fill String of dates
+		dates = new ArrayList<String>();
+		for(Visit v : visitList) {
+			dates.add(v.getDateOfVisit());
+		}
+		
+		comboBox = new JComboBox(dates.toArray());
+		comboBox.setBounds(114, 206, 147, 28);
+		add(comboBox);
+			
+		btnGetVisit = new JButton("Get Visit");
+		btnGetVisit.setBounds(135, 172, 87, 28);
+		btnGetVisit.addActionListener(listener);
+		add(btnGetVisit);	
 
+		JLabel lblChooseDate = new JLabel("Choose Date:");
+		lblChooseDate.setBounds(18, 211, 96, 16);
+		add(lblChooseDate);
+		
 	}
 	
-	private class ButtonListener implements ActionListener{
-		public void actionPerformed(ActionEvent e){
-			if(e.getSource() == btnBack){
-				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
-				cl.last(parent.getContentPane());
-			}
-		}
-	}
+	private class ButtonListener implements ActionListener {
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == btnGetVisit) {
+				
+				Visit v = visitList.get(comboBox.getSelectedIndex());		
+				Integer systolic = v.getSystolicPressure();
+				Integer diastolic = v.getDiastolicPressure();
+				systolicTextField.setText(systolic.toString());
+				diastolicTextField.setText(diastolic.toString());
+				String diagnosis = parent.getHandler().getVisitDiagnosis(v.getVisitID());
+				textPane.setText(diagnosis);
+				Doctor doc = parent.getHandler().getDoctor(v.getDocUsername());
+				consultingDoctorTxtField.setText("Dr." + doc.getfName() + " " + doc.getlName());
+				
+				ArrayList<Prescription> prescriptionList = new ArrayList<Prescription>();
+				prescriptionList = parent.getHandler().getVisitPrescriptions(v.getVisitID());
+				Object[] insert = new Object[4];
+				for(Prescription p : prescriptionList) {
+					insert[0] = p.getMedicineName();
+					insert[1] = p.getDosage();
+					insert[2] = p.getDuration();
+					insert[3] = p.getNotes();
+					model.addRow(insert);
+				}
+				model.fireTableDataChanged();
+	
+			}
+			
+		}
+		
+	}
 }

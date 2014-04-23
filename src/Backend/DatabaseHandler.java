@@ -804,7 +804,7 @@ public class DatabaseHandler {
 	 * @param username
 	 * @return
 	 */
-	public static Doctor getDoctor(String username) { 
+	public Doctor getDoctor(String username) { 
 		String query = "SELECT * FROM `Doctor` WHERE `DocUsername`='"+username+"'";
 		try {
 			connection = DBC.createConnection();
@@ -814,10 +814,12 @@ public class DatabaseHandler {
 			String lName = "";
 			String docUsername = "";
 			int roomNo = -1;
-			docUsername = rs.getString("DocUsername");
-			fName = rs.getString("FName");
-			lName = rs.getString("LName");
-			roomNo = rs.getInt("RoomNo");
+			while(rs.next()) {
+				docUsername = rs.getString("DocUsername");
+				fName = rs.getString("FName");
+				lName = rs.getString("LName");
+				roomNo = rs.getInt("RoomNo");
+			}
 			rs.close();
 			statement.close();
 			DBC.closeConnection(connection);
@@ -838,9 +840,34 @@ public class DatabaseHandler {
 	 */
 	
 	//Creating View Visit History
-	//Reuse getPatientVisits()
-	//get Visit_Diagnosis
-	public static String getVisitDiagnosis(int visitID) { return null; }
+	//Reuse getPatientVisits() X
+	
+	/**
+	 * Get all visits
+	 * @param visitID
+	 * @return
+	 */
+	public String getVisitDiagnosis(int visitID) { 
+		String query = "SELECT `Diagnosis` FROM `Visit_Diagnosis` WHERE `VisitID`='"+visitID+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String diagnosis = "";
+			while(rs.next()) {
+				diagnosis = rs.getString("Diagnosis");
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return diagnosis;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	
+	}
+
 	//Reuse getPrescriptionsForVisit()
 	//Reuse Get a Doctor
 	
