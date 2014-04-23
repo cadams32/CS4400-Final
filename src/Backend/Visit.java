@@ -21,6 +21,10 @@ public class Visit {
 		this.billingAmount = billingAmount;
 	}
 
+	public Visit() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getVisitID() {
 		return visitID;
 	}

@@ -800,7 +800,7 @@ public class DatabaseHandler {
 	}
 	
 	public Visit getVisit(String patUsername, String docUsername, String date) {
-		String query = "SELECT * FROM `Visit` WHERE `PatientUsername`='"+patUsername+"', `DocUsername`='"+docUsername+"', `Date`='"+date+"'";
+		String query = "SELECT * FROM `Visit` WHERE `PatientUsername`='"+patUsername+"' AND `DocUsername`='"+docUsername+"' AND `Date`='"+date+"'";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();

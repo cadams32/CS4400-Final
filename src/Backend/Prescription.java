@@ -18,6 +18,10 @@ public class Prescription {
 		this.setOrdered(ordered);
 	}
 
+	public Prescription() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getVisitID() {
 		return visitID;
 	}

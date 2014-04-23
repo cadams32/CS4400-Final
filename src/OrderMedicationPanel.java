@@ -32,6 +32,8 @@ public class OrderMedicationPanel extends JPanel {
 	private ArrayList<Prescription> cart;
 	private ArrayList<Visit> visits;
 	private ArrayList<String> dates;
+	ArrayList<Prescription> prescs;
+	private Visit currVisit;
 	
 	private JButton btnSelectDate;
 	private JButton btnSelect;
@@ -190,6 +192,8 @@ public class OrderMedicationPanel extends JPanel {
 		for(Visit v : visits) {
 			dates.add(v.getDateOfVisit());
 		}
+		
+		ArrayList<Prescription> prescs = new ArrayList<Prescription>();
 
 		dateOfVisitcomboBox = new JComboBox(dates.toArray());
 		dateOfVisitcomboBox.setBounds(284, 20, 165, 27);
@@ -203,6 +207,8 @@ public class OrderMedicationPanel extends JPanel {
 		
 		medList = new JList(model);
 		scrollPane.setViewportView(medList);	
+		
+		currVisit = new Visit();
 	}
 
 	private class ButtonListener implements ActionListener {
@@ -210,7 +216,7 @@ public class OrderMedicationPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnSelectDate){
 				int index = dateOfVisitcomboBox.getSelectedIndex();
-				ArrayList<Prescription> prescs = parent.getHandler().getVisitPrescriptions(visits.get(index).getVisitID());
+				prescs = parent.getHandler().getVisitPrescriptions(visits.get(index).getVisitID());
 				model.removeAllElements();
 				for(Prescription p : prescs) {
 					model.addElement(p.getMedicineName());
@@ -221,6 +227,18 @@ public class OrderMedicationPanel extends JPanel {
 			else if(e.getSource() == btnSelect){
 				//Populate fields based off the selected date
 				String medName = (String) medList.getSelectedValue();
+				Prescription pres = new Prescription();
+				for(Prescription p : prescs) {
+					if(p.getMedicineName().equals(medName)) {
+						pres = p;
+						break;
+					}
+				}
+				int duration = pres.getDuration();
+				int monthsD = duration/30;
+				int daysD = duration%30;
+				int dosage = pres.getDosage();
+				
 				
 				
 				
