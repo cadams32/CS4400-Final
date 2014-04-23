@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 public class LoginPanel extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
-	JButton btnAdminLogin, btnCreateNewAccount, btnDoctorLogin, btnPatientLogin;
+	JButton btnAdminLogin, btnCreateNewAccount;
 	MedicalFrame parent;
 	
 	/**
@@ -20,8 +20,9 @@ public class LoginPanel extends JPanel {
 	 */
 	public LoginPanel(MedicalFrame parent) {
 		
-		setLayout(new MigLayout("", "[1000.00,grow]", "[99.00][495.00,grow]"));
 		ButtonListener listener = new ButtonListener();
+		
+		setLayout(new MigLayout("", "[1000.00,grow]", "[99.00][495.00,grow]"));
 		this.parent = parent;
 		
 		JPanel panel = new JPanel();
@@ -42,25 +43,17 @@ public class LoginPanel extends JPanel {
 		panel.add(textField_1, "cell 11 3 10 1,growx");
 		textField_1.setColumns(10);
 		
-		btnPatientLogin = new JButton("Patient Login");
-		panel.add(btnPatientLogin, "cell 28 5");
-		btnPatientLogin.addActionListener(listener);
-		
-		btnDoctorLogin = new JButton("Doctor Login");
-		panel.add(btnDoctorLogin, "cell 28 6");
-		btnDoctorLogin.addActionListener(listener);
-		
 		btnCreateNewAccount = new JButton("Create New Account");
 		panel.add(btnCreateNewAccount, "cell 25 7");
 		btnCreateNewAccount.addActionListener(listener);
 		
-		btnAdminLogin = new JButton("Admin Login");
+		btnAdminLogin = new JButton("Login");
 		panel.add(btnAdminLogin, "cell 28 7");
 		btnAdminLogin.addActionListener(listener);
 		
 	}
-
-	private class ButtonListener implements ActionListener{
+	
+private class ButtonListener implements ActionListener{
 		
 		public void actionPerformed(ActionEvent e){
 			

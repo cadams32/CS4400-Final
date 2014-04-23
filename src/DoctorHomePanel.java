@@ -1,4 +1,3 @@
-
 import javax.swing.JPanel;
 import java.awt.CardLayout;
 import net.miginfocom.swing.MigLayout;
@@ -18,9 +17,6 @@ public class DoctorHomePanel extends JPanel {
 	private JButton btnRecordASurgery;
 	private JButton btnCommunicate;
 	private JButton btnViewMessages;
-
-
-	
 	private MedicalFrame parent;
 	private String username;
 	
