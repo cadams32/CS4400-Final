@@ -48,7 +48,13 @@ public class DoctorReportPanel extends JPanel {
 		panel_1.add(scrollPane, "cell 1 1,grow");
 		
 		String[] colNames = {"Specialty", "Average Rating", "Number of Surgeries Performed"};
-		model = new DefaultTableModel();
+		model = new DefaultTableModel(){
+				@Override
+			    public boolean isCellEditable(int row, int column) {
+		        //all cells false
+				return false;
+				}
+		    };
 		model.setColumnIdentifiers(colNames);
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
@@ -89,7 +95,6 @@ public class DoctorReportPanel extends JPanel {
 				if(str != null){
 					double rating = Double.parseDouble(parent.getHandler().getDoctorRating(d.getUsername()));
 					numers[i] += rating;
-					System.out.println("RATING FOUND: " + rating);
 					denoms[i] += 1;
 				}
 				cptList = parent.getHandler().getCPTCode(d.getUsername());
@@ -97,8 +102,6 @@ public class DoctorReportPanel extends JPanel {
 					surgeries[i] += cptList.size();
 				}
 			}
-			System.out.println("numer " + i + " = " + numers[i]);
-			System.out.println("denom " + i + " = " + denoms[i]);
 		}
 		
 		for(int k=0; k<6; k++){
