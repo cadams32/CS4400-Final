@@ -1,6 +1,7 @@
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
@@ -10,9 +11,11 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import Backend.Visit;
+
 
 public class BillingPanel extends JPanel {
-	private JTextField textField;
+	private JTextField nameTextField;
 	private JTable table;
 	private JTable table_1;
 	private JTable table_2;
@@ -43,36 +46,36 @@ public class BillingPanel extends JPanel {
 		JLabel lblPatientsName = new JLabel("Patient's Name");
 		panel_1.add(lblPatientsName, "cell 1 0,alignx trailing");
 		
-		textField = new JTextField();
-		panel_1.add(textField, "cell 2 0,growx");
-		textField.setColumns(10);
+		nameTextField = new JTextField();
+		panel_1.add(nameTextField, "cell 2 0,growx");
+		nameTextField.setColumns(10);
 		
 		btnCreateBill = new JButton("Create Bill");
 		panel_1.add(btnCreateBill, "cell 3 0");
 		
-		JScrollPane scrollPane = new JScrollPane();
-		panel_1.add(scrollPane, "cell 1 1,grow");
+		JScrollPane patientScrollPane = new JScrollPane();
+		panel_1.add(patientScrollPane, "cell 1 1,grow");
 		
 		String[] colNames = {"Patient Name", "Phone Number"};
 		Object[][] data = {};
 		table = new JTable(data, colNames);
-		scrollPane.setViewportView(table);
+		patientScrollPane.setViewportView(table);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		panel_1.add(scrollPane_1, "cell 2 1,grow");
+		JScrollPane visitScrollPane = new JScrollPane();
+		panel_1.add(visitScrollPane, "cell 2 1,grow");
 		
 		String[] colNames_1 = {"Visits", "Cost"};
 		Object[][] data_1 = {};
 		table_1 = new JTable(data_1, colNames_1);
-		scrollPane_1.setViewportView(table_1);
+		visitScrollPane.setViewportView(table_1);
 		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		panel_1.add(scrollPane_2, "cell 3 1,grow");
+		JScrollPane surgeryScrollPane = new JScrollPane();
+		panel_1.add(surgeryScrollPane, "cell 3 1,grow");
 		
 		String[] colNames_2 = {"Surgery", "Cost"};
 		Object[][] data_2 = {};
 		table_2 = new JTable(data_2, colNames_2);
-		scrollPane_2.setViewportView(table_2);
+		surgeryScrollPane.setViewportView(table_2);
 		
 		JLabel lblTotalCost = new JLabel("Total Cost");
 		panel_1.add(lblTotalCost, "cell 4 1,alignx trailing");
@@ -101,6 +104,8 @@ public class BillingPanel extends JPanel {
 				
 			} else if (e.getSource() == btnCreateBill) {
 				//DB transaction
+				//String phone = parent.getHandler().getPatientPhoneNumber(nameTextField);
+				//ArrayList<Visit> visitList = parent.getHandler().getPatientVisits(username);
 				
 			}	
 		}
