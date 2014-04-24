@@ -1,6 +1,7 @@
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -103,7 +104,7 @@ public class BillingPanel extends JPanel {
 		
 		btnBack = new JButton("Back");
 		panel_2.add(btnBack, "cell 1 0");
-
+		btnBack.addActionListener(listener);
 	}
 	private class ButtonListener implements ActionListener {
 
@@ -117,6 +118,7 @@ public class BillingPanel extends JPanel {
 				
 			} else if (e.getSource() == btnCreateBill) {
 				//DB transaction
+				DecimalFormat df = new DecimalFormat("##.00");
 				double total = 0;
 				String visit = "";
 				String surgery = "";
@@ -129,21 +131,21 @@ public class BillingPanel extends JPanel {
 				visitModel.addElement("       Date        " + "              " + "Amount");
 				ArrayList<Visit> visitList = parent.getHandler().getPatientVisits(patUsername);
 				for (Visit s: visitList) {
-					visit = s.getDateOfVisit() + "                    " + s.getBillingAmount();
+					visit = s.getDateOfVisit() + "                    " + df.format(s.getBillingAmount());
 					total += s.getBillingAmount();
 					visitModel.addElement(visit);
 				}
 				
 				ArrayList<String> cptList = parent.getHandler().getCPTCode(patUsername);
+				surgeryModel.addElement("     Surgery Type     " + "                     " + "Cost");
 				for (String cpt: cptList) {
-					//ArrayList<Surgery> surgeryList = parent.getHandler().getSurgery(cpt);
 					for (Surgery s: parent.getHandler().getSurgery(cpt)) {
-						surgery = s.getSurgeryType() + "             " + s.getCostOfSurgery();
+						surgery = s.getSurgeryType() + "                " + df.format(s.getCostOfSurgery());
 						total += s.getCostOfSurgery();
 						surgeryModel.addElement(surgery);
 					}
 				}
-				costTextField.setText(String.valueOf(total));				
+				costTextField.setText("$"+String.valueOf(df.format(total)));				
 			}	
 		}
 		
