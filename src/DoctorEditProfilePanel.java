@@ -126,7 +126,7 @@ public class DoctorEditProfilePanel extends JPanel {
 		add(addressTextField);
 		addressTextField.setColumns(10);
 		
-		String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thur4day", "Fr41ay", "Saturday" };
+		String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 		
 		dayComboBox = new JComboBox(days);
 		dayComboBox.setBounds(478, 368, 106, 27);
@@ -150,7 +150,7 @@ public class DoctorEditProfilePanel extends JPanel {
 				"5:45 pm", "6:00 pm", "6:15 pm", "6:30 pm", "6:45 pm", "7:00 pm", "7:15 pm", "7:30 pm", "7:45 pm",
 				"8:00 pm", "8:15 pm", "8:30 pm", "8:45 pm", "9:00 pm", "9:15 pm", "9:30 pm", "9:45 pm", "10:00 pm",
 				"10:15 pm", "10:30 pm", "10:45 pm", "11:00 pm", "11:15 pm", "11:30 pm", "11:45 pm"};*/
-		String[] times = {"00:00", "00:15", "00:30", "00:45", "01:00", "01:15", "01:30", "01:45am",
+		String[] times = {"00:00", "00:15", "00:30", "00:45", "01:00", "01:15", "01:30", "01:45",
 				"02:00", "02:15", "02:30", "02:45", "03:00", "03:15", "03:30", "03:45", "04:00",
 				"04:15", "04:30", "04:45", "05:00", "05:15", "05:30", "05:45", "06:00", "06:15",
 				"06:30", "06:45", "07:00", "07:15", "07:30", "07:45", "08:00", "08:15", "08:30",
@@ -183,6 +183,7 @@ public class DoctorEditProfilePanel extends JPanel {
 		btnAddAvail.setBounds(860, 370, 42, 23);
 		add(btnAddAvail);
 		btnSubmit.addActionListener(listener);
+		btnAddAvail.addActionListener(listener);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(478, 419, 367, 73);
@@ -214,8 +215,8 @@ public class DoctorEditProfilePanel extends JPanel {
 				
 			} else if (e.getSource() == btnAddAvail) {
 				availableList.add(new Availability((String)dayComboBox.getSelectedItem(), (String)fromComboBox.getSelectedItem(), (String)toComboBox.getSelectedItem()));
-				model.addElement("Day: "+(String)dayComboBox.getSelectedItem()+"       From: "+(String)fromComboBox.getSelectedItem()+"       To: "+(String)toComboBox.getSelectedItem());
-				list = new JList(model);
+				model.addElement((String)dayComboBox.getSelectedItem()+"       From: "+(String)fromComboBox.getSelectedItem()+"       To: "+(String)toComboBox.getSelectedItem());
+				//list = new JList(model);
 				
 			} else if (e.getSource() == btnSubmit) {
 				//update the database
