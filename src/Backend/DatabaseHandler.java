@@ -1407,7 +1407,6 @@ public class DatabaseHandler {
 				cpt = rs.getString("CPTCode");
 				list.add(cpt);
 			}
-			System.out.println("test------------");
 			rs.close();
 			statement.close();
 			DBC.closeConnection(connection);
