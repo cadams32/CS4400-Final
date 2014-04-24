@@ -680,15 +680,17 @@ public class DatabaseHandler {
 	 * @param docUsername
 	 * @return
 	 */
-	public static int getDoctorRating(String docUsername) { 
+	public static String getDoctorRating(String docUsername) { 
 		String query = "SELECT AVG(`Rating`) as avg FROM `Doctor_Rating` WHERE `DocUsername`='"+docUsername+"'";
 		
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
-			
-			int i = Integer.parseInt(rs.getString("avg"));
+			String i="";
+			while(rs.next()){
+				i = rs.getString("avg");
+			}
 			
 			rs.close();
 			statement.close();
@@ -697,7 +699,7 @@ public class DatabaseHandler {
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
 		}
-		return -1;
+		return null;
 	} 
 	
 	/**

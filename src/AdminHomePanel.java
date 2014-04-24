@@ -38,38 +38,33 @@ public class AdminHomePanel extends JPanel {
 		btnBilling = new JButton("Billing");
 		btnBilling.addActionListener(listener);
 		panel_1.add(btnBilling, "cell 1 1,alignx center");
+		btnBilling.addActionListener(listener);
 		
 		btnDoctorPerformanceReport = new JButton("Doctor Performance Report");
 		btnDoctorPerformanceReport.addActionListener(listener);
 		panel_1.add(btnDoctorPerformanceReport, "cell 1 3,alignx center");
+		btnDoctorPerformanceReport.addActionListener(listener);
 		
 		btnSurgeryReport = new JButton("Surgery Report");
 		btnSurgeryReport.addActionListener(listener);
 		panel_1.add(btnSurgeryReport, "cell 1 5,alignx center");
+		btnSurgeryReport.addActionListener(listener);
 		
 		btnPatientVisitReport = new JButton("Patient Visit Report");
 		btnPatientVisitReport.addActionListener(listener);
 		panel_1.add(btnPatientVisitReport, "cell 1 7,alignx center");
+		btnPatientVisitReport.addActionListener(listener);
 		
 		JPanel panel_2 = new JPanel();
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[885.00][]", "[]"));
-		
-		btnBack = new JButton("Back");
-		btnBack.addActionListener(listener);
-		panel_2.add(btnBack, "cell 1 0");
-
 	}
 	
 	private class ButtonListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == btnBack) {
-				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
-				cl.last(parent.getContentPane());
-			} else if (e.getSource() == btnPatientVisitReport) {
+			if (e.getSource() == btnPatientVisitReport) {
 				PatientVisitPanel pvp = new PatientVisitPanel(parent, username);
 				parent.getContentPane().add(pvp);
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
