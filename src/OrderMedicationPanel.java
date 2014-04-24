@@ -16,6 +16,7 @@ import java.awt.SystemColor;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 
+import Backend.Doctor;
 import Backend.Prescription;
 import Backend.Visit;
 
@@ -28,11 +29,13 @@ public class OrderMedicationPanel extends JPanel {
 	private String username;
 	
 	private JButton btnAddToCart, btnCheckout, btnBack;
-	private JComboBox boxDosage, boxDurationMonths, boxDurationDays, dateOfVisitcomboBox;
-	private ArrayList<Prescription> cart;
+	private JComboBox dateOfVisitcomboBox;
+	
+	public ArrayList<Prescription> cart;
+	
 	private ArrayList<Visit> visits;
 	private ArrayList<String> dates;
-	ArrayList<Prescription> prescs;
+	private ArrayList<Prescription> prescs;
 	private Visit currVisit;
 	
 	private JButton btnSelectDate;
@@ -53,11 +56,17 @@ public class OrderMedicationPanel extends JPanel {
 		"16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
 	
 	String[] year = {"2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"};
+	private JTextField dosageTextField;
+	private JTextField monthsTextField;
+	private JTextField daysTextField;
 	
 	/**
 	 * Create the panel.
 	 */
 	public OrderMedicationPanel(MedicalFrame parent, String username) {
+		
+		cart = new ArrayList<Prescription>();
+		
 		setBackground(SystemColor.textHighlight);
 		
 		this.parent = parent;
@@ -95,32 +104,20 @@ public class OrderMedicationPanel extends JPanel {
 		lblDosage.setBounds(158, 144, 47, 16);
 		panel_1.add(lblDosage);
 		
-		boxDosage = new JComboBox(dosage);
-		boxDosage.setBounds(287, 140, 64, 27);
-		panel_1.add(boxDosage);
-		
 		JLabel lblPerDay = new JLabel("Per Day");
 		lblPerDay.setBounds(363, 144, 47, 16);
 		panel_1.add(lblPerDay);
 		
 		JLabel lblDuration = new JLabel("Duration");
 		lblDuration.setBounds(158, 197, 55, 16);
-		panel_1.add(lblDuration);		
-
-		boxDurationMonths = new JComboBox(durationMonths);
-		boxDurationMonths.setBounds(287, 193, 72, 27);
-		panel_1.add(boxDurationMonths);
+		panel_1.add(lblDuration);
 		
 		JLabel lblMonths = new JLabel("Months");
 		lblMonths.setBounds(363, 197, 47, 16);
-		panel_1.add(lblMonths);	
-		
-		boxDurationDays = new JComboBox(durationDays);
-		boxDurationDays.setBounds(439, 193, 72, 27);
-		panel_1.add(boxDurationDays);
+		panel_1.add(lblMonths);
 		
 		JLabel lblDays = new JLabel("Days");
-		lblDays.setBounds(531, 197, 31, 16);
+		lblDays.setBounds(569, 197, 31, 16);
 		panel_1.add(lblDays);
 		
 		JLabel lblConsultingDoctor = new JLabel("Consulting Doctor");
@@ -206,7 +203,23 @@ public class OrderMedicationPanel extends JPanel {
 		medList = new JList(model);
 		scrollPane.setViewportView(medList);	
 		
+		dosageTextField = new JTextField();
+		dosageTextField.setBounds(217, 138, 134, 28);
+		panel_1.add(dosageTextField);
+		dosageTextField.setColumns(10);
+		
+		monthsTextField = new JTextField();
+		monthsTextField.setBounds(225, 191, 134, 28);
+		panel_1.add(monthsTextField);
+		monthsTextField.setColumns(10);
+		
+		daysTextField = new JTextField();
+		daysTextField.setBounds(428, 191, 134, 28);
+		panel_1.add(daysTextField);
+		daysTextField.setColumns(10);
+		prescs = new ArrayList<Prescription>();
 		currVisit = new Visit();
+		
 	}
 
 	private class ButtonListener implements ActionListener {
@@ -214,7 +227,7 @@ public class OrderMedicationPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnSelectDate){
 				int index = dateOfVisitcomboBox.getSelectedIndex();
-				currVisit = parent.getHandler().getVisit()
+				currVisit = visits.get(index);
 				prescs = parent.getHandler().getVisitPrescriptions(visits.get(index).getVisitID());
 				model.removeAllElements();
 				for(Prescription p : prescs) {
@@ -234,23 +247,26 @@ public class OrderMedicationPanel extends JPanel {
 					}
 				}
 				int duration = pres.getDuration();
-				int monthsD = duration/30;
-				int daysD = duration%30;
-				int dosage = pres.getDosage();
-				
-				
-				
-				
-				
-				
-				
+				Integer monthsD = duration/30;
+				Integer daysD = duration%30;
+				Integer dosage = pres.getDosage();
+				medNameTextField.setText(medName);
+				dosageTextField.setText(dosage.toString());
+				monthsTextField.setText(monthsD.toString());
+				daysTextField.setText(daysD.toString());
+				Doctor doc = parent.getHandler().getDoctor(currVisit.getDocUsername());
+				String name = "Dr. " + doc.getfName() + " " + doc.getlName();
+				consultingDoctorTextField.setText(name);
 
 			}
 			else if (e.getSource() == btnAddToCart) {
-				
+			
+				int durationz = Integer.parseInt(monthsTextField.getText()) + Integer.parseInt(daysTextField.getText());
+				Prescription prescription = new Prescription(currVisit.getVisitID(), medNameTextField.getText(), Integer.parseInt(dosageTextField.getText()), durationz, "", "No");
+				model2.addElement(prescription.getMedicineName());
+			
 			} 
 			else if (e.getSource() == btnCheckout) {
-				
 				
 				PaymentInfoPanel pip = new PaymentInfoPanel(parent, username);
 				parent.getContentPane().add(pip);
