@@ -1118,7 +1118,7 @@ public class DatabaseHandler {
 
 	public static ArrayList<Patient> getPatientFromName(String name) {
 		ArrayList<Patient> pats = new ArrayList<Patient>();
-		String query = "SELECT `PatientUsername`, `HomePhone`, `WorkPhone` FROM `Patient` WHERE `Name`='"+name+"'";
+		String query = "SELECT `PatientUsername`, `HomePhone`, `WorkPhone`, `AnnualIncome` FROM `Patient` WHERE `Name`='"+name+"'";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
@@ -1126,11 +1126,13 @@ public class DatabaseHandler {
 			String username = "";
 			String homePhone = "";
 			String workPhone = "";
+			String annualIncome = "";
 			while(rs.next()) {
 				username = rs.getString("PatientUsername");
 				homePhone = rs.getString("HomePhone");
 				workPhone = rs.getString("WorkPhone");
-				pats.add(new Patient(username, name, homePhone, workPhone, "Patient"));
+				annualIncome = rs.getString("AnnualIncome");
+				pats.add(new Patient(username, name, homePhone, workPhone, annualIncome, "Patient"));
 			}
 			rs.close();
 			statement.close();
