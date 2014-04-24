@@ -57,35 +57,35 @@ public class DoctorEditProfilePanel extends JPanel {
 		add(lblDoctorEditProfile);
 		
 		JLabel lblLicenseNo = new JLabel("License Number : ");
-		lblLicenseNo.setBounds(376, 98, 88, 16);
+		lblLicenseNo.setBounds(365, 98, 117, 16);
 		add(lblLicenseNo);
 		
 		JLabel lblFirstName = new JLabel("First Name :");
-		lblFirstName.setBounds(401, 132, 68, 16);
+		lblFirstName.setBounds(388, 136, 80, 16);
 		add(lblFirstName);
 		
 		JLabel lblLastName = new JLabel("Last Name : ");
-		lblLastName.setBounds(401, 166, 68, 16);
+		lblLastName.setBounds(385, 163, 83, 16);
 		add(lblLastName);
 		
 		JLabel lblDateOfBirth = new JLabel("Date of Birth : ");
-		lblDateOfBirth.setBounds(392, 199, 77, 16);
+		lblDateOfBirth.setBounds(376, 199, 92, 16);
 		add(lblDateOfBirth);
 		
 		JLabel lblWorkPhone = new JLabel("Work Phone : ");
-		lblWorkPhone.setBounds(392, 232, 77, 16);
+		lblWorkPhone.setBounds(376, 232, 92, 16);
 		add(lblWorkPhone);
 		
 		JLabel lblSpecialty = new JLabel("Specialty : ");
-		lblSpecialty.setBounds(402, 259, 72, 30);
+		lblSpecialty.setBounds(388, 259, 72, 30);
 		add(lblSpecialty);
 		
 		JLabel lblAddress = new JLabel("Address : ");
-		lblAddress.setBounds(408, 300, 88, 16);
+		lblAddress.setBounds(394, 300, 88, 16);
 		add(lblAddress);
 		
 		JLabel lblAvailability = new JLabel("Availability:");
-		lblAvailability.setBounds(397, 373, 77, 16);
+		lblAvailability.setBounds(388, 373, 77, 16);
 		add(lblAvailability);
 		
 		JLabel lblFrom = new JLabel("From:");
@@ -193,7 +193,7 @@ public class DoctorEditProfilePanel extends JPanel {
 		scrollPane.setViewportView(list);
 		
 		JLabel lblNewLabel = new JLabel("RoomNo:");
-		lblNewLabel.setBounds(407, 335, 46, 14);
+		lblNewLabel.setBounds(396, 335, 72, 14);
 		add(lblNewLabel);
 		
 		roomNoTextField = new JTextField();
