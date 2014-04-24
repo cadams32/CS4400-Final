@@ -4,9 +4,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -41,13 +44,20 @@ public class NewDoctorProfilePanel extends JPanel {
 	private String password;
 	private JPanel panel = new JPanel();
 	
+	private JList list;
+	private DefaultListModel model;
+
 	private ArrayList<Availability> availableList = new ArrayList<Availability>();;
 	
 	String[] user_opSpecial = {"General Physician", "Heart Specialist", "Eye Physician",
 						"Orthopedics", "Psyciatry", "GyneCologist"};
 	String[] user_opDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-	String[] user_opTime = {"8:00", "9:00", "10:00", "11:00", "12:00", 
-							"13:00", "14:00", "15:00", "16:00", "17:00", "18:00"};	
+	String[] user_opTime = {"12:00", "12:15", "12:30", "12:45", "1:00", "1:15", "1:30", "1:45am",
+			"2:00", "2:15", "2:30", "2:45", "3:00", "3:15", "3:30", "3:45", "4:00",
+			"4:15", "4:30", "4:45", "5:00", "5:15", "5:30", "5:45", "6:00", "6:15",
+			"6:30", "6:45", "7:00", "7:15", "7:30", "7:45", "8:00", "8:15", "8:30",
+			"8:45", "9:00", "9:15", "9:30", "9:45", "10:00", "10:15", "10:30", "10:45",
+			"11:00", "11:15", "11:30", "11:45"};	
 	private JLabel lblRoomNo;
 	private JTextField roomNoTextField;
 	/**
@@ -153,7 +163,7 @@ public class NewDoctorProfilePanel extends JPanel {
 		btnAddAvail.addActionListener(listener);
 		
 		btnCreateProfile = new JButton("Create Profile");
-		btnCreateProfile.setBounds(698, 412, 128, 29);
+		btnCreateProfile.setBounds(795, 468, 128, 29);
 		add(btnCreateProfile);
 		
 		lblRoomNo = new JLabel("Room No");
@@ -165,6 +175,14 @@ public class NewDoctorProfilePanel extends JPanel {
 		roomNoTextField.setBounds(125, 316, 166, 28);
 		add(roomNoTextField);
 		btnCreateProfile.addActionListener(listener);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(125, 412, 478, 85);
+		add(scrollPane);
+		
+		model = new DefaultListModel();
+		list = new JList(model);
+		scrollPane.setViewportView(list);
 	}
 	
 	private class ButtonListener implements ActionListener{
@@ -174,7 +192,8 @@ public class NewDoctorProfilePanel extends JPanel {
 					
 					//day from to
 				availableList.add(new Availability((String)cbDays.getSelectedItem(), (String)cbFromTime.getSelectedItem(), (String)cbToTime.getSelectedItem()));
-				
+				model.addElement("Day: "+(String)cbDays.getSelectedItem()+"       From: "+(String)cbFromTime.getSelectedItem()+"       To: "+(String)cbToTime.getSelectedItem());
+				list = new JList(model);
 				
 				
 			}
@@ -200,6 +219,11 @@ public class NewDoctorProfilePanel extends JPanel {
 					parent.getContentPane().add(dhp);
 					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 					cl.next(parent.getContentPane());
+					/*parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+					DoctorHomePanel dhp = new DoctorHomePanel(parent, username);
+					parent.getContentPane().add(dhp);
+					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+					cl.last(parent.getContentPane());*/
 					
 				}
 				
