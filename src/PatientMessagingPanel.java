@@ -2,6 +2,8 @@
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
@@ -11,6 +13,9 @@ import javax.swing.JComboBox;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 
+import Backend.Doctor;
+import Backend.Patient;
+
 
 public class PatientMessagingPanel extends JPanel {
 
@@ -19,9 +24,18 @@ public class PatientMessagingPanel extends JPanel {
 	 */
 	private MedicalFrame parent;
 	private String username;
-	JButton btnSendMessage, btnBack;
+	private JButton btnSendMessage, btnBack;
+	
+	private JTextPane textPane;
+	private JComboBox comboBox;
+	
+	private ArrayList<Doctor> docs;
+	private ArrayList<String> docNames;
 	
 	public PatientMessagingPanel(MedicalFrame parent, String username) {
+		
+		docs = new ArrayList<Doctor>();
+		docNames = new ArrayList<String>();
 		
 		this.parent = parent;
 		this.username = username;
@@ -39,7 +53,12 @@ public class PatientMessagingPanel extends JPanel {
 		JLabel lblSelectName = new JLabel("Select Name");
 		panel_1.add(lblSelectName, "cell 1 1,alignx trailing");
 		
-		JComboBox comboBox = new JComboBox();
+		docs = parent.getHandler().getDoctors();
+		for(Doctor d : docs) {
+			docNames.add("Dr. " + d.getfName() + " " + d.getlName());
+		}
+		
+		comboBox = new JComboBox(docNames.toArray());
 		panel_1.add(comboBox, "cell 2 1,growx");
 		
 		JLabel lblMessage = new JLabel("Message");
@@ -48,7 +67,7 @@ public class PatientMessagingPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane, "cell 2 3 2 2,grow");
 		
-		JTextPane textPane = new JTextPane();
+		textPane = new JTextPane();
 		scrollPane.setViewportView(textPane);
 		
 		JPanel panel_2 = new JPanel();
@@ -71,6 +90,11 @@ public class PatientMessagingPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnSendMessage) {
 				//DB transaction to send message
+				int index = comboBox.getSelectedIndex();
+				Doctor doc = docs.get(index);
+				String docReceiver = doc.getUsername();
+				parent.getHandler().addNewSendMessageToDoc(username, docReceiver, Calendar.getInstance().getTime().toString(), textPane.getText(), "Unread");	
+				
 			}
 			else if(e.getSource() == btnBack){
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();

@@ -60,8 +60,6 @@ public class DoctorMessagingPanel extends JPanel {
 		JLabel lblSelectPatient = new JLabel("Select Patient");
 		panel_1.add(lblSelectPatient, "cell 5 1,alignx trailing");
 		
-	
-
 		
 		JLabel lblMessage = new JLabel("Message");
 		panel_1.add(lblMessage, "cell 1 3,alignx leading");
