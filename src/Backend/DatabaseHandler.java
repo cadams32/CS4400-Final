@@ -1395,9 +1395,9 @@ public class DatabaseHandler {
 		return null;
 	}
 	
-	public static ArrayList<String> getCPTCode(String patUsername) {
+	public static ArrayList<String> getCPTCode(String username) {
 		ArrayList<String> list = new ArrayList<String>();
-		String query = "SELECT `CPTCode` FROM `Performs` WHERE `PatientUsername`='"+patUsername+"'";
+		String query = "SELECT `CPTCode` FROM `Performs` WHERE `PatientUsername`='"+username+"' OR `DocUsername` = '"+username+"'";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
@@ -1428,7 +1428,7 @@ public class DatabaseHandler {
 			while(rs.next()) {
 				String cptCode = cpt;
 				String surgeryType = rs.getString("SurgeryType");
-				int cost = rs.getInt("Cost");
+				int cost = rs.getInt("CostOfSurgery");
 				list.add(new Surgery(cptCode, surgeryType, cost));
 			}
 			rs.close();
