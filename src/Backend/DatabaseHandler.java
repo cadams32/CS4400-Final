@@ -416,7 +416,7 @@ public class DatabaseHandler {
 	 * @param costOfSurgery
 	 * @return
 	 */
-	public static boolean addNewSurgery(String CPTCode, String surgeryType, int costOfSurgery) {
+	public boolean addNewSurgery(String CPTCode, String surgeryType, int costOfSurgery) {
 		String query = "INSERT INTO `cs4400_Group_37`.`Surgery` (`CPTCode`, `SurgeryType`, `CostOfSurgery`) VALUES ('" +
 				CPTCode + "', '" + surgeryType + "', '" + costOfSurgery + "')";
 		try {
@@ -1498,6 +1498,72 @@ public class DatabaseHandler {
 			rs.close();
 			statement.close();
 			DBC.closeConnection(connection);
+			return list;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
+		}
+		return null;
+	}
+	
+	public static ArrayList<Surgery> getSurgery() {
+		ArrayList<Surgery> list = new ArrayList<Surgery>();
+		String query = "SELECT * FROM `Surgery`";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String cpt = "";
+			String type = "";
+			int cost = -1;
+			while(rs.next()) {
+				cpt = rs.getString("CPTCode");
+				type = rs.getString("SurgeryType");
+				cost = rs.getInt("CostOfSurgery");
+				list.add(new Surgery(cpt, type, cost));
+			}
+			rs.close();
+			statement.close();
+			return list;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
+		}
+		return null;
+	}
+	
+	public static ArrayList<Performs> getPerforms() {
+		ArrayList<Performs> list = new ArrayList<Performs>();
+		String query = "SELECT * FROM `Performs`";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String docUsername = "";
+			String patUsername = "";
+			String CPTcode = "";
+			String surgeryStartTime = "";
+			String surgeryEndTime = "";
+			String anesthesiaStartTime = "";
+			String complications = "";
+			int noOfAssistants = -1;
+			while(rs.next()) {
+				CPTcode = rs.getString("CPTCode");
+				docUsername = rs.getString("DocUsername");
+				patUsername = rs.getString("PatUsername");
+				surgeryStartTime = rs.getString("SurgeryStartTime");
+				surgeryEndTime = rs.getString("SurgeryEndTime");
+				anesthesiaStartTime = rs.getString("AnesthesiaStartTime");
+				complications = rs.getString("Complications");
+				noOfAssistants = rs.getInt("NoOfAssistants");
+				list.add(new Performs(docUsername, patUsername, CPTcode,
+						surgeryStartTime, surgeryEndTime,
+						anesthesiaStartTime, complications, noOfAssistants));
+			}
+			rs.close();
+			statement.close();
 			return list;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
