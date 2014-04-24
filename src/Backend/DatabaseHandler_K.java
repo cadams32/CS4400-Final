@@ -818,19 +818,23 @@ public class DatabaseHandler_K {
 		return null;
 	}
 	
-	public static String getCPTCode(String patUsername) {
+	public static ArrayList<String> getCPTCode(String patUsername) {
+		ArrayList<String> list = new ArrayList<String>();
 		String query = "SELECT `CPTCode` FROM `Performs` WHERE `PatientUsername`='"+patUsername+"'";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
 			
-			String cpt = rs.getString("CPTCode");
+			while(rs.next()) {
+				String cpt = rs.getString("CPTCode");
+				list.add(cpt);
+			}
 			
 			rs.close();
 			statement.close();
 			DBC.closeConnection(connection);
-			return cpt;
+			return list;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
 		}
