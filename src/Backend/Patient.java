@@ -16,15 +16,20 @@ public class Patient extends User{
 	private String cardNumber;
 	private String annualIncome;
 	
+	public Patient() { 
+		super("","","");
+	}
+	
 	public Patient(String username, String password, String type) {
 		super(username, password, "Patient");
 	}
 	
-	public Patient(String username, String name, String homePhone, String workPhone, String type) {
+	public Patient(String username, String name, String homePhone, String workPhone, String annualIncome, String type) {
 		super(username, "", type);
 		this.name = name;
 		this.homephone = homePhone;
 		this.workphone = workPhone;
+		this.annualIncome = annualIncome;
 	}
 	
 	public Patient(String username, String name) {

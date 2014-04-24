@@ -19,6 +19,8 @@ public class DoctorReportPanel extends JPanel {
 	
 	private MedicalFrame parent;
 	private String username;
+	//private ArrayList<String> specialty;
+	//private ArrayList<>
 	JButton btnBack;
 	
 	public DoctorReportPanel(MedicalFrame parent, String username) {
@@ -52,6 +54,8 @@ public class DoctorReportPanel extends JPanel {
 		btnBack = new JButton("Back");
 		panel_2.add(btnBack, "cell 1 0");
 		btnBack.addActionListener(listener);
+		
+		
 	}
 	private class ButtonListener implements ActionListener {
 
