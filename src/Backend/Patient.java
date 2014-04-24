@@ -20,6 +20,13 @@ public class Patient extends User{
 		super(username, password, "Patient");
 	}
 	
+	public Patient(String username, String name, String homePhone, String workPhone, String type) {
+		super(username, "", type);
+		this.name = name;
+		this.homephone = homePhone;
+		this.workphone = workPhone;
+	}
+	
 	public Patient(String username, String name) {
 		super(username, "", "Patient");
 		this.name = name;

@@ -1,9 +1,12 @@
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JEditorPane;
@@ -11,17 +14,44 @@ import javax.swing.JTextPane;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JList;
+import javax.swing.table.DefaultTableModel;
+
+import Backend.Doctor;
+import Backend.Patient;
 
 
 public class SurgeryPanel extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_4;
+	private JTextField searchTextField;
+	private JTextField patientTextField;
+	private JTextField surgeonTextField;
+	private JTextField cptCodeTextField;
 
+	private JList list;
+	
+	private DefaultTableModel tableModel;
+	private DefaultListModel listModel;
+	
 	private MedicalFrame parent;
 	private String username;
-	JButton btnRecord, btnBack;
+	private JButton btnRecord, btnBack, btnAdd, btnSearch;
+	private JTable table;
+	private JTextField preOpMedTextField;
+	
+	private ArrayList<String> preOpMed;
+	private ArrayList<Patient> pats;
+	private ArrayList<Doctor> docs;
+	private ArrayList<String> docNames;
+	
+	private JComboBox noAssistantsComboBox;
+	private JComboBox surgeryStartComboBox;
+	private JComboBox surgeryCompletionComboBox;
+	private JComboBox procedureNameComboBox;
+	private JComboBox anesthesiaStartComboBox;
+	private JTextPane complicationsTextField;
+	
+	
 	
 	/**
 	 * Create the panel.
@@ -36,30 +66,33 @@ public class SurgeryPanel extends JPanel {
 		
 		JPanel panel = new JPanel();
 		add(panel, "cell 0 1,grow");
-		panel.setLayout(new MigLayout("", "[180.00][179.00,grow][][128.00,grow][382.00,grow]", "[][146.00,grow][][][][grow][][grow][][grow]"));
+		panel.setLayout(null);
 		
 		JLabel lblSearchPatient = new JLabel("Search patient:");
-		panel.add(lblSearchPatient, "cell 2 0,alignx trailing");
+		lblSearchPatient.setBounds(319, 22, 93, 16);
+		panel.add(lblSearchPatient);
 		
-		textField = new JTextField();
-		panel.add(textField, "cell 3 0,growx");
-		textField.setColumns(10);
+		searchTextField = new JTextField();
+		searchTextField.setBounds(416, 16, 159, 28);
+		panel.add(searchTextField);
+		searchTextField.setColumns(10);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		panel.add(scrollPane_2, "cell 1 1 4 1,grow");
-		
-		JTextPane textPane_2 = new JTextPane();
-		scrollPane_2.setViewportView(textPane_2);
+		scrollPane_2.setBounds(185, 48, 618, 126);
+		panel.add(scrollPane_2);
 		
 		JLabel lblPatientName = new JLabel("Patient Name");
-		panel.add(lblPatientName, "cell 0 2,alignx trailing");
+		lblPatientName.setBounds(98, 184, 83, 16);
+		panel.add(lblPatientName);
 		
-		textField_1 = new JTextField();
-		panel.add(textField_1, "cell 1 2,growx");
-		textField_1.setColumns(10);
+		patientTextField = new JTextField();
+		patientTextField.setBounds(185, 178, 130, 28);
+		panel.add(patientTextField);
+		patientTextField.setColumns(10);
 		
 		JLabel lblAnesthesiaStartTime = new JLabel("Anesthesia Start Time");
-		panel.add(lblAnesthesiaStartTime, "cell 3 2,alignx trailing");
+		lblAnesthesiaStartTime.setBounds(545, 184, 137, 16);
+		panel.add(lblAnesthesiaStartTime);
 		
 		String[] times = {"12:00 am", "12:15 am", "12:30 am", "12:45 am", "1:00 am", "1:15 am", "1:30 am", "1:45 am",
 				"2:00 am", "2:15 am", "2:30 am", "2:45 am", "3:00 am", "3:15 am", "3:30 am", "3:45 am", "4:00 am",
@@ -72,66 +105,93 @@ public class SurgeryPanel extends JPanel {
 				"5:45 pm", "6:00 pm", "6:15 pm", "6:30 pm", "6:45 pm", "7:00 pm", "7:15 pm", "7:30 pm", "7:45 pm",
 				"8:00 pm", "8:15 pm", "8:30 pm", "8:45 pm", "9:00 pm", "9:15 pm", "9:30 pm", "9:45 pm", "10:00 pm",
 				"10:15 pm", "10:30 pm", "10:45 pm", "11:00 pm", "11:15 pm", "11:30 pm", "11:45 pm"};
-		JComboBox comboBox_2 = new JComboBox(times);
-		panel.add(comboBox_2, "cell 4 2,growx");
+		anesthesiaStartComboBox = new JComboBox(times);
+		anesthesiaStartComboBox.setBounds(694, 180, 109, 27);
+		panel.add(anesthesiaStartComboBox);
 		
 		JLabel lblSurgeonName = new JLabel("Surgeon Name");
-		panel.add(lblSurgeonName, "cell 0 3,alignx trailing");
+		lblSurgeonName.setBounds(90, 217, 91, 16);
+		panel.add(lblSurgeonName);
 		
-		textField_2 = new JTextField();
-		panel.add(textField_2, "cell 1 3,growx");
-		textField_2.setColumns(10);
+		surgeonTextField = new JTextField();
+		surgeonTextField.setBounds(185, 211, 130, 28);
+		panel.add(surgeonTextField);
+		surgeonTextField.setColumns(10);
 		
 		JLabel lblSurgeryStartTime = new JLabel("Surgery Start Time");
-		panel.add(lblSurgeryStartTime, "cell 3 3,alignx trailing");
+		lblSurgeryStartTime.setBounds(579, 217, 115, 16);
+		panel.add(lblSurgeryStartTime);
 		
-		JComboBox comboBox_3 = new JComboBox(times);
-		panel.add(comboBox_3, "cell 4 3,growx");
+		surgeryStartComboBox = new JComboBox(times);
+		surgeryStartComboBox.setBounds(694, 213, 109, 27);
+		panel.add(surgeryStartComboBox);
 		
 		JLabel lblProcedureName = new JLabel("Procedure Name");
-		panel.add(lblProcedureName, "cell 0 4,alignx trailing");
+		lblProcedureName.setBounds(79, 248, 102, 16);
+		panel.add(lblProcedureName);
 		
 		String[] procedures = {"Procedure 1", "Procedure 2", "Procedure 3"};
-		JComboBox comboBox = new JComboBox(procedures);
-		panel.add(comboBox, "cell 1 4,growx");
+		procedureNameComboBox = new JComboBox(procedures);
+		procedureNameComboBox.setBounds(185, 244, 130, 27);
+		panel.add(procedureNameComboBox);
 		
 		JLabel lblSurgeryCompletionTime = new JLabel("Surgery Completion Time");
-		panel.add(lblSurgeryCompletionTime, "cell 3 4,alignx trailing");
+		lblSurgeryCompletionTime.setBounds(531, 248, 159, 16);
+		panel.add(lblSurgeryCompletionTime);
 		
-		JComboBox comboBox_4 = new JComboBox(times);
-		panel.add(comboBox_4, "cell 4 4,growx");
+		surgeryCompletionComboBox = new JComboBox(times);
+		surgeryCompletionComboBox.setBounds(694, 244, 109, 27);
+		panel.add(surgeryCompletionComboBox);
 		
 		JLabel lblCptCode = new JLabel("CPT Code");
-		panel.add(lblCptCode, "cell 0 5,alignx trailing");
+		lblCptCode.setBounds(121, 281, 60, 16);
+		panel.add(lblCptCode);
 		
-		textField_4 = new JTextField();
-		panel.add(textField_4, "cell 1 5,growx");
-		textField_4.setColumns(10);
+		cptCodeTextField = new JTextField();
+		cptCodeTextField.setBounds(185, 275, 130, 28);
+		panel.add(cptCodeTextField);
+		cptCodeTextField.setColumns(10);
 		
 		JLabel lblComplications = new JLabel("Complications");
-		panel.add(lblComplications, "cell 3 5");
+		lblComplications.setBounds(541, 276, 91, 16);
+		panel.add(lblComplications);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		panel.add(scrollPane_1, "cell 4 5 1 4,grow");
+		scrollPane_1.setBounds(632, 275, 171, 89);
+		panel.add(scrollPane_1);
 		
-		JTextPane textPane_1 = new JTextPane();
-		scrollPane_1.setViewportView(textPane_1);
+		complicationsTextField = new JTextPane();
+		scrollPane_1.setViewportView(complicationsTextField);
 		
 		JLabel lblNumberOfAssistants = new JLabel("Number of Assistants");
-		panel.add(lblNumberOfAssistants, "cell 0 6,alignx trailing");
+		lblNumberOfAssistants.setBounds(44, 311, 137, 16);
+		panel.add(lblNumberOfAssistants);
 		
 		String[] assistants = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-		JComboBox comboBox_1 = new JComboBox(assistants);
-		panel.add(comboBox_1, "cell 1 6,growx");
+		noAssistantsComboBox = new JComboBox(assistants);
+		noAssistantsComboBox.setBounds(185, 307, 130, 27);
+		panel.add(noAssistantsComboBox);
 		
 		JLabel lblPreoperativeMedications = new JLabel("Pre-operative Medications");
-		panel.add(lblPreoperativeMedications, "cell 0 7,alignx trailing");
+		lblPreoperativeMedications.setBounds(16, 338, 165, 16);
+		panel.add(lblPreoperativeMedications);
+		
+		preOpMedTextField = new JTextField();
+		preOpMedTextField.setBounds(185, 332, 134, 28);
+		panel.add(preOpMedTextField);
+		preOpMedTextField.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		panel.add(scrollPane, "cell 1 7 1 2,grow");
+		scrollPane.setBounds(348, 217, 151, 102);
+		panel.add(scrollPane);
 		
-		JTextPane textPane = new JTextPane();
-		scrollPane.setViewportView(textPane);
+		btnAdd = new JButton("Add");
+		btnAdd.setBounds(326, 335, 93, 29);
+		panel.add(btnAdd);
+		
+		JLabel lblPreopMeds = new JLabel("PreOp Meds");
+		lblPreopMeds.setBounds(391, 197, 83, 16);
+		panel.add(lblPreopMeds);
 		
 		JPanel panel_1 = new JPanel();
 		add(panel_1, "cell 0 2,grow");
@@ -144,6 +204,20 @@ public class SurgeryPanel extends JPanel {
 		btnBack = new JButton("Back");
 		panel_1.add(btnBack, "cell 3 0");
 		btnBack.addActionListener(listener);
+		
+		tableModel = new DefaultTableModel();
+		String[] colNames = {"Name", "Phone Number"};
+		tableModel.setColumnIdentifiers(colNames);
+		table = new JTable(tableModel);
+		scrollPane_2.setViewportView(table);
+		
+		listModel = new DefaultListModel();
+		JList list = new JList(listModel);
+		scrollPane.setViewportView(list);
+		
+		btnSearch = new JButton("Search");
+		btnSearch.setBounds(577, 17, 117, 29);
+		panel.add(btnSearch);
 
 	}
 	
@@ -156,10 +230,22 @@ public class SurgeryPanel extends JPanel {
 				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
 				cl.last(parent.getContentPane());
 			}
+			else if(e.getSource() == btnSearch) {
+				String name = searchTextField.getText();
+				pats = parent.getHandler().getPatientFromName(name);
+				Object[] insert = new Object[2];
+				for(Patient p : pats) {
+					insert[0] = p.getName();
+					insert[1] = p.getHomephone();
+					
+				}
+			}
+			else if(e.getSource() == btnAdd) {
+				
+			}	
 			else if(e.getSource() == btnRecord){
 				//DB Transaction
 			}
 		}
 	}
-
 }
