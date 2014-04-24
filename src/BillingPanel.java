@@ -5,12 +5,16 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import Backend.Surgery;
 import Backend.Visit;
 
 
@@ -19,11 +23,12 @@ public class BillingPanel extends JPanel {
 	private JTable table;
 	private JTable table_1;
 	private JTable table_2;
-	private JTextField textField_1;
+	private JTextField costTextField;
 	
 	private MedicalFrame parent;
 	private String username;
-	JButton btnCreateBill, btnBack;
+	private JButton btnCreateBill, btnBack;
+	private DefaultListModel phoneModel, visitModel, surgeryModel;
 
 	/**
 	 * Create the panel.
@@ -34,6 +39,7 @@ public class BillingPanel extends JPanel {
 		this.username = username;
 		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
+		ButtonListener listener = new ButtonListener();
 		
 		JPanel panel = new JPanel();
 		add(panel, "cell 0 0,grow");
@@ -52,6 +58,7 @@ public class BillingPanel extends JPanel {
 		
 		btnCreateBill = new JButton("Create Bill");
 		panel_1.add(btnCreateBill, "cell 3 0");
+		btnCreateBill.addActionListener(listener);
 		
 		JScrollPane patientScrollPane = new JScrollPane();
 		panel_1.add(patientScrollPane, "cell 1 1,grow");
@@ -59,7 +66,9 @@ public class BillingPanel extends JPanel {
 		String[] colNames = {"Patient Name", "Phone Number"};
 		Object[][] data = {};
 		table = new JTable(data, colNames);
-		patientScrollPane.setViewportView(table);
+		//patientScrollPane.setViewportView(table);
+		phoneModel = new DefaultListModel();
+		patientScrollPane.setViewportView(new JList(phoneModel));
 		
 		JScrollPane visitScrollPane = new JScrollPane();
 		panel_1.add(visitScrollPane, "cell 2 1,grow");
@@ -67,7 +76,9 @@ public class BillingPanel extends JPanel {
 		String[] colNames_1 = {"Visits", "Cost"};
 		Object[][] data_1 = {};
 		table_1 = new JTable(data_1, colNames_1);
-		visitScrollPane.setViewportView(table_1);
+		//visitScrollPane.setViewportView(table_1);
+		visitModel = new DefaultListModel();
+		visitScrollPane.setViewportView(new JList(visitModel));
 		
 		JScrollPane surgeryScrollPane = new JScrollPane();
 		panel_1.add(surgeryScrollPane, "cell 3 1,grow");
@@ -75,14 +86,16 @@ public class BillingPanel extends JPanel {
 		String[] colNames_2 = {"Surgery", "Cost"};
 		Object[][] data_2 = {};
 		table_2 = new JTable(data_2, colNames_2);
-		surgeryScrollPane.setViewportView(table_2);
-		
+		//surgeryScrollPane.setViewportView(table_2);
+		surgeryModel = new DefaultListModel();
+		surgeryScrollPane.setViewportView(new JList(surgeryModel));
+
 		JLabel lblTotalCost = new JLabel("Total Cost");
 		panel_1.add(lblTotalCost, "cell 4 1,alignx trailing");
 		
-		textField_1 = new JTextField();
-		panel_1.add(textField_1, "cell 5 1,growx");
-		textField_1.setColumns(10);
+		costTextField = new JTextField();
+		panel_1.add(costTextField, "cell 5 1,growx");
+		costTextField.setColumns(10);
 		
 		JPanel panel_2 = new JPanel();
 		add(panel_2, "cell 0 2,grow");
@@ -104,9 +117,33 @@ public class BillingPanel extends JPanel {
 				
 			} else if (e.getSource() == btnCreateBill) {
 				//DB transaction
-				//String phone = parent.getHandler().getPatientPhoneNumber(nameTextField);
-				//ArrayList<Visit> visitList = parent.getHandler().getPatientVisits(username);
+				double total = 0;
+				String visit = "";
+				String surgery = "";
+				String name = nameTextField.getText();
+				String phone = parent.getHandler().getPatientPhoneNumber(name);
+				String patUsername = parent.getHandler().getPatientUsername(name, phone);
+				phoneModel.addElement("       Name       " + "        " + "Phone Number");
+				phoneModel.addElement(name + "            " + phone);
+
+				visitModel.addElement("       Date        " + "              " + "Amount");
+				ArrayList<Visit> visitList = parent.getHandler().getPatientVisits(patUsername);
+				for (Visit s: visitList) {
+					visit = s.getDateOfVisit() + "                    " + s.getBillingAmount();
+					total += s.getBillingAmount();
+					visitModel.addElement(visit);
+				}
 				
+				ArrayList<String> cptList = parent.getHandler().getCPTCode(patUsername);
+				for (String cpt: cptList) {
+					//ArrayList<Surgery> surgeryList = parent.getHandler().getSurgery(cpt);
+					for (Surgery s: parent.getHandler().getSurgery(cpt)) {
+						surgery = s.getSurgeryType() + "             " + s.getCostOfSurgery();
+						total += s.getCostOfSurgery();
+						surgeryModel.addElement(surgery);
+					}
+				}
+				costTextField.setText(String.valueOf(total));				
 			}	
 		}
 		

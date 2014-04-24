@@ -1378,9 +1378,11 @@ public class DatabaseHandler {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String phone = "";
 			
-			String phone = rs.getString("HomePhone");
-			
+			while(rs.next()) {
+				phone = rs.getString("HomePhone");
+			}
 			rs.close();
 			statement.close();
 			DBC.closeConnection(connection);
@@ -1398,12 +1400,12 @@ public class DatabaseHandler {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
-			
+			String cpt = "";
 			while(rs.next()) {
-				String cpt = rs.getString("CPTCode");
+				cpt = rs.getString("CPTCode");
 				list.add(cpt);
 			}
-			
+			System.out.println("test------------");
 			rs.close();
 			statement.close();
 			DBC.closeConnection(connection);
@@ -1424,7 +1426,7 @@ public class DatabaseHandler {
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
 			while(rs.next()) {
 				String cptCode = cpt;
-				String surgeryType = rs.getString("Type");
+				String surgeryType = rs.getString("SurgeryType");
 				int cost = rs.getInt("Cost");
 				list.add(new Surgery(cptCode, surgeryType, cost));
 			}
