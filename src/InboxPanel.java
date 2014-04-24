@@ -93,6 +93,7 @@ public class InboxPanel extends JPanel {
 			for(Message m : messages) {
 				insert[0] = m.getStatus();
 				insert[1] = m.getTime();
+				System.out.println("Hi"+m.getSender());
 				if(parent.getHandler().doesPatientExist(m.getSender())) {
 					Patient pat = parent.getHandler().getPatient(m.getSender());
 					insert[2] = pat.getName();

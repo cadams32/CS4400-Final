@@ -1156,6 +1156,11 @@ public class DatabaseHandler {
 	
 	//Messages
 	
+	/**
+	 * 
+	 * @param username
+	 * @return
+	 */
 	public static ArrayList<Message> getCommunicatesWith(String username) {
 		ArrayList<Message> msgs = new ArrayList<Message>();
 		String query = "SELECT * FROM `CommunicatesWith` WHERE `Doc_Receiver`='"+username+"'";
@@ -1185,6 +1190,11 @@ public class DatabaseHandler {
 		
 	}
 	
+	/**
+	 * 
+	 * @param username
+	 * @return
+	 */
 	public static ArrayList<Message> getSendsMessageToPatient(String username) {
 		ArrayList<Message> msgs = new ArrayList<Message>();
 		String query = "SELECT * FROM `SendsMessageToPatient` WHERE `PatientUsername`='"+username+"'";
@@ -1213,6 +1223,11 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param username
+	 * @return
+	 */
 	public static ArrayList<Message> getSendsMessageToDoc(String username) {
 		ArrayList<Message> msgs = new ArrayList<Message>();
 		String query = "SELECT * FROM `SendsMessageToDoc` WHERE `DocUsername`='"+username+"'";
@@ -1225,7 +1240,7 @@ public class DatabaseHandler {
 			String status = "";
 			String message = "";
 			while(rs.next()) {
-				sender = rs.getString("DocUsername");
+				sender = rs.getString("PatientUsername");
 				date = rs.getString("DateTime");
 				status = rs.getString("Status");
 				message = rs.getString("Content");
@@ -1243,6 +1258,22 @@ public class DatabaseHandler {
 	//Reports
 	//TODO
 	//Creating Edit Profile for Doctor and Patient
+	/**
+	 * 
+	 * @param patUsername
+	 * @param patName
+	 * @param dob
+	 * @param gender
+	 * @param address
+	 * @param workPhone
+	 * @param homePhone
+	 * @param EContactName
+	 * @param EContactPhone
+	 * @param weight
+	 * @param height
+	 * @param annualInc
+	 * @return
+	 */
 	public static boolean updatePatientProfile(String patUsername, String patName, String dob, String gender, String address,
 			String workPhone, String homePhone, String EContactName, String EContactPhone, int weight, int height, String annualInc) {
 		
@@ -1265,6 +1296,19 @@ public class DatabaseHandler {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param docUsername
+	 * @param licenseNo
+	 * @param Fname
+	 * @param Lname
+	 * @param dob
+	 * @param workPhone
+	 * @param homeAddress
+	 * @param specialty
+	 * @param roomNo
+	 * @return
+	 */
 	public static boolean updateDoctorProfile(String docUsername, String licenseNo, String Fname, String Lname ,String dob, 
 			String workPhone, String homeAddress, String specialty, int roomNo) {
 		
