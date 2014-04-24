@@ -159,12 +159,14 @@ public class DatabaseHandler {
 			System.out.println(dbU);
 			resultSet.close();
 			statement.close();
-			DBC.closeConnection(connection);
+			
 			if(dbU != null && username.equals(dbU)) {
 				return true;
 			}
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -205,6 +207,8 @@ public class DatabaseHandler {
 			return false;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -228,6 +232,8 @@ public class DatabaseHandler {
 				return true;
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
+			} finally {
+				DBC.closeConnection(connection);
 			}
 		}
 		System.out.println("Not Swag");
@@ -263,6 +269,8 @@ public class DatabaseHandler {
 				return true;
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
+			} finally {
+				DBC.closeConnection(connection);
 			}
 		}
 		return false;
@@ -284,6 +292,8 @@ public class DatabaseHandler {
 				DBC.closeConnection(connection);
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
+			} finally {
+				DBC.closeConnection(connection);
 			}
 		}
 	}
@@ -314,6 +324,8 @@ public class DatabaseHandler {
 				return true;
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
+			} finally {
+				DBC.closeConnection(connection);
 			}
 		}
 		return false;
@@ -338,6 +350,8 @@ public class DatabaseHandler {
 				System.out.println("avail");
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
+			} finally {
+				DBC.closeConnection(connection);
 			}
 		}
 	}
@@ -361,6 +375,8 @@ public class DatabaseHandler {
 				return true;
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
+			} finally {
+				DBC.closeConnection(connection);
 			}
 		}
 		return false;
@@ -387,6 +403,8 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -410,6 +428,8 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -432,6 +452,8 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -458,6 +480,8 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -480,6 +504,8 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -506,6 +532,8 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -531,6 +559,8 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -555,6 +585,8 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -583,6 +615,8 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -608,6 +642,8 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -633,6 +669,8 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -671,6 +709,8 @@ public class DatabaseHandler {
 			return list;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -698,6 +738,8 @@ public class DatabaseHandler {
 			return i;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	} 
@@ -727,6 +769,8 @@ public class DatabaseHandler {
 			return list;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -764,6 +808,8 @@ public class DatabaseHandler {
 			return list;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -797,6 +843,8 @@ public class DatabaseHandler {
 			return list;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -827,6 +875,8 @@ public class DatabaseHandler {
 			return new Visit(visitI2D, docUsername2, null, dateOfVisit, diastolic, systolic, billingAmount);
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -857,6 +907,8 @@ public class DatabaseHandler {
 			return new Visit(visitID, docUsername, null, dateOfVisit, diastolic, systolic, billingAmount);
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -889,6 +941,8 @@ public class DatabaseHandler {
 			return new Doctor(docUsername, fName, lName, roomNo);
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 		
@@ -926,6 +980,8 @@ public class DatabaseHandler {
 			return diagnosis;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	
@@ -966,6 +1022,8 @@ public class DatabaseHandler {
 			return docs;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -996,6 +1054,8 @@ public class DatabaseHandler {
 			return appts;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -1020,6 +1080,8 @@ public class DatabaseHandler {
 			return appts;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -1047,6 +1109,8 @@ public class DatabaseHandler {
 			return new Patient(username, name, ai, "Patient");
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -1072,6 +1136,8 @@ public class DatabaseHandler {
 			return pats;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -1094,6 +1160,8 @@ public class DatabaseHandler {
 			return pats;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -1114,6 +1182,8 @@ public class DatabaseHandler {
 			return username;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -1142,6 +1212,8 @@ public class DatabaseHandler {
 			return pats;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -1165,6 +1237,8 @@ public class DatabaseHandler {
 			return username;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 
@@ -1215,6 +1289,8 @@ public class DatabaseHandler {
 			return msgs;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 		
@@ -1249,6 +1325,8 @@ public class DatabaseHandler {
 			return msgs;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -1282,6 +1360,8 @@ public class DatabaseHandler {
 			return msgs;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -1322,6 +1402,8 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -1356,6 +1438,8 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return false;
 	}
@@ -1393,6 +1477,8 @@ public class DatabaseHandler {
 			return phone;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -1415,6 +1501,8 @@ public class DatabaseHandler {
 			return list;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}
@@ -1439,6 +1527,8 @@ public class DatabaseHandler {
 			return list;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
 		return null;
 	}

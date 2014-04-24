@@ -56,6 +56,9 @@ public class SurgeryPanel extends JPanel {
 	
 	Patient currPatient;
 	Doctor currDoctor;
+	private JTextField anesthesiaStartTimeTextField;
+	private JTextField surgeryStartTimeTextField;
+	private JTextField surgeryCompletionTimeTextField;
 	
 	
 	
@@ -102,7 +105,7 @@ public class SurgeryPanel extends JPanel {
 		patientTextField.setColumns(10);
 		
 		JLabel lblAnesthesiaStartTime = new JLabel("Anesthesia Start Time");
-		lblAnesthesiaStartTime.setBounds(545, 184, 137, 16);
+		lblAnesthesiaStartTime.setBounds(509, 184, 137, 16);
 		panel.add(lblAnesthesiaStartTime);
 		
 		String[] times = {"12:00 am", "12:15 am", "12:30 am", "12:45 am", "1:00 am", "1:15 am", "1:30 am", "1:45 am",
@@ -127,7 +130,7 @@ public class SurgeryPanel extends JPanel {
 		surgeonTextField.setColumns(10);
 		
 		JLabel lblSurgeryStartTime = new JLabel("Surgery Start Time");
-		lblSurgeryStartTime.setBounds(579, 217, 115, 16);
+		lblSurgeryStartTime.setBounds(509, 217, 115, 16);
 		panel.add(lblSurgeryStartTime);
 		
 		JLabel lblProcedureName = new JLabel("Procedure Name");
@@ -139,7 +142,7 @@ public class SurgeryPanel extends JPanel {
 		panel.add(procedureNameComboBox);
 		
 		JLabel lblSurgeryCompletionTime = new JLabel("Surgery Completion Time");
-		lblSurgeryCompletionTime.setBounds(531, 248, 159, 16);
+		lblSurgeryCompletionTime.setBounds(511, 248, 159, 16);
 		panel.add(lblSurgeryCompletionTime);
 		
 		JLabel lblCptCode = new JLabel("CPT Code");
@@ -152,11 +155,11 @@ public class SurgeryPanel extends JPanel {
 		cptCodeTextField.setColumns(10);
 		
 		JLabel lblComplications = new JLabel("Complications");
-		lblComplications.setBounds(541, 276, 91, 16);
+		lblComplications.setBounds(509, 276, 91, 16);
 		panel.add(lblComplications);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(632, 275, 171, 89);
+		scrollPane_1.setBounds(607, 275, 196, 89);
 		panel.add(scrollPane_1);
 		
 		complicationsTextField = new JTextPane();
@@ -222,6 +225,21 @@ public class SurgeryPanel extends JPanel {
 		selectButton = new JButton("Select");
 		selectButton.setBounds(645, 93, 117, 29);
 		panel.add(selectButton);
+		
+		anesthesiaStartTimeTextField = new JTextField();
+		anesthesiaStartTimeTextField.setBounds(679, 178, 134, 28);
+		panel.add(anesthesiaStartTimeTextField);
+		anesthesiaStartTimeTextField.setColumns(10);
+		
+		surgeryStartTimeTextField = new JTextField();
+		surgeryStartTimeTextField.setBounds(679, 211, 134, 28);
+		panel.add(surgeryStartTimeTextField);
+		surgeryStartTimeTextField.setColumns(10);
+		
+		surgeryCompletionTimeTextField = new JTextField();
+		surgeryCompletionTimeTextField.setBounds(682, 242, 134, 28);
+		panel.add(surgeryCompletionTimeTextField);
+		surgeryCompletionTimeTextField.setColumns(10);
 		btnSearch.addActionListener(listener);
 		selectButton.addActionListener(listener);
 		
@@ -316,20 +334,18 @@ public class SurgeryPanel extends JPanel {
 				String cptCode = cptCodeTextField.getText();
 				String procedureType = procedureNameComboBox.getSelectedItem().toString();
 				int costOfSurgery = getSurgeryCost(procedureType);
-			
+				String anesthesiaStart = anesthesiaStartTimeTextField.getText();
+				String surgeryStartTime = surgeryStartTimeTextField.getText();
+				String surgeryEndTime = surgeryCompletionTimeTextField.getText();
 				if(currPatient.getAnnualIncome().equals("10000-25000")) {
 					costOfSurgery *= 0.5;
 				}
-				//parent.getHandler().addNewSurgery(cptCode, procedureType, costOfSurgery);
-				//parent.getHandler().addNewPerforms(username, currPatient.getUsername(), cptCode, surgeryStartTime, surgeryEndTime, anesthesiaStart, complications, noOfAssistants)
-/*
-				surgeryStartComboBox;
-				surgeryCompletionComboBox;
-				procedureNameComboBox;
-				anesthesiaStartComboBox;
-				
-				DateTime dt;
-*/
+				parent.getHandler().addNewSurgery(cptCode, procedureType, costOfSurgery);
+				parent.getHandler().addNewPerforms(username, currPatient.getUsername(), cptCode, surgeryStartTime, surgeryEndTime, anesthesiaStart, complications, noAssistants);
+				for(String s : preOpMed) {
+					parent.getHandler().addNewSurgeryPreOpMeds(cptCode, s);
+				}
+
 			}
 		}
 	}
