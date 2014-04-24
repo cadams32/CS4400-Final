@@ -36,6 +36,7 @@ public class AdminHomePanel extends JPanel {
 		panel_1.setLayout(new MigLayout("", "[400.00][200.00]", "[][][][][][][][]"));
 		
 		btnBilling = new JButton("Billing");
+		btnBilling.addActionListener(listener);
 		panel_1.add(btnBilling, "cell 1 1,alignx center");
 		
 		btnDoctorPerformanceReport = new JButton("Doctor Performance Report");
