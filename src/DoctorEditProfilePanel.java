@@ -5,11 +5,17 @@ import java.awt.CardLayout;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+
+import Backend.Availability;
 
 
 public class DoctorEditProfilePanel extends JPanel {
@@ -28,8 +34,15 @@ public class DoctorEditProfilePanel extends JPanel {
 	private JComboBox toComboBox;
 	private JComboBox dayComboBox;
 	
+	private JList list;
+	private DefaultListModel model;
+	
 	private JButton btnBack;
 	private JButton btnSubmit;
+	private JButton btnAddAvail;
+	private JTextField roomNoTextField;
+	
+	private ArrayList<Availability> availableList = new ArrayList<Availability>();;
 	
 	public DoctorEditProfilePanel(MedicalFrame parent, String username) {
 		setBackground(SystemColor.textHighlight);
@@ -44,43 +57,43 @@ public class DoctorEditProfilePanel extends JPanel {
 		add(lblDoctorEditProfile);
 		
 		JLabel lblLicenseNo = new JLabel("License Number : ");
-		lblLicenseNo.setBounds(368, 98, 119, 16);
+		lblLicenseNo.setBounds(376, 98, 88, 16);
 		add(lblLicenseNo);
 		
 		JLabel lblFirstName = new JLabel("First Name :");
-		lblFirstName.setBounds(401, 130, 88, 16);
+		lblFirstName.setBounds(401, 132, 68, 16);
 		add(lblFirstName);
 		
 		JLabel lblLastName = new JLabel("Last Name : ");
-		lblLastName.setBounds(401, 158, 88, 16);
+		lblLastName.setBounds(401, 166, 68, 16);
 		add(lblLastName);
 		
 		JLabel lblDateOfBirth = new JLabel("Date of Birth : ");
-		lblDateOfBirth.setBounds(391, 193, 98, 16);
+		lblDateOfBirth.setBounds(392, 199, 77, 16);
 		add(lblDateOfBirth);
 		
 		JLabel lblWorkPhone = new JLabel("Work Phone : ");
-		lblWorkPhone.setBounds(392, 221, 98, 16);
+		lblWorkPhone.setBounds(392, 232, 77, 16);
 		add(lblWorkPhone);
 		
 		JLabel lblSpecialty = new JLabel("Specialty : ");
-		lblSpecialty.setBounds(408, 259, 68, 16);
+		lblSpecialty.setBounds(402, 259, 72, 30);
 		add(lblSpecialty);
 		
 		JLabel lblAddress = new JLabel("Address : ");
 		lblAddress.setBounds(408, 300, 88, 16);
 		add(lblAddress);
 		
-		JLabel lblAvailability = new JLabel("Availability");
-		lblAvailability.setBounds(357, 343, 106, 16);
+		JLabel lblAvailability = new JLabel("Availability:");
+		lblAvailability.setBounds(397, 373, 77, 16);
 		add(lblAvailability);
 		
-		JLabel lblFrom = new JLabel("From");
-		lblFrom.setBounds(593, 343, 61, 16);
+		JLabel lblFrom = new JLabel("From:");
+		lblFrom.setBounds(610, 373, 42, 16);
 		add(lblFrom);
 		
-		JLabel lblTo = new JLabel("To");
-		lblTo.setBounds(741, 343, 23, 16);
+		JLabel lblTo = new JLabel("To:");
+		lblTo.setBounds(748, 373, 31, 16);
 		add(lblTo);
 		
 		licenseNumberTextField = new JTextField();
@@ -94,17 +107,17 @@ public class DoctorEditProfilePanel extends JPanel {
 		firstNameTextField.setColumns(10);
 		
 		lastNameTextField = new JTextField();
-		lastNameTextField.setBounds(478, 152, 134, 28);
+		lastNameTextField.setBounds(478, 157, 134, 28);
 		add(lastNameTextField);
 		lastNameTextField.setColumns(10);
 		
 		dateOfBirthTextField = new JTextField();
-		dateOfBirthTextField.setBounds(478, 187, 134, 28);
+		dateOfBirthTextField.setBounds(478, 193, 134, 28);
 		add(dateOfBirthTextField);
 		dateOfBirthTextField.setColumns(10);
 		
 		workPhoneTextField = new JTextField();
-		workPhoneTextField.setBounds(478, 215, 134, 28);
+		workPhoneTextField.setBounds(478, 226, 134, 28);
 		add(workPhoneTextField);
 		workPhoneTextField.setColumns(10);
 		
@@ -116,14 +129,17 @@ public class DoctorEditProfilePanel extends JPanel {
 		String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thur4day", "Fr41ay", "Saturday" };
 		
 		dayComboBox = new JComboBox(days);
-		dayComboBox.setBounds(450, 335, 106, 27);
+		dayComboBox.setBounds(478, 368, 106, 27);
 		add(dayComboBox);
 		
-		specialtyComboBox = new JComboBox();
-		specialtyComboBox.setBounds(478, 255, 191, 27);
+		String[] specialty = {"General Physician", "Heart Specialist", "Eye Physician",
+				"Orthopedics", "Psyciatry", "GyneCologist"};
+		
+		specialtyComboBox = new JComboBox(specialty);
+		specialtyComboBox.setBounds(478, 262, 134, 27);
 		add(specialtyComboBox);
 		
-		String[] times = {"12:00 am", "12:15 am", "12:30 am", "12:45 am", "7600 am", "1:15 am", "1:30 am", "1:45am",
+		/*String[] times = {"12:00 am", "12:15 am", "12:30 am", "12:45 am", "1:00 am", "1:15 am", "1:30 am", "1:45am",
 				"2:00 am", "2:15 am", "2:30 am", "2:45 am", "3:00 am", "3:15 am", "3:30 am", "3:45 am", "4:00 am",
 				"4:15 am", "4:30 am", "4:45 am", "5:00 am", "5:15 am", "5:30 am", "5:45 am", "6:00 am", "6:15 am",
 				"6:30 am", "6:45 am", "7:00 am", "7:15 am", "7:30 am", "7:45 am", "8:00 am", "8:15 am", "8:30 am",
@@ -133,26 +149,51 @@ public class DoctorEditProfilePanel extends JPanel {
 				"3:30 pm", "3:45 pm", "4:00 pm", "4:15 pm", "4:30 pm", "4:45 pm", "5:00 pm", "5:15 pm", "5:30 pm",
 				"5:45 pm", "6:00 pm", "6:15 pm", "6:30 pm", "6:45 pm", "7:00 pm", "7:15 pm", "7:30 pm", "7:45 pm",
 				"8:00 pm", "8:15 pm", "8:30 pm", "8:45 pm", "9:00 pm", "9:15 pm", "9:30 pm", "9:45 pm", "10:00 pm",
-				"10:15 pm", "10:30 pm", "10:45 pm", "11:00 pm", "11:15 pm", "11:30 pm", "11:45 pm"};
+				"10:15 pm", "10:30 pm", "10:45 pm", "11:00 pm", "11:15 pm", "11:30 pm", "11:45 pm"};*/
+		String[] times = {"12:00", "12:15", "12:30", "12:45", "1:00", "1:15", "1:30", "1:45am",
+				"2:00", "2:15", "2:30", "2:45", "3:00", "3:15", "3:30", "3:45", "4:00",
+				"4:15", "4:30", "4:45", "5:00", "5:15", "5:30", "5:45", "6:00", "6:15",
+				"6:30", "6:45", "7:00", "7:15", "7:30", "7:45", "8:00", "8:15", "8:30",
+				"8:45", "9:00", "9:15", "9:30", "9:45", "10:00", "10:15", "10:30", "10:45",
+				"11:00", "11:15", "11:30", "11:45"};
 		
 		fromComboBox = new JComboBox(times);
-		fromComboBox.setBounds(652, 339, 77, 27);
+		fromComboBox.setBounds(647, 368, 77, 27);
 		add(fromComboBox);
 		
 		toComboBox = new JComboBox(times);
-		toComboBox.setBounds(819, 339, 61, 27);
+		toComboBox.setBounds(778, 368, 61, 27);
 		add(toComboBox);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(24, 550, 117, 29);
+		btnBack.setBounds(117, 550, 117, 29);
 		add(btnBack);
 		btnBack.addActionListener(listener);
 		
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setBounds(860, 550, 117, 29);
 		add(btnSubmit);
+		
+		btnAddAvail = new JButton("+");
+		btnAddAvail.setBounds(860, 370, 42, 23);
+		add(btnAddAvail);
 		btnSubmit.addActionListener(listener);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(478, 419, 367, 73);
+		add(scrollPane);
+		model = new DefaultListModel();
+		list = new JList(model);
+		scrollPane.setViewportView(list);
+		
+		JLabel lblNewLabel = new JLabel("RoomNo:");
+		lblNewLabel.setBounds(407, 335, 46, 14);
+		add(lblNewLabel);
+		
+		roomNoTextField = new JTextField();
+		roomNoTextField.setBounds(478, 327, 134, 30);
+		add(roomNoTextField);
+		roomNoTextField.setColumns(10);
 	}
 	
 	private class ButtonListener implements ActionListener {
@@ -166,13 +207,37 @@ public class DoctorEditProfilePanel extends JPanel {
 				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
 				cl.last(parent.getContentPane());
 				
-			} else if (e.getSource() == btnSubmit) {
+			} else if (e.getSource() == btnAddAvail) {
+				availableList.add(new Availability((String)dayComboBox.getSelectedItem(), (String)fromComboBox.getSelectedItem(), (String)toComboBox.getSelectedItem()));
+				model.addElement("Day: "+(String)dayComboBox.getSelectedItem()+"       From: "+(String)fromComboBox.getSelectedItem()+"       To: "+(String)toComboBox.getSelectedItem());
+				list = new JList(model);
 				
+			} else if (e.getSource() == btnSubmit) {
 				//update the database
+				String licenseNo = licenseNumberTextField.getText();
+				String fName = firstNameTextField.getText();
+				String lName = lastNameTextField.getText();
+				String DOB = dateOfBirthTextField.getText();
+				String workPhone = workPhoneTextField.getText();
+				String specialty = (String) specialtyComboBox.getSelectedItem();
+				String address = addressTextField.getText();
+				int roomNo = Integer.parseInt(roomNoTextField.getText());
+				
+				if(parent.getHandler().updateDoctorProfile(username, licenseNo, fName, lName ,DOB, 
+						workPhone, address, specialty, roomNo)) {
+					
+					for(Availability a : availableList) {
+						parent.getHandler().addNewDoctorAvailable(username, (String)a.getTo(), (String)a.getFrom(), (String)a.getDay());
+					}
+					
+					DoctorHomePanel dhp = new DoctorHomePanel(parent, username);
+					parent.getContentPane().add(dhp);
+					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+					cl.next(parent.getContentPane());
+				}
 				
 			}	
 		}
 		
 	}
-
 }

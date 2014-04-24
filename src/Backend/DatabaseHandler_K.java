@@ -799,5 +799,65 @@ public class DatabaseHandler_K {
 	
 	//Reports
 	//TODO
+	public static String getPatientPhoneNumber(String name) {
+		String query = "SELECT `HomePhone` FROM `Patient` WHERE `Name`='"+name+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			
+			String phone = rs.getString("HomePhone");
+			
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return phone;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
 	
+	public static String getCPTCode(String patUsername) {
+		String query = "SELECT `CPTCode` FROM `Performs` WHERE `PatientUsername`='"+patUsername+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			
+			String cpt = rs.getString("CPTCode");
+			
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return cpt;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
+	public static ArrayList<Surgery> getSurgery(String cpt){ 
+		ArrayList<Surgery> list = new ArrayList<Surgery>();
+		String query = "SELECT * FROM `Surgery` WHERE `CPTCode`='"+cpt+"'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			while(rs.next()) {
+				String cptCode = cpt;
+				String surgeryType = rs.getString("Type");
+				int cost = rs.getInt("Cost");
+				list.add(new Surgery(cptCode, surgeryType, cost));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return list;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
 }

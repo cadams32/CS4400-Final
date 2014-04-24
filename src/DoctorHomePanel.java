@@ -32,8 +32,10 @@ public class DoctorHomePanel extends JPanel {
 		
 		setLayout(new MigLayout("", "[][][][][][][][]", "[][][][][][][]"));
 		
-		JButton btnEditProfile = new JButton("Edit Profile");
-		
+		btnEditProfile = new JButton("Edit Profile");
+		add(btnEditProfile, "cell 2 6");
+		btnEditProfile.addActionListener(listener);
+
 		JLabel lblDoctor = new JLabel("Doctor");
 		add(lblDoctor, "cell 3 0");
 		
@@ -58,7 +60,6 @@ public class DoctorHomePanel extends JPanel {
 		
 		btnCommunicate = new JButton("Communicate");
 		add(btnCommunicate, "cell 2 5");
-		add(btnEditProfile, "cell 2 6");
 		btnCommunicate.addActionListener(listener);
 
 	}
