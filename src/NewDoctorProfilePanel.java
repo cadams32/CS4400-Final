@@ -52,7 +52,7 @@ public class NewDoctorProfilePanel extends JPanel {
 	String[] user_opSpecial = {"General Physician", "Heart Specialist", "Eye Physician",
 						"Orthopedics", "Psyciatry", "GyneCologist"};
 	String[] user_opDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-	String[] user_opTime = {"00:00", "00:15", "00:30", "00:45", "01:00", "01:15", "01:30", "01:45am",
+	String[] user_opTime = {"00:00", "00:15", "00:30", "00:45", "01:00", "01:15", "01:30", "01:45",
 			"02:00", "02:15", "02:30", "02:45", "03:00", "03:15", "03:30", "03:45", "04:00",
 			"04:15", "04:30", "04:45", "05:00", "05:15", "05:30", "05:45", "06:00", "06:15",
 			"06:30", "06:45", "07:00", "07:15", "07:30", "07:45", "08:00", "08:15", "08:30",
@@ -197,7 +197,7 @@ public class NewDoctorProfilePanel extends JPanel {
 					
 					//day from to
 				availableList.add(new Availability((String)cbDays.getSelectedItem(), (String)cbFromTime.getSelectedItem(), (String)cbToTime.getSelectedItem()));
-				model.addElement("Day: "+(String)cbDays.getSelectedItem()+"       From: "+(String)cbFromTime.getSelectedItem()+"       To: "+(String)cbToTime.getSelectedItem());
+				model.addElement((String)cbDays.getSelectedItem()+"       From: "+(String)cbFromTime.getSelectedItem()+"       To: "+(String)cbToTime.getSelectedItem());
 				list = new JList(model);
 				
 				
