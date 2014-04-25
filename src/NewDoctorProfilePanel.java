@@ -210,14 +210,14 @@ public class NewDoctorProfilePanel extends JPanel {
 				String workPhone = workPhoneTextField.getText();
 				String specialty = (String) cbSpecialty.getSelectedItem();
 				String address = addressTextField.getText();
-				int roomNo = Integer.parseInt(roomNoTextField.getText());
+
 				
 				if ((!parent.numTest(licenseNo)) && (!parent.firstNameTest(fName)) && (!parent.lastNameTest(lName))
 						&& (!parent.dateTest(DOB)) && (!parent.phoneNumberTest(workPhone)) && (!parent.numTest(roomNoTextField.getText()))) {
 					
 					JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");
 				} else {
-					if(parent.getHandler().addNewDoctor(username, password, licenseNo, fName, lName, DOB, workPhone, address, specialty, roomNo)) {
+					if(parent.getHandler().addNewDoctor(username, password, licenseNo, fName, lName, DOB, workPhone, address, specialty, Integer.parseInt(roomNoTextField.getText()))) {
 						
 						for(Availability a : availableList) {
 							parent.getHandler().addNewDoctorAvailable(username, (String)a.getTo(), (String)a.getFrom(), (String)a.getDay());

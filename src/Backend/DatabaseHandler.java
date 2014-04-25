@@ -71,7 +71,6 @@ public class DatabaseHandler {
 	
 		if(validateLogin(username, password)) {
 			if(doesPatientExist(username)) {
-				System.out.println("Hi");
 				return "Patient";
 			} else if (doesDoctorExist(username)) {
 				return "Doctor";

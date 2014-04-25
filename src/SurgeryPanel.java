@@ -8,6 +8,7 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
@@ -299,13 +300,14 @@ public class SurgeryPanel extends JPanel {
 				String anesthesiaStart = anesthesiaStartTimeTextField.getText();
 				String surgeryStartTime = surgeryStartTimeTextField.getText();
 				String surgeryEndTime = surgeryCompletionTimeTextField.getText();
+				int costOfSurgery = (int) currSurgery.getCostOfSurgery();
 				if(currPatient.getAnnualIncome().equals("10000-25000")) {
-					//costOfSurgery *= 0.5;
+					costOfSurgery *= 0.5;
 				}
-				//parent.getHandler().addNewSurgery(cptCode, procedureType, costOfSurgery);
-				//parent.getHandler().addNewPerforms(username, currPatient.getUsername(), cptCode, surgeryStartTime, surgeryEndTime, anesthesiaStart, complications, noAssistants);
-				for(String s : preOpMed) {
-					parent.getHandler().addNewSurgeryPreOpMeds(cptCode, s);
+				if (parent.dateTimeTest(surgeryStartTime) && parent.dateTimeTest(surgeryEndTime) && parent.dateTimeTest(anesthesiaStart)) {
+					parent.getHandler().addNewPerforms(username, currPatient.getUsername(), cptCode, surgeryStartTime, surgeryEndTime, anesthesiaStart, complications, noAssistants);
+				} else {
+					JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");
 				}
 
 			}
