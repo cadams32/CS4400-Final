@@ -214,7 +214,7 @@ public class NewDoctorProfilePanel extends JPanel {
 				if (!(licenseNo == null) && !(fName == null) && !(lName == null) && !(DOB == null) && !(workPhone == null) 
 						&& !(specialty == null) && !(address == null)) {
 				
-					JOptionPane.showMessageDialog(null, "Empty value, please try again.");
+					JOptionPane.showMessageDialog(null, "Empty value. All field must be filled.");
 				} else if ((!parent.numTest(licenseNo)) && (!parent.firstNameTest(fName)) && (!parent.lastNameTest(lName))
 						&& (!parent.dateTest(DOB)) && (!parent.phoneNumberTest(workPhone)) && (!parent.numTest(roomNoTextField.getText()))) {
 					

@@ -238,7 +238,11 @@ public class PatientEditProfilePanel extends JPanel {
 				String eContactPhone = eContactPhoneTxtField.getText();
 				String annualIncome = (String) annualIncomeComboBox.getSelectedItem();
 				
-				if ((!parent.nameTest(name)) && (!parent.dateTest(DOB)) && (!parent.phoneNumberTest(workPhone)) && (!parent.phoneNumberTest(homePhone)) 
+				if (!(name == null) && !(DOB == null) && !(gender == null) && !(address == null) && !(workPhone == null) && !(homePhone == null) 
+						&& !(eContactName == null) && !(eContactPhone == null) && !(annualIncome == null)) {
+					
+					JOptionPane.showMessageDialog(null, "Empty value. All field must be filled.");
+				} else if ((!parent.nameTest(name)) && (!parent.dateTest(DOB)) && (!parent.phoneNumberTest(workPhone)) && (!parent.phoneNumberTest(homePhone)) 
 						&& (!parent.nameTest(eContactName)) && (!parent.phoneNumberTest(eContactPhone)) && (!parent.numTest(weightTextField.getText())) 
 						&& (!parent.numTest(heightTextField.getText()))) {
 					
