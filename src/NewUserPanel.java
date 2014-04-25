@@ -81,7 +81,9 @@ public class NewUserPanel extends JPanel {
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == btnRegister){
 				if (comboBox.getSelectedItem().equals("Patient")) {
-					if (textField.getText().equals(textField_1.getText()))	{
+					if (!(textField.getText() == null) && !(textField_1.getText() == null) && !(textField_2.getText() == null)){
+						JOptionPane.showMessageDialog(null, "Empty value. All field must be filled.");
+					} else if (textField_1.getText().equals(textField_2.getText()))	{
 						NewPatientProfilePanel nup = new NewPatientProfilePanel(parent, textField.getText(), textField_1.getText());
 						parent.getContentPane().add(nup);
 						CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
@@ -91,7 +93,9 @@ public class NewUserPanel extends JPanel {
 					}
 				}
 				else if (comboBox.getSelectedItem().equals("Doctor")) {
-					if (textField.getText().equals(textField_1.getText()))	{
+					if (!(textField.getText() == null) && !(textField_1.getText() == null) && !(textField_2.getText() == null)){
+						JOptionPane.showMessageDialog(null, "Empty value. All field must be filled.");
+					} else if (textField.getText().equals(textField_1.getText()))	{
 						NewDoctorProfilePanel ndp = new NewDoctorProfilePanel(parent, textField.getText(), textField_1.getText());
 						parent.getContentPane().add(ndp);
 						CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
@@ -101,7 +105,9 @@ public class NewUserPanel extends JPanel {
 					}
 				}
 				else {
-					if (textField.getText().equals(textField_1.getText()))	{
+					if (!(textField.getText() == null) && !(textField_1.getText() == null) && !(textField_2.getText() == null)){
+						JOptionPane.showMessageDialog(null, "Empty value. All field must be filled.");
+					} else if (textField.getText().equals(textField_1.getText())) {
 						if(parent.getHandler().addNewUser(textField.getText(), textField_1.getText())) {
 							AdminHomePanel ahp = new AdminHomePanel(parent, textField.getText());
 							parent.getContentPane().add(ahp);
