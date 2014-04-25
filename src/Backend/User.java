@@ -2,7 +2,7 @@ package Backend;
 
 public class User {
 	
-	private String username;
+	protected String username;
 	private String password;
 	private String userType;
 	

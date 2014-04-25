@@ -2,6 +2,7 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -111,10 +112,8 @@ public class PatientVisitPanel extends JPanel {
 				//DB query to update the table
 				//ArrayList<Visit> visitList = parent.getHandler().getVisit();			
 				
-				Integer monthI = comboBox.getSelectedIndex() + 1;
-				String month = monthI.toString();
 				String year = (String) comboBox_1.getSelectedItem();
-				String current = year+"-"+month;
+				String month = "";
 				
 				switch(comboBox.getSelectedItem().toString()) {
 				case "January": month = "01";
@@ -142,53 +141,59 @@ public class PatientVisitPanel extends JPanel {
 				case "December": month = "12";
 					break;
 				}
+				String current = year+"-"+month;
 				
 				visitList = parent.getHandler().getVisits();
 				doctorList = parent.getHandler().getDoctors();
 				ArrayList<Visit> currentVisitList = new ArrayList<Visit>();
-				for (Visit v : visitList) {
-					String cmonth = v.getDateOfVisit().substring(5, 7);
-					String cyear = v.getDateOfVisit().substring(0, 4);
-					System.out.println(current);
-					System.out.println(cyear.concat("-"+cmonth));
-					if(current.equals(cyear.concat("-"+cmonth))) {
+				ArrayList<String> docNames = new ArrayList<String>();
+				for(Visit v : visitList){
+					Scanner scan = new Scanner(v.getDateOfVisit());
+					scan.useDelimiter("-");
+					String curYear = scan.next();
+					String curMonth = scan.next();
+					if((curYear.equals(year)) && (curMonth.equals(month))){
 						currentVisitList.add(v);
 					}
 				}
-				for(Visit v : currentVisitList) {
-					doctorList.add(parent.getHandler().getDoctor(v.getDocUsername()));
+				
+				
+				for(Visit cur: currentVisitList){
+					if(!docNames.contains(cur.getDocUsername())){
+						docNames.add(cur.getDocUsername());
+					}
 				}
-				ArrayList<String> doctorNames = new ArrayList<String>();
-				for(Doctor d : doctorList) {
-					doctorNames.add("Dr. " + d.getfName() + " " + d.getlName());
-				}
-				int[] noPat = new int[doctorList.size()];
-				int[] noPres = new int[doctorList.size()];
-				int[] totalBilling = new int[doctorList.size()];
-				int i = 0;
-				for(Doctor d : doctorList) {
-					for(Visit v : visitList) {
-						if(v.getDocUsername().equals(d.getUsername())) {
-							noPat[i]++;
-							totalBilling[i]+=v.getBillingAmount();
+				
+				int numDocs = docNames.size();
+				int[] patientsSeen = new int[numDocs];
+				int[] persWritten = new int[numDocs];
+				int[] totalBilling = new int[numDocs];
+				
+				for(Visit v: currentVisitList){
+					for(int i=0; i<docNames.size(); i++){
+						if(v.getDocUsername().equals(docNames.get(i))){
+							patientsSeen[i] += 1;
+							totalBilling[i] += v.getBillingAmount();
 						}
 					}
-					i++;
 				}
-				i = 0;
-				ArrayList<Prescription> pres = new ArrayList<Prescription>();
-				for(Doctor d : doctorList) {
-					pres = parent.getHandler().getPrescriptionByUsername(d.getUsername());
-					noPres[i]+=pres.size();
-					i++;
+				
+				for(int j=0; j<docNames.size(); j++){
+					ArrayList<Prescription> prescList = new ArrayList<Prescription>();
+					prescList.addAll(parent.getHandler().getPrescriptionByUsername(docNames.get(j)));
+					persWritten[j] = prescList.size();
 				}
-				Object[] insert = new Object[4];
-				for(i = 0; i < model.getRowCount(); i++) {
-					insert[0] = doctorNames.get(i);
-					insert[1] = noPat[i];
-					insert[2] = noPres[i];
-					insert[3] = totalBilling[i];
-					model.addRow(insert);
+				
+				ArrayList<String> realNames = new ArrayList<String>();
+				for(Doctor d: doctorList){
+					if(docNames.contains(d.getUsername())){
+						realNames.add("Dr. " + d.getfName() + " " + d.getlName());
+					}
+				}
+				
+				for(int k=0; k<docNames.size(); k++){
+					Object[] nextRow = {realNames.get(k), patientsSeen[k], persWritten[k], totalBilling[k]};
+					model.addRow(nextRow);
 				}
 				model.fireTableDataChanged();
 				

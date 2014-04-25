@@ -100,4 +100,7 @@ public class Doctor extends User {
 		this.roomNo = roomNo;
 	}
 	
+	public String toString() {
+		return username;
+	}
 }
