@@ -618,7 +618,7 @@ public class DatabaseHandler_K {
 	
 	//Creating Order Prescription
 	//get the Visits of a Patient
-	public static ArrayList<Visit> getPatientVisits(String username) {
+	/*public static ArrayList<Visit> getPatientVisits(String username) {
 		ArrayList<Visit> list = new ArrayList<Visit>();
 		String query = "SELECT * FROM `Visit` WHERE `PatientUsername`='"+username+"'";
 		
@@ -644,10 +644,10 @@ public class DatabaseHandler_K {
 			System.err.println("Exception: " + e.getMessage());
 		}
 		return null;
-	}
+	}*/
 	
 	//get Prescriptions for a Visit (not Ordered)
-	public static ArrayList<Prescription> getVisitPrescriptions(int visitID) {
+/*	public static ArrayList<Prescription> getVisitPrescriptions(int visitID) {
 		ArrayList<Prescription> list = new ArrayList<Prescription>();
 		String query = "SELECT * FROM `Prescription` WHERE `VisitID`='"+visitID+"'";
 		
@@ -673,7 +673,7 @@ public class DatabaseHandler_K {
 			System.err.println("Exception: " + e.getMessage());
 		}
 		return null;
-	}
+	}*/
 	
 	public static int getVisitID(String patUsername) {
 		String query = "SELECT * FROM `Visit` WHERE `PatientUsername`='"+patUsername+"'";
