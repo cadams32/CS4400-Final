@@ -1,6 +1,7 @@
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
@@ -10,25 +11,31 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import Backend.Patient;
+import Backend.Prescription;
 
 
 public class PaymentInfoPanel extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField cardNameTextField;
+	private JTextField cardNoTextField;
+	private JTextField cvvTextField;
 	private Patient currPatient;
+	
+	private JComboBox boxExpYear;
+	private JComboBox boxCardType;
+	private JComboBox boxExpMonth;
 
 	MedicalFrame parent;
 	String username;
 	JButton btnOrder;
+	ArrayList<Prescription> cart;
 	
 	/**
 	 * Create the panel.
 	 */
-	public PaymentInfoPanel(MedicalFrame parent, String username) {
+	public PaymentInfoPanel(MedicalFrame parent, String username, ArrayList<Prescription> cart) {
 		
 		currPatient = new Patient();
-		
+		this.cart = cart;
 		this.parent = parent;
 		this.username = username;
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
@@ -45,40 +52,40 @@ public class PaymentInfoPanel extends JPanel {
 		JLabel lblCardholdersName = new JLabel("Cardholder's Name");
 		panel_1.add(lblCardholdersName, "cell 1 1,alignx leading");
 		
-		textField = new JTextField();
-		panel_1.add(textField, "cell 2 1 4 1,growx");
-		textField.setColumns(10);
+		cardNameTextField = new JTextField();
+		panel_1.add(cardNameTextField, "cell 2 1 4 1,growx");
+		cardNameTextField.setColumns(10);
 		
 		JLabel lblCardNumber = new JLabel("Card Number");
 		panel_1.add(lblCardNumber, "cell 1 3,alignx leading");
 		
-		textField_1 = new JTextField();
-		panel_1.add(textField_1, "cell 2 3 4 1,growx");
-		textField_1.setColumns(10);
+		cardNoTextField = new JTextField();
+		panel_1.add(cardNoTextField, "cell 2 3 4 1,growx");
+		cardNoTextField.setColumns(10);
 		
 		JLabel lblTypeOfCard = new JLabel("Type of Card");
 		panel_1.add(lblTypeOfCard, "cell 1 5,alignx leading");
 		
 		String[] cardTypes = {"Visa", "Discover", "MasterCard", "American Express"};
-		JComboBox boxCardType = new JComboBox(cardTypes);
+		boxCardType = new JComboBox(cardTypes);
 		panel_1.add(boxCardType, "cell 2 5 2 1");
 		
 		JLabel lblCvv = new JLabel("CVV");
 		panel_1.add(lblCvv, "cell 1 7,alignx leading");
 		
-		textField_2 = new JTextField();
-		panel_1.add(textField_2, "cell 2 7,growx");
-		textField_2.setColumns(10);
+		cvvTextField = new JTextField();
+		panel_1.add(cvvTextField, "cell 2 7,growx");
+		cvvTextField.setColumns(10);
 		
 		JLabel lblDateOfExpiry = new JLabel("Date of Expiry");
 		panel_1.add(lblDateOfExpiry, "cell 1 9,alignx leading");
 		
 		String[] months = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
-		JComboBox boxExpMonth = new JComboBox(months);
+		boxExpMonth = new JComboBox(months);
 		panel_1.add(boxExpMonth, "cell 2 9");
 		
 		String[] year = {"2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"};
-		JComboBox boxExpYear = new JComboBox(year);
+		boxExpYear = new JComboBox(year);
 		panel_1.add(boxExpYear, "cell 3 9");
 		
 		JPanel panel_2 = new JPanel();
@@ -101,6 +108,19 @@ public class PaymentInfoPanel extends JPanel {
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == btnOrder){
 				//DB Transaction
+				String cardName = cardNameTextField.getText();
+				String cardNo = cardNoTextField.getText();
+				String cvv = cvvTextField.getText();
+				String cardType = boxCardType.getSelectedItem().toString();
+				String expMonth = boxExpMonth.getSelectedItem().toString();
+				String expYear = boxExpYear.getSelectedItem().toString();
+				String expirationDate = expYear.concat("-"+expMonth+"-01");
+				
+				if(cardName.equals("") && cardNo.equals("") && cvv.equals("") && cardType.equals("")) {
+					//parent.getHandler().updateUserCardNo(username, cardNo);
+					parent.getHandler().addNewPaymentInformation(cardNo, cardName, cvv, expirationDate, cardType);
+				}
+				
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 				for(int i = 0; i<2; i++){
 					parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);

@@ -9,6 +9,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -234,7 +235,6 @@ public class OrderMedicationPanel extends JPanel {
 				for(Prescription p : prescs) {
 					model.addElement(p.getMedicineName());
 				}
-			
 				
 			}
 			else if(e.getSource() == btnSelect){
@@ -268,11 +268,14 @@ public class OrderMedicationPanel extends JPanel {
 			
 			} 
 			else if (e.getSource() == btnCheckout) {
-				
-				PaymentInfoPanel pip = new PaymentInfoPanel(parent, username);
-				parent.getContentPane().add(pip);
-				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-				cl.next(parent.getContentPane());
+				if(!cart.isEmpty()) {
+					PaymentInfoPanel pip = new PaymentInfoPanel(parent, username, cart);
+					parent.getContentPane().add(pip);
+					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+					cl.next(parent.getContentPane());
+				} else {
+					JOptionPane.showMessageDialog(null, "Cart is Empty.");
+				}
 			}
 			else if(e.getSource() == btnBack){
 				//Go Back

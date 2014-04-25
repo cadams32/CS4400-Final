@@ -255,14 +255,17 @@ public class SurgeryPanel extends JPanel {
 				String name = searchTextField.getText();
 				pats = parent.getHandler().getPatientFromName(name);
 				Object[] insert = new Object[2];
-				for (int i = 0; i < table.getRowCount(); i++) {
-					tableModel.removeRow(i);
+				int b = table.getRowCount();
+				for (int i = 0; i < b; i++) {
+					tableModel.removeRow(0);
 				}
+				tableModel.fireTableRowsDeleted(0, b);
 				for(Patient p : pats) {
 					insert[0] = p.getName();
 					insert[1] = p.getHomephone();
 					tableModel.addRow(insert);
 				}
+			
 				tableModel.fireTableDataChanged();
 			}
 			else if (e.getSource() == selectButton) {
