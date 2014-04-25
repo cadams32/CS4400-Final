@@ -73,6 +73,7 @@ public class InboxPanel extends JPanel {
 		messages = new ArrayList<Message>();
 		if(parent.getHandler().doesPatientExist(username)) {
 			messages = parent.getHandler().getSendsMessageToPatient(username);
+
 			Object[] insert = new Object[4];
 			for(Message m : messages) {
 				Doctor doc = parent.getHandler().getDoctor(m.getSender());
@@ -95,6 +96,7 @@ public class InboxPanel extends JPanel {
 				insert[1] = m.getTime();
 				System.out.println("Hi"+m.getSender());
 				if(parent.getHandler().doesPatientExist(m.getSender())) {
+					
 					Patient pat = parent.getHandler().getPatient(m.getSender());
 					insert[2] = pat.getName();
 				} else if (parent.getHandler().doesDoctorExist(m.getSender())) {
@@ -115,6 +117,12 @@ public class InboxPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnBack) {
+				if (parent.getHandler().doesPatientExist(username)) {
+					parent.getHandler().updateSendMessageToPat(username, "Read");
+					parent.getHandler().updateSendMessageToDoc(username, "Read");
+				} else {
+					parent.getHandler().updateCommunicatesWith(username, "Read");
+				}
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
 				cl.last(parent.getContentPane());
