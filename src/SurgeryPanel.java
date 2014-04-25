@@ -321,11 +321,11 @@ public class SurgeryPanel extends JPanel {
 				if(currPatient.getAnnualIncome().equals("10000-25000")) {
 					costOfSurgery *= 0.5;
 				}
-				if (parent.dateTimeTest(surgeryStartTime) && parent.dateTimeTest(surgeryEndTime) && parent.dateTimeTest(anesthesiaStart)) {
+				//if (parent.dateTimeTest(surgeryStartTime) && parent.dateTimeTest(surgeryEndTime) && parent.dateTimeTest(anesthesiaStart)) {
 					parent.getHandler().addNewPerforms(username, currPatient.getUsername(), cptCode, surgeryStartTime, surgeryEndTime, anesthesiaStart, complications, noAssistants);
-				} else {
-					JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");
-				}
+				//} else {
+					//JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");
+				//}
 
 			}
 		}
