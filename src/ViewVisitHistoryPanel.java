@@ -174,13 +174,13 @@ public class ViewVisitHistoryPanel extends JPanel {
 				Integer diastolic = v.getDiastolicPressure();
 				systolicTextField.setText(systolic.toString());
 				diastolicTextField.setText(diastolic.toString());
-				String diagnosis = parent.getHandler().getVisitDiagnosis(v.getVisitID());
+				String diagnosis = parent.getHandler().getVisitDiagnosis(username, v.getDocUsername(), v.getDateOfVisit());
 				textPane.setText(diagnosis);
 				Doctor doc = parent.getHandler().getDoctor(v.getDocUsername());
 				consultingDoctorTxtField.setText("Dr." + doc.getfName() + " " + doc.getlName());
 				
 				ArrayList<Prescription> prescriptionList = new ArrayList<Prescription>();
-				prescriptionList = parent.getHandler().getVisitPrescriptions(v.getVisitID());
+				prescriptionList = parent.getHandler().getVisitPrescriptions(username, v.getDocUsername(), v.getDateOfVisit());
 				Object[] insert = new Object[4];
 				for(Prescription p : prescriptionList) {
 					insert[0] = p.getMedicineName();

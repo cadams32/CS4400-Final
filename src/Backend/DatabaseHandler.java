@@ -797,7 +797,7 @@ public class DatabaseHandler {
 				int systolic = rs.getInt("Systolic");
 				int billingAmount = rs.getInt("BillingAmount");
 				
-				list.add(new Visit(docUsername, null, dateOfVisit, diastolic, systolic, billingAmount));
+				list.add(new Visit(docUsername, username, dateOfVisit, diastolic, systolic, billingAmount));
 			}
 			rs.close();
 			statement.close();
@@ -818,7 +818,7 @@ public class DatabaseHandler {
 	 */
 	public ArrayList<Prescription> getVisitPrescriptions(String patientUsername, String docUsername, String dateOfVisit) {
 		ArrayList<Prescription> list = new ArrayList<Prescription>();
-		String query = "SELECT * FROM `Prescription` WHERE `PatUsername`='"+patientUsername+"' AND  `DocUsername`='" +docUsername+"'AND `DateOfVisit`= '" + dateOfVisit + "'"; 
+		String query = "SELECT * FROM `Prescription` WHERE `PatUsername`='"+patientUsername+"' AND  `DocUsername`='" +docUsername+"' AND `DateOfVisit`= '" + dateOfVisit + "'"; 
 		
 		try {
 			connection = DBC.createConnection();
@@ -851,7 +851,6 @@ public class DatabaseHandler {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
-			String docUsername2 = "";
 			String dateOfVisit = "";
 			int diastolic = -1;
 			int systolic = -1;
@@ -926,7 +925,8 @@ public class DatabaseHandler {
 	 * @return
 	 */
 	public String getVisitDiagnosis(String patientUsername, String docUsername, String dateOfVisit) { 
-		String query = "SELECT `Diagnosis` FROM `Visit_Diagnosis` WHERE `PatientUsername`='"+patientUsername+"' AND  `DocUsername`='" +docUsername+"'AND `DateOfVisit`= '" + dateOfVisit + "'";
+		String query = "SELECT `Diagnosis` FROM `Visit_Diagnosis` WHERE `PatUsername`='"+patientUsername+"' AND  `DocUsername`='" +docUsername+"' AND `DateOfVisit`= '" + dateOfVisit + "'";
+		System.out.println("INPUT: " + patientUsername + " " + docUsername + " " + dateOfVisit);
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
@@ -934,6 +934,7 @@ public class DatabaseHandler {
 			String diagnosis = "";
 			while(rs.next()) {
 				diagnosis = rs.getString("Diagnosis");
+				System.out.println("Diagnosis: " + diagnosis);
 			}
 			rs.close();
 			statement.close();
