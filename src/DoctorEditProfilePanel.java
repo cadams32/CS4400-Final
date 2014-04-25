@@ -229,8 +229,8 @@ public class DoctorEditProfilePanel extends JPanel {
 				String specialty = (String) specialtyComboBox.getSelectedItem();
 				String address = addressTextField.getText();
 				
-				if (!(licenseNo == null) && !(fName == null) && !(lName == null) && !(DOB == null) && !(workPhone == null) 
-						&& !(specialty == null) && !(address == null)) {
+				if ((licenseNo.equals("")) || (fName.equals("")) || (lName.equals("")) || (DOB.equals("")) || (workPhone.equals("")) 
+						|| (specialty == null) || (address.equals(""))) {
 				
 					JOptionPane.showMessageDialog(null, "Empty value. All field must be filled.");
 				} else if ((!parent.numTest(licenseNo)) && (!parent.firstNameTest(fName)) && (!parent.lastNameTest(lName))
