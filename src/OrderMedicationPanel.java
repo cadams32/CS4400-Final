@@ -264,6 +264,7 @@ public class OrderMedicationPanel extends JPanel {
 			
 				int durationz = Integer.parseInt(monthsTextField.getText()) * 30 + Integer.parseInt(daysTextField.getText());
 				Prescription prescription = new Prescription(username, consultingDoctorTextField.getText(), (String)dateOfVisitcomboBox.getSelectedItem() , medNameTextField.getText(), Integer.parseInt(dosageTextField.getText()), durationz, "", "No");
+				cart.add(prescription);
 				model2.addElement(prescription.getMedicineName());
 			
 			} 
