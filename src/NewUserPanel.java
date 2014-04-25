@@ -1,4 +1,5 @@
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
@@ -80,28 +81,36 @@ public class NewUserPanel extends JPanel {
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == btnRegister){
 				if (comboBox.getSelectedItem().equals("Patient")) {
-					
-					NewPatientProfilePanel nup = new NewPatientProfilePanel(parent, textField.getText(), textField_1.getText());
-					parent.getContentPane().add(nup);
-					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-					cl.next(parent.getContentPane());
-				}
-				else if (comboBox.getSelectedItem().equals("Doctor")) {
-					NewDoctorProfilePanel ndp = new NewDoctorProfilePanel(parent, textField.getText(), textField_1.getText());
-					parent.getContentPane().add(ndp);
-					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-					cl.next(parent.getContentPane());
-				}
-				else {
-					if(parent.getHandler().addNewUser(textField.getText(), textField_1.getText())) {
-						AdminHomePanel ahp = new AdminHomePanel(parent, textField.getText());
-						parent.getContentPane().add(ahp);
+					if (textField.getText().equals(textField_1.getText()))	{
+						NewPatientProfilePanel nup = new NewPatientProfilePanel(parent, textField.getText(), textField_1.getText());
+						parent.getContentPane().add(nup);
 						CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 						cl.next(parent.getContentPane());
 					} else {
-						//error!
+						JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");
 					}
-					
+				}
+				else if (comboBox.getSelectedItem().equals("Doctor")) {
+					if (textField.getText().equals(textField_1.getText()))	{
+						NewDoctorProfilePanel ndp = new NewDoctorProfilePanel(parent, textField.getText(), textField_1.getText());
+						parent.getContentPane().add(ndp);
+						CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+						cl.next(parent.getContentPane());
+					} else {
+						JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");
+					}
+				}
+				else {
+					if (textField.getText().equals(textField_1.getText()))	{
+						if(parent.getHandler().addNewUser(textField.getText(), textField_1.getText())) {
+							AdminHomePanel ahp = new AdminHomePanel(parent, textField.getText());
+							parent.getContentPane().add(ahp);
+							CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+							cl.next(parent.getContentPane());
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");
+					}					
 				}
 			} else if (e.getSource() == btnBack) {
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
