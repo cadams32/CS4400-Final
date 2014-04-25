@@ -460,7 +460,6 @@ public class DatabaseHandler {
 	
 	/**
 	 * Add New Visit
-	 * @param visitId
 	 * @param docUsername
 	 * @param patUsername
 	 * @param dateOfVisit
@@ -488,7 +487,6 @@ public class DatabaseHandler {
 	
 	/**
 	 * Add New Visit Diagnosis
-	 * @param visitID
 	 * @param diagnosis
 	 * @return
 	 */
@@ -800,7 +798,7 @@ public class DatabaseHandler {
 				int systolic = rs.getInt("Systolic");
 				int billingAmount = rs.getInt("BillingAmount");
 				
-				list.add(new Visit(visitID, docUsername, null, dateOfVisit, diastolic, systolic, billingAmount));
+				list.add(new Visit(docUsername, null, dateOfVisit, diastolic, systolic, billingAmount));
 			}
 			rs.close();
 			statement.close();
@@ -872,7 +870,7 @@ public class DatabaseHandler {
 			rs.close();
 			statement.close();
 			DBC.closeConnection(connection);
-			return new Visit(visitI2D, docUsername2, null, dateOfVisit, diastolic, systolic, billingAmount);
+			return new Visit(docUsername2, null, dateOfVisit, diastolic, systolic, billingAmount);
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
 		} finally {
@@ -904,7 +902,7 @@ public class DatabaseHandler {
 			rs.close();
 			statement.close();
 			DBC.closeConnection(connection);
-			return new Visit(visitID, docUsername, null, dateOfVisit, diastolic, systolic, billingAmount);
+			return new Visit(docUsername, null, dateOfVisit, diastolic, systolic, billingAmount);
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
 		} finally {
@@ -1598,4 +1596,29 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
+}
+
+public static ArrayList<String> getSurgeryPreOpMed() {
+	ArrayList<String> preop = new ArrayList<String>();
+	String query = "SELECT * FROM `SurgeryPreOpMeds";
+	
+	try {
+		connection = DBC.createConnection();
+		Statement statement = connection.createStatement();
+		ResultSet rs = (ResultSet) statement.executeQuery(query);
+		String preopmed = "";
+		while(rs.next()) {
+			preopmed = rs.getString("SurgeryPreOpMeds");
+			preop.add(preopmed);
+		}
+		rs.close();
+		statement.close();
+		DBC.closeConnection(connection);
+		return preop;
+	} catch (Exception e) {
+		System.err.println("Exception: " + e.getMessage());
+	} finally {
+		DBC.closeConnection(connection);
+	}
+	return null;
 }

@@ -2,6 +2,7 @@
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
@@ -10,6 +11,9 @@ import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
+
+import Backend.Visit;
 
 
 public class PatientVisitPanel extends JPanel {
@@ -18,6 +22,8 @@ public class PatientVisitPanel extends JPanel {
 	private MedicalFrame parent;
 	private String username;
 	JButton btnBack, btnUpdate;
+	DefaultTableModel model;
+	JComboBox comboBox, comboBox_1;
 
 	/**
 	 * Create the panel.
@@ -43,11 +49,11 @@ public class PatientVisitPanel extends JPanel {
 		panel_1.add(lblSelectMonth, "cell 1 1,alignx trailing");
 		
 		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-		JComboBox comboBox = new JComboBox(months);
+		comboBox = new JComboBox(months);
 		panel_1.add(comboBox, "cell 2 1,growx");
 		
 		String[] years = {"2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"};
-		JComboBox comboBox_1 = new JComboBox(years);
+		comboBox_1 = new JComboBox(years);
 		panel_1.add(comboBox_1, "cell 3 1,growx");
 		
 		btnUpdate = new JButton("Update");
@@ -58,8 +64,15 @@ public class PatientVisitPanel extends JPanel {
 		panel_1.add(scrollPane, "cell 1 3 3 1,grow");
 		
 		String[] colNames = {"Doctor Name", "Number of Patients Seen", "Number of Prescriptions Written", "Total Billing"};
-		Object[][] data = {};
-		table = new JTable(data, colNames);
+		model = new DefaultTableModel(){
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+	        //all cells false
+			return false;
+			}
+	    };
+		table = new JTable(model);
+		model.setColumnIdentifiers(colNames);
 		scrollPane.setViewportView(table);
 		
 		JPanel panel_2 = new JPanel();
@@ -83,7 +96,9 @@ public class PatientVisitPanel extends JPanel {
 			}
 			else if (e.getSource() == btnUpdate) {
 				//DB query to update the table
-				
+				//ArrayList<Visit> visitList = parent.getHandler().getVisit();
+				String month = (String) comboBox.getSelectedItem();
+				String year = (String) comboBox_1.getSelectedItem();
 			}
 			
 		}

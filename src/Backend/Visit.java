@@ -1,8 +1,6 @@
 package Backend;
 
 public class Visit {
-	
-	private int visitID;
 	private String dateOfVisit;
 	private int diastolicPressure;
 	private int systolicPressure;
@@ -11,8 +9,7 @@ public class Visit {
 	private String docUsername;
 	private String patUsername;
 	
-	public Visit(int visitID, String docUsername, String patUsername, String dateOfVisit, int diastolicPressure, int systolicPressure, int billingAmount) {
-		this.visitID = visitID;
+	public Visit(String docUsername, String patUsername, String dateOfVisit, int diastolicPressure, int systolicPressure, int billingAmount) {
 		this.docUsername = docUsername;
 		this.patUsername = patUsername;
 		this.dateOfVisit = dateOfVisit;
@@ -23,14 +20,6 @@ public class Visit {
 
 	public Visit() {
 		// TODO Auto-generated constructor stub
-	}
-
-	public int getVisitID() {
-		return visitID;
-	}
-
-	public void setVisitID(int visitID) {
-		this.visitID = visitID;
 	}
 
 	public String getDateOfVisit() {
