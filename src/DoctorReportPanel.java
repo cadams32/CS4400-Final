@@ -86,8 +86,6 @@ public class DoctorReportPanel extends JPanel {
 			avgRating[j] = 0;
 		}
 		
-		System.out.println("---------------");
-		
 		for(int i=0; i<6; i++){
 			docList = parent.getHandler().getSpecialtyDoctors(specialties[i]);
 			for(Doctor d: docList){
