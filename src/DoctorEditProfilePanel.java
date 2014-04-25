@@ -17,6 +17,8 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 import Backend.Availability;
+import Backend.Doctor;
+import Backend.Patient;
 
 
 public class DoctorEditProfilePanel extends JPanel {
@@ -201,6 +203,20 @@ public class DoctorEditProfilePanel extends JPanel {
 		roomNoTextField.setBounds(478, 327, 134, 30);
 		add(roomNoTextField);
 		roomNoTextField.setColumns(10);
+		
+		populateFields();
+	}
+	
+	public void populateFields(){
+		Doctor p = parent.getHandler().getOneDoctor(username);
+		licenseNumberTextField.setText(p.getLicenseNo());
+		firstNameTextField.setText(p.getfName());
+		lastNameTextField.setText(p.getlName());
+		dateOfBirthTextField.setText(p.getDob());
+		workPhoneTextField.setText(p.getWorkphone());
+		specialtyComboBox.setSelectedItem(p.getSpeciality());
+		addressTextField.setText(p.getHomeAddress());
+		roomNoTextField.setText(String.valueOf(p.getRoomNo()));
 	}
 	
 	private class ButtonListener implements ActionListener {
