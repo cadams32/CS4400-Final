@@ -1596,7 +1596,6 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
-}
 
 public static ArrayList<String> getSurgeryPreOpMed() {
 	ArrayList<String> preop = new ArrayList<String>();
@@ -1621,4 +1620,6 @@ public static ArrayList<String> getSurgeryPreOpMed() {
 		DBC.closeConnection(connection);
 	}
 	return null;
+}
+
 }
