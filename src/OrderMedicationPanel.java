@@ -228,7 +228,8 @@ public class OrderMedicationPanel extends JPanel {
 			if(e.getSource() == btnSelectDate){
 				int index = dateOfVisitcomboBox.getSelectedIndex();
 				currVisit = visits.get(index);
-				prescs = parent.getHandler().getVisitPrescriptions(visits.get(index).getVisitID());
+				prescs = parent.getHandler().getVisitPrescriptions(visits.get(index).getPatUsername(), visits.get(index).getDocUsername(),
+						visits.get(index).getDateOfVisit());
 				model.removeAllElements();
 				for(Prescription p : prescs) {
 					model.addElement(p.getMedicineName());
@@ -261,8 +262,8 @@ public class OrderMedicationPanel extends JPanel {
 			}
 			else if (e.getSource() == btnAddToCart) {
 			
-				int durationz = Integer.parseInt(monthsTextField.getText()) + Integer.parseInt(daysTextField.getText());
-				Prescription prescription = new Prescription(username, medNameTextField.getText(), Integer.parseInt(dosageTextField.getText()), durationz, "", "No");
+				int durationz = Integer.parseInt(monthsTextField.getText()) * 30 + Integer.parseInt(daysTextField.getText());
+				Prescription prescription = new Prescription(username, consultingDoctorTextField.getText(), (String)dateOfVisitcomboBox.getSelectedItem() , medNameTextField.getText(), Integer.parseInt(dosageTextField.getText()), durationz, "", "No");
 				model2.addElement(prescription.getMedicineName());
 			
 			} 
