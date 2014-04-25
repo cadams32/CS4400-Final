@@ -294,9 +294,12 @@ public class SurgeryPanel extends JPanel {
 					}
 				}
 				cptCodeTextField.setText(currSurgery.getCPTCode());
+				System.out.println("CPT: " + currSurgery.getCPTCode());				
 				ArrayList<String> preopmed = parent.getHandler().getSurgeryPreOpMed(currSurgery.getCPTCode());
+				System.out.println("SIZE: " + preopmed.size());
 				listModel.removeAllElements();
 				for(String s : preopmed) {
+					System.out.println("PREOP: " + s);
 					listModel.addElement(s);
 				}
 						
