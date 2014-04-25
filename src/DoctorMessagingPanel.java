@@ -3,6 +3,8 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -34,6 +36,8 @@ public class DoctorMessagingPanel extends JPanel {
 	private ArrayList<String> docNames;
 	private ArrayList<Patient> pats;
 	private ArrayList<String> patNames;
+	
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	/**
 	 * Create the panel.
@@ -111,6 +115,7 @@ public class DoctorMessagingPanel extends JPanel {
 		selectPatComboBox = new JComboBox(patNames.toArray());
 		panel_1.add(selectPatComboBox, "cell 6 1,growx");
 
+
 	}
 	private class ButtonListener implements ActionListener {
 
@@ -126,14 +131,14 @@ public class DoctorMessagingPanel extends JPanel {
 				int index = selectDocComboBox.getSelectedIndex();
 				Doctor doc = docs.get(index);
 				String docReceiver = doc.getUsername();
-				parent.getHandler().addNewCommunicatesWith(username, docReceiver, Calendar.getInstance().getTime().toString(), docTextPane.getText(), "Unread");
+				parent.getHandler().addNewCommunicatesWith(username, docReceiver, dateFormat.format(Calendar.getInstance().getTime()), docTextPane.getText(), "Unread");
 			}
 			else if(e.getSource() == btnSendPat){
 				//This is for messaging patients
 				int index = selectPatComboBox.getSelectedIndex();
 				Patient pat = pats.get(index);
 				String patReceiver = pat.getUsername();
-				parent.getHandler().addNewSendMessageToPatient(username, patReceiver, Calendar.getInstance().getTime().toString(), patTextPane.getText(), "Unread");
+				parent.getHandler().addNewSendMessageToPatient(username, patReceiver, dateFormat.format(Calendar.getInstance().getTime()), patTextPane.getText(), "Unread");
 				
 			}
 		}

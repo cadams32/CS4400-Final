@@ -2,6 +2,8 @@
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -31,6 +33,7 @@ public class PatientMessagingPanel extends JPanel {
 	
 	private ArrayList<Doctor> docs;
 	private ArrayList<String> docNames;
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public PatientMessagingPanel(MedicalFrame parent, String username) {
 		
@@ -93,7 +96,7 @@ public class PatientMessagingPanel extends JPanel {
 				int index = comboBox.getSelectedIndex();
 				Doctor doc = docs.get(index);
 				String docReceiver = doc.getUsername();
-				parent.getHandler().addNewSendMessageToDoc(username, docReceiver, Calendar.getInstance().getTime().toString(), textPane.getText(), "Unread");	
+				parent.getHandler().addNewSendMessageToDoc(username, docReceiver, dateFormat.format(Calendar.getInstance().getTime()), textPane.getText(), "Unread");	
 				
 			}
 			else if(e.getSource() == btnBack){

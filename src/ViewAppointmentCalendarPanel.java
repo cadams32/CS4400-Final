@@ -68,6 +68,8 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 	private JLabel label_30;
 	private JLabel label_31;
 	
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
 	private ArrayList<Appointment> apptList;
 	
 	/**
@@ -715,7 +717,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		System.out.println(month);
 		monthComboBox.setSelectedIndex(Integer.parseInt(month) - 1);
 		yearComboBox.setSelectedItem(year);
-		   
+		
 	}
 	
 	private class ButtonListener implements ActionListener {

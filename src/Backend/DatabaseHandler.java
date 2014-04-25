@@ -1571,7 +1571,7 @@ public class DatabaseHandler {
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
 			String preopmed = "";
 			while(rs.next()) {
-				preopmed = rs.getString("SurgeryPreOpMeds");
+				preopmed = rs.getString("PreOpMedication");
 				preop.add(preopmed);
 			}
 			rs.close();

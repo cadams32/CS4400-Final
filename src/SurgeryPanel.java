@@ -254,6 +254,9 @@ public class SurgeryPanel extends JPanel {
 				String name = searchTextField.getText();
 				pats = parent.getHandler().getPatientFromName(name);
 				Object[] insert = new Object[2];
+				for (int i = 0; i < table.getRowCount(); i++) {
+					tableModel.removeRow(i);
+				}
 				for(Patient p : pats) {
 					insert[0] = p.getName();
 					insert[1] = p.getHomephone();
@@ -281,9 +284,7 @@ public class SurgeryPanel extends JPanel {
 				for(String s : preopmed) {
 					listModel.addElement(s);
 				}
-				
-				
-				
+						
 			}
 			else if(e.getSource() == btnRecord){
 
