@@ -1610,7 +1610,7 @@ public class DatabaseHandler {
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
 			String preopmed = "";
 			while(rs.next()) {
-				preopmed = rs.getString("SurgeryPreOpMeds");
+				preopmed = rs.getString("PreOpMedication");
 				preop.add(preopmed);
 			}
 			rs.close();
@@ -1672,4 +1672,115 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	public Patient getOnePatient(String userName) {
+		Patient pats = null;
+		String query = "SELECT * FROM `Patient` WHERE `PatientUsername` = '" + userName + "'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String name = "";
+			String username = "";
+			String dob = "";
+			String gender = "";
+			String address = "";
+			String workphone = "";
+			String homephone = "";
+			String emerContactName = "";
+			String emerContactPhone = "";
+			String weight = "";
+			String height = "";
+			String annualIncome = "";
+			while(rs.next()) {
+				username = rs.getString("PatientUsername");
+				name = rs.getString("Name");
+				dob = rs.getString("DOB");
+				gender = rs.getString("Gender");
+				address = rs.getString("Address");
+				workphone = rs.getString("WorkPhone");
+				homephone = rs.getString("HomePhone");
+				emerContactName = rs.getString("EContactName");
+				emerContactPhone = rs.getString("EContactPhone");
+				weight = rs.getString("Weight");
+				height = rs.getString("Height");
+				annualIncome = rs.getString("AnnualIncome");
+				pats = (new Patient(username, null, name, dob, gender, address, workphone, homephone, emerContactName, emerContactPhone, weight, height, annualIncome));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return pats;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
+		}
+		return null;
+	}
+
+	public static boolean updatePrescription(String docUsername, String patUsername, String dateOfVisit, String ordered) {
+		String query = "UPDATE `cs4400_Group_37`.`Username` SET `Ordered` = '" + ordered + "' " +
+				"WHERE `DateOfVisit` = '" + dateOfVisit + "' AND `DocUsername`='"+docUsername+"' AND `PatUsername`='"+patUsername+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+		
+	}
+	
+	public static boolean updateCommunicatesWith(String docReceiver, String status) {
+		String query = "UPDATE `cs4400_Group_37`.`Username` SET `Status` = '" + status + "' " +
+				"WHERE `Doc_Receiver`='"+docReceiver+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
+	
+	public static boolean updateSendMessageToPat(String username, String status) {
+		String query = "UPDATE `cs4400_Group_37`.`Username` SET `Status` = '" + status + "' " +
+				"WHERE `PatientUsername` = '" + username + "'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
+		
+	public static boolean updateSendMessageToDoc(String docUsername, String status) {
+		String query = "UPDATE `cs4400_Group_37`.`Username` SET `Status` = '" + status + "' " +
+				"WHERE `DocUsername`='"+docUsername+"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		
+		}
+		return false;
+	}
 }

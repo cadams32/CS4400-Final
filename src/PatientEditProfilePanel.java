@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
+import Backend.Patient;
+
 
 public class PatientEditProfilePanel extends JPanel {
 	private JTextField patientNameTextField;
@@ -153,6 +155,7 @@ public class PatientEditProfilePanel extends JPanel {
 		btnSubmit.setBounds(577, 509, 88, 29);
 		btnSubmit.addActionListener(listener);
 		add(btnSubmit);
+		btnSubmit.addActionListener(listener);
 		
 		JLabel lblAllergies_1 = new JLabel("Allergies");
 		lblAllergies_1.setBounds(461, 48, 61, 16);
@@ -192,6 +195,24 @@ public class PatientEditProfilePanel extends JPanel {
 		btnBack = new JButton("Back");
 		btnBack.setBounds(39, 509, 117, 29);
 		add(btnBack);
+		btnBack.addActionListener(listener);
+		
+		populateFields();
+	}
+	
+	public void populateFields(){
+		Patient p = parent.getHandler().getOnePatient(username);
+		patientNameTextField.setText(p.getName());
+		dateOfBirthTextField.setText(p.getDob());
+		genderComboBox.setSelectedIndex(p.getGender().equals("Male")?0:1);
+		addressTextField.setText(p.getAddress());
+		homePhoneTextField.setText(p.getHomephone());
+		workPhoneTextField.setText(p.getWorkphone());
+		weightTextField.setText(p.getWeight());
+		heightTextField.setText(p.getHeight());
+		annualIncomeComboBox.setSelectedItem(p.getAnnualIncome());
+		eContactNameTxtField.setText(p.getEmerContactName());
+		eContactPhoneTxtField.setText(p.getEmerContactPhone());
 	}
 	
 	private class ButtonListener implements ActionListener {
