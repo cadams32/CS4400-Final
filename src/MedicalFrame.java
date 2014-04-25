@@ -61,4 +61,8 @@ public class MedicalFrame extends JFrame {
 	public static boolean lastNameTest(String ln){
 		return ln.matches("[A-Z][']?[A-Za-z]+");
 	}
+	
+	public static boolean nameTest(String n) {
+		return n.matches("[A-Z][A-Za-z-]+([A-Z][A-Za-z]+)*[A-Z][']?[A-Za-z]+");
+	}
 }

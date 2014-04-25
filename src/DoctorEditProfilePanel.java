@@ -228,7 +228,6 @@ public class DoctorEditProfilePanel extends JPanel {
 				String workPhone = workPhoneTextField.getText();
 				String specialty = (String) specialtyComboBox.getSelectedItem();
 				String address = addressTextField.getText();
-				int roomNo = Integer.parseInt(roomNoTextField.getText());
 				
 				if ((!parent.numTest(licenseNo)) && (!parent.firstNameTest(fName)) && (!parent.lastNameTest(lName))
 						&& (!parent.dateTest(DOB)) && (!parent.phoneNumberTest(workPhone)) && (!parent.numTest(roomNoTextField.getText()))) {
@@ -236,7 +235,7 @@ public class DoctorEditProfilePanel extends JPanel {
 					JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");
 				} else {
 					if(parent.getHandler().updateDoctorProfile(username, licenseNo, fName, lName ,DOB, 
-							workPhone, address, specialty, roomNo)) {
+							workPhone, address, specialty, Integer.parseInt(roomNoTextField.getText()))) {
 						
 						for(Availability a : availableList) {
 							parent.getHandler().addNewDoctorAvailable(username, (String)a.getTo(), (String)a.getFrom(), (String)a.getDay());

@@ -758,7 +758,7 @@ public class DatabaseHandler {
 				String to = rs.getString("To");
 				String from = rs.getString("From");
 				String day = rs.getString("Day");
-				list.add(new Availability(to, from, day));
+				list.add(new Availability(day, from, to));
 			}
 			rs.close();
 			statement.close();
@@ -974,8 +974,47 @@ public class DatabaseHandler {
 				docUsername = rs.getString("DocUsername");
 				fName = rs.getString("FName");
 				lName = rs.getString("LName");
-				System.out.println(fName + " " + lName);
 				docs.add(new Doctor(docUsername, fName, lName));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return docs;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
+		}
+		return null;
+	}
+	
+	public ArrayList<Doctor> getDoctorsBig() { 
+		ArrayList<Doctor> docs = new ArrayList<Doctor>();
+		String query = "SELECT * FROM `Doctor`";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String fName = ""; 
+			String lName = "";
+			String licenseNo = "";
+			String docUsername = "";
+			String DOB = "";
+			String WorkPhone = "";
+			String HomeAddress = "";
+			String speciality = "";
+			int roomNo = 0;
+			while(rs.next()) {
+				docUsername = rs.getString("DocUsername");
+				licenseNo = rs.getString("LicenseNo");
+				fName = rs.getString("FName");
+				lName = rs.getString("LName");
+				DOB = rs.getString("DOB");
+				WorkPhone = rs.getString("WorkPhone");
+				HomeAddress = rs.getString("HomeAddress");
+				speciality = rs.getString("Specialty");
+				roomNo = Integer.parseInt(rs.getString("RoomNo"));
+				docs.add(new Doctor(docUsername, null, null, licenseNo, fName, lName, DOB, WorkPhone,HomeAddress,speciality, roomNo));
 			}
 			rs.close();
 			statement.close();

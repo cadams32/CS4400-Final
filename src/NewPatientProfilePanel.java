@@ -8,6 +8,7 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -200,24 +201,30 @@ public class NewPatientProfilePanel extends JPanel {
 				String homePhone = homePhoneTxtField.getText();
 				String eContactName = eContactNameTxtField.getText();
 				String eContactPhone = eContactPhoneTxtField.getText();
-				int weight = Integer.parseInt(weightTxtField.getText());
-				int height = Integer.parseInt(heightTxtField.getText());
 				String annualIncome = (String) annualIncomeComboBox.getSelectedItem();
 				
-				if(parent.getHandler().addNewPatient(username, password, name, DOB, gender, address, workPhone, homePhone, eContactName, eContactPhone, weight, height, annualIncome)) {
+				if ((!parent.nameTest(name)) && (!parent.dateTest(DOB)) && (!parent.phoneNumberTest(workPhone)) && (!parent.phoneNumberTest(homePhone)) 
+						&& (!parent.nameTest(eContactName)) && (!parent.phoneNumberTest(eContactPhone)) && (!parent.numTest(weightTxtField.getText())) 
+						&& (!parent.numTest(heightTxtField.getText()))) {
 					
-					if(!allergies.isEmpty()) {
-						for(String s : allergies) {
-							System.out.println(s);
-							parent.getHandler().addNewPatientAllergy(username, s);
+					JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");
+				} else {
+					if(parent.getHandler().addNewPatient(username, password, name, DOB, gender, address, workPhone, homePhone, 
+							eContactName, eContactPhone, Integer.parseInt(weightTxtField.getText()), Integer.parseInt(heightTxtField.getText()), annualIncome)) {
+						
+						if(!allergies.isEmpty()) {
+							for(String s : allergies) {
+								System.out.println(s);
+								parent.getHandler().addNewPatientAllergy(username, s);
+							}
 						}
+						
+						CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+						parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+						PatientHomePanel php = new PatientHomePanel(parent, username);
+						parent.getContentPane().add(php);
+						cl.last(parent.getContentPane());
 					}
-					
-					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-					parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
-					PatientHomePanel php = new PatientHomePanel(parent, username);
-					parent.getContentPane().add(php);
-					cl.last(parent.getContentPane());
 				}
 			} else if (e.getSource() == allergyButton) {
 				allergies.add(allergiesTxtField.getText());
