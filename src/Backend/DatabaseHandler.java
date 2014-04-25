@@ -1865,4 +1865,39 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
+	
+	public static ArrayList<Prescription> getPrescriptionByUsername(String username) {
+		String query = "SELECT * FROM `Prescription` WHERE `DocUsername`= '" + username + "'";
+		try {
+			ArrayList<Prescription> pList = new ArrayList<Prescription>();
+			connection = DBC.createConnection();
+			Statement statement = connection.prepareStatement(query);
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String DateOfVisit = "";
+			String PatUsername = "";
+			String MedicineName = "";
+			int Dosage = 0;
+			int Duration = 0;
+			String Notes = "";
+			String Ordered = "";
+			while(rs.next()) {
+				DateOfVisit = rs.getString("DateOfVisit");
+				PatUsername = rs.getString("PatUsername");
+				MedicineName = rs.getString("MedicineName");
+				Dosage = Integer.parseInt(rs.getString("Dosage"));
+				Duration = Integer.parseInt(rs.getString("Duration"));
+				Notes = rs.getString("Notes");
+				Ordered = rs.getString("Ordered");
+				Prescription p = new Prescription(PatUsername, username, DateOfVisit, MedicineName, Dosage, Duration, Notes, Ordered);
+				pList.add(p);
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return pList;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
 }
