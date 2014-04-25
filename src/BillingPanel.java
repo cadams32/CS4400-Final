@@ -10,6 +10,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -123,29 +124,34 @@ public class BillingPanel extends JPanel {
 				String visit = "";
 				String surgery = "";
 				String name = nameTextField.getText();
-				String phone = parent.getHandler().getPatientPhoneNumber(name);
-				String patUsername = parent.getHandler().getPatientUsername(name, phone);
-				phoneModel.addElement("       Name       " + "        " + "Phone Number");
-				phoneModel.addElement(name + "            " + phone);
-
-				visitModel.addElement("       Date        " + "              " + "Amount");
-				ArrayList<Visit> visitList = parent.getHandler().getPatientVisits(patUsername);
-				for (Visit s: visitList) {
-					visit = s.getDateOfVisit() + "                    " + df.format(s.getBillingAmount());
-					total += s.getBillingAmount();
-					visitModel.addElement(visit);
-				}
 				
-				ArrayList<String> cptList = parent.getHandler().getCPTCode(patUsername);
-				surgeryModel.addElement("     Surgery Type     " + "                     " + "Cost");
-				for (String cpt: cptList) {
-					for (Surgery s: parent.getHandler().getSurgery(cpt)) {
-						surgery = s.getSurgeryType() + "                " + df.format(s.getCostOfSurgery());
-						total += s.getCostOfSurgery();
-						surgeryModel.addElement(surgery);
+				if (!parent.nameTest(name)) {
+					JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");
+				} else {
+					String phone = parent.getHandler().getPatientPhoneNumber(name);
+					String patUsername = parent.getHandler().getPatientUsername(name, phone);
+					phoneModel.addElement("       Name       " + "        " + "Phone Number");
+					phoneModel.addElement(name + "            " + phone);
+	
+					visitModel.addElement("       Date        " + "              " + "Amount");
+					ArrayList<Visit> visitList = parent.getHandler().getPatientVisits(patUsername);
+					for (Visit s: visitList) {
+						visit = s.getDateOfVisit() + "                    " + df.format(s.getBillingAmount());
+						total += s.getBillingAmount();
+						visitModel.addElement(visit);
 					}
+					
+					ArrayList<String> cptList = parent.getHandler().getCPTCode(patUsername);
+					surgeryModel.addElement("     Surgery Type     " + "                     " + "Cost");
+					for (String cpt: cptList) {
+						for (Surgery s: parent.getHandler().getSurgery(cpt)) {
+							surgery = s.getSurgeryType() + "                " + df.format(s.getCostOfSurgery());
+							total += s.getCostOfSurgery();
+							surgeryModel.addElement(surgery);
+						}
+					}
+					costTextField.setText("$"+String.valueOf(df.format(total)));
 				}
-				costTextField.setText("$"+String.valueOf(df.format(total)));				
 			}	
 		}
 		
