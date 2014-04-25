@@ -13,8 +13,6 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
-import Backend.Doctor;
-import Backend.Prescription;
 import Backend.Visit;
 
 
@@ -26,22 +24,12 @@ public class PatientVisitPanel extends JPanel {
 	JButton btnBack, btnUpdate;
 	DefaultTableModel model;
 	JComboBox comboBox, comboBox_1;
-	ArrayList<Visit> visitList;
-	ArrayList<String> doctorNames;
-	ArrayList<Doctor> doctorList;
-	ArrayList<Prescription> prescriptionList;
-	ArrayList<Integer> totalBilling;
-	
+
 	/**
 	 * Create the panel.
 	 */
 	
 	public PatientVisitPanel(MedicalFrame parent, String username) {
-		
-		visitList = new ArrayList<Visit>();
-		doctorList = new ArrayList<Doctor>();
-		prescriptionList = new ArrayList<Prescription>();
-		totalBilling = new ArrayList<Integer>();
 		
 		this.parent = parent;
 		this.username = username;
@@ -108,20 +96,9 @@ public class PatientVisitPanel extends JPanel {
 			}
 			else if (e.getSource() == btnUpdate) {
 				//DB query to update the table
-				//ArrayList<Visit> visitList = parent.getHandler().getVisit();			
-				
+				//ArrayList<Visit> visitList = parent.getHandler().getVisit();
 				String month = (String) comboBox.getSelectedItem();
 				String year = (String) comboBox_1.getSelectedItem();
-				
-				visitList = parent.getHandler().getVisits();
-				
-				doctorList = parent.getHandler().getDoctors();
-				for(Doctor d : doctorList) {
-					
-				}
-				visitList = parent.getHandler().getV
-				
-				
 			}
 			
 		}
