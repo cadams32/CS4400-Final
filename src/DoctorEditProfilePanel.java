@@ -216,6 +216,7 @@ public class DoctorEditProfilePanel extends JPanel {
 		workPhoneTextField.setText(p.getWorkphone());
 		specialtyComboBox.setSelectedItem(p.getSpeciality());
 		addressTextField.setText(p.getHomeAddress());
+		roomNoTextField.setText(String.valueOf(p.getRoomNo()));
 	}
 	
 	private class ButtonListener implements ActionListener {
