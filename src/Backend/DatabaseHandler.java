@@ -71,6 +71,7 @@ public class DatabaseHandler {
 	
 		if(validateLogin(username, password)) {
 			if(doesPatientExist(username)) {
+				System.out.println("Hi");
 				return "Patient";
 			} else if (doesDoctorExist(username)) {
 				return "Doctor";
@@ -1167,14 +1168,14 @@ public class DatabaseHandler {
 	}
 	
 	public static String getDoctorUsername(String fName, String lName) {
-		String query = "SELECT `DocUsername` FROM `Doctor` WHERE `FnName`='"+fName+"', '"+lName+"'";
+		String query = "SELECT `DocUsername` FROM `Doctor` WHERE `FName`='"+fName+"' AND `LName`='"+lName+"'";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
 			String username = "";
 			while(rs.next()) {
-				username = rs.getString("Username");
+				username = rs.getString("DocUsername");
 			}
 			rs.close();
 			statement.close();
@@ -1609,7 +1610,7 @@ public class DatabaseHandler {
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
 			String preopmed = "";
 			while(rs.next()) {
-				preopmed = rs.getString("PreOpMedication");
+				preopmed = rs.getString("SurgeryPreOpMeds");
 				preop.add(preopmed);
 			}
 			rs.close();
@@ -1640,4 +1641,35 @@ public class DatabaseHandler {
 		}
 		return false;
 	}
+	
+	public ArrayList<Appointment> getAppointmentsByPair(String docUsername, String patientUsername) {
+		ArrayList<Appointment> appts = new ArrayList<Appointment>();
+		String query = "SELECT * FROM `Appointment` WHERE `DocUsername`='"+docUsername+"' AND `PatientUsername`='" + patientUsername +"'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String doctorUsername = ""; 
+			String patUsername = "";
+			Date date;
+			Time time;
+			while(rs.next()) {
+				docUsername = rs.getString("DocUsername");
+				patUsername = rs.getString("PatientUsername");
+				date = rs.getDate("Date");
+				time = rs.getTime("Time");
+				appts.add(new Appointment(doctorUsername, patUsername, date, time));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return appts;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
+		}
+		return null;
+	}
+	
 }

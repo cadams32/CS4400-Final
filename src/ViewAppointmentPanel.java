@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -116,7 +117,7 @@ public class ViewAppointmentPanel extends JPanel {
 					if(d.getSpeciality().equals(spec)){
 						ArrayList<Availability> availList= parent.getHandler().getDoctorAvailability(d.getUsername());
 						for(Availability a: availList){
-							Object[] nextRow = {d.getfName() + " " + d.getlName(), d.getWorkphone(), d.getRoomNo(), a.getDay() + " " + a.getFrom() + "-" + a.getTo(), parent.getHandler().getDoctorRating(d.getUsername())}; 
+							Object[] nextRow = {d.getfName() + " " + d.getlName(), d.getWorkphone(), d.getRoomNo(), a.getDay() + " : " + a.getFrom() + " - " + a.getTo(), parent.getHandler().getDoctorRating(d.getUsername())}; 
 							model.addRow(nextRow);
 						}
 					}
@@ -124,7 +125,25 @@ public class ViewAppointmentPanel extends JPanel {
 			}
 			else if(e.getSource() == btnRequestAppointment){
 				//DB quest to request appointment
+				String docName = (String) table.getValueAt(table.getSelectedRow(), 0);
+				Scanner scan = new Scanner(docName);
+				String fName = scan.next();
+				String lName = scan.next();
+				System.out.println("NAME: " +fName + " " + lName);
+				String docUsername = parent.getHandler().getDoctorUsername(fName, lName);
+				System.out.println("USERNAME: " + docUsername);
 				
+				if(parent.getHandler().getAppointmentsByPair(docUsername, username).size() == 0){
+					scan = new Scanner((String) table.getValueAt(table.getSelectedRow(), 3));
+					scan.next();
+					scan.next();
+					String startTime = scan.next();
+					System.out.println("HERE IT IS: " + " " + docUsername + " " + username + " " + "2014-04-25" + " " + startTime );
+					parent.getHandler().addNewAppointments(docUsername, username, "2014-04-30", startTime);
+				}
+				else{
+					
+				}
 			}
 			else if(e.getSource() == btnBack){
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
