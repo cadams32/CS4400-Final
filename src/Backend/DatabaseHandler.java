@@ -1783,36 +1783,51 @@ public class DatabaseHandler {
 		return false;
 	}
 	
-	public static ArrayList<Visit> getVisits() {
-		ArrayList<Visit> visits = new ArrayList<Visit>();
-		String query = "SELECT * FROM `cs4400_Group_37`.`Visit`";
+	public static Card getCard(String cardNo) {
+		String query = "SELECT * FROM `Payment_Information` WHERE `CardNo`= '" + cardNo + "'";
 		try {
 			connection = DBC.createConnection();
-			Statement statement = connection.createStatement();
+			Statement statement = connection.prepareStatement(query);
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
-			String docUsername = "";
-			String patUsername = "";
-			String dateOfVisit = "";
-			int systolic = -1;
-			int diastolic = -1;
-			int billingAmount = -1;
+			String CardNo = "";
+			String CardHolderName = "";
+			String CVV = "";
+			String DateOfExpiry = "";
+			String Type = "";
 			while(rs.next()) {
-				docUsername = rs.getString("PatientUsername");
-				patUsername = rs.getString("Name");
-				dateOfVisit = rs.getString("DOB");
-				systolic = rs.getInt("Gender");
-				diastolic = rs.getInt("Address");
-				billingAmount = rs.getInt("BillingAmount");
-				visits.add(new Visit(docUsername, patUsername, dateOfVisit, diastolic, systolic, billingAmount));
+				CardNo = rs.getString("CardNo");
+				CardHolderName = rs.getString("CardHolderName");
+				CVV = rs.getString("CVV");
+				DateOfExpiry = rs.getString("DateOfExpiry");
+				Type = rs.getString("Type");
+			}
+			Card card = new Card(CardNo, CardHolderName, CVV, DateOfExpiry, Type);
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return card;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return null;
+	}
+	
+	public static String getCardByUsername(String username) {
+		String query = "SELECT `CardNo` FROM `Patient` WHERE `PatientUsername`= '" + username + "'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.prepareStatement(query);
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String CardNo = "";
+			while(rs.next()) {
+				CardNo = rs.getString("CardNo");
 			}
 			rs.close();
 			statement.close();
 			DBC.closeConnection(connection);
-			return visits;
+			return CardNo;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
-		} finally {
-			DBC.closeConnection(connection);
 		}
 		return null;
 	}
