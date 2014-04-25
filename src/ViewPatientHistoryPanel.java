@@ -233,11 +233,11 @@ public class ViewPatientHistoryPanel extends JPanel {
 				textField_2.setText(date);
 				textField_3.setText("" + v.getSystolicPressure());
 				textField_4.setText("" + v.getDiastolicPressure());
-				textField_5.setText(parent.getHandler().getVisitDiagnosis(v.getVisitID()));
+				textField_5.setText(parent.getHandler().getVisitDiagnosis(v.getPatUsername(), v.getDocUsername(), v.getDateOfVisit()));
 				for(int y=0; y<medModel.getRowCount(); y++){
 					medModel.removeRow(0);
 				}
-				ArrayList<Prescription> prescriptionList = parent.getHandler().getVisitPrescriptions(v.getVisitID());
+				ArrayList<Prescription> prescriptionList = parent.getHandler().getVisitPrescriptions(v.getPatUsername(), v.getDocUsername(), v.getDateOfVisit());
 				for(int x=0; x<prescriptionList.size(); x++){
 					Prescription cur = prescriptionList.get(x);
 					Object[] row = {cur.getMedicineName(), cur.getDosage(), cur.getDuration(), cur.getNotes()};
