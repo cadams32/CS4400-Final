@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -213,12 +214,17 @@ public class NewDoctorProfilePanel extends JPanel {
 				String address = addressTextField.getText();
 				int roomNo = Integer.parseInt(roomNoTextField.getText());
 				
-				if(parent.getHandler().addNewDoctor(username, password, licenseNo, fName, lName, DOB, workPhone, address, specialty, roomNo)) {
+				if ((!numTest(licenseNo)) && (!firstNameTest(fName)) && (!lastNameTest(lName))
+						&& (!dateTest(DOB)) && (!phoneNumberTest(workPhone)) && (!numTest(roomNoTextField.getText()))) {
 					
-					for(Availability a : availableList) {
-						parent.getHandler().addNewDoctorAvailable(username, (String)a.getTo(), (String)a.getFrom(), (String)a.getDay());
+					JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");
+				} else {
+					if(parent.getHandler().addNewDoctor(username, password, licenseNo, fName, lName, DOB, workPhone, address, specialty, roomNo)) {
+						
+						for(Availability a : availableList) {
+							parent.getHandler().addNewDoctorAvailable(username, (String)a.getTo(), (String)a.getFrom(), (String)a.getDay());
+						}
 					}
-				
 					
 					DoctorHomePanel dhp = new DoctorHomePanel(parent, username);
 					parent.getContentPane().add(dhp);
@@ -228,14 +234,29 @@ public class NewDoctorProfilePanel extends JPanel {
 					DoctorHomePanel dhp = new DoctorHomePanel(parent, username);
 					parent.getContentPane().add(dhp);
 					CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
-					cl.last(parent.getContentPane());*/
-					
+					cl.last(parent.getContentPane());*/	
 				}
-				
-				//Create the profile and go back to login
-				
-		
 			}
 		}
+	}
+	
+	public static boolean numTest(String n) {
+		return n.matches("[0-9][0-9]*");
+	}
+	
+	public static boolean firstNameTest(String fn){
+        return fn.matches("[A-Z][A-Za-z-]+([A-Z][A-Za-z]+)*");
+	}
+
+	public static boolean lastNameTest(String ln){
+        return ln.matches("[A-Z][']?[A-Za-z]+");
+	}
+	
+	public static boolean dateTest(String d) {
+		return d.matches("([0-9]{4})[-][0|1][0-9][-][0-3][0-9]");
+	}
+	
+	public static boolean phoneNumberTest(String p) {
+		return p.matches("([(]?)([0-9])([)]?)([0-9]{3})([-|\\s]?)([0-9]{4})");
 	}
 }
