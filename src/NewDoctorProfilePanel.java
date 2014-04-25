@@ -196,12 +196,10 @@ public class NewDoctorProfilePanel extends JPanel {
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == btnAddAvail){
 					
-					//day from to
+				//day from to
 				availableList.add(new Availability((String)cbDays.getSelectedItem(), (String)cbFromTime.getSelectedItem(), (String)cbToTime.getSelectedItem()));
 				model.addElement((String)cbDays.getSelectedItem()+"       From: "+(String)cbFromTime.getSelectedItem()+"       To: "+(String)cbToTime.getSelectedItem());
 				list = new JList(model);
-				
-				
 			}
 			else if(e.getSource() == btnCreateProfile){
 				
@@ -214,8 +212,8 @@ public class NewDoctorProfilePanel extends JPanel {
 				String address = addressTextField.getText();
 				int roomNo = Integer.parseInt(roomNoTextField.getText());
 				
-				if ((!numTest(licenseNo)) && (!firstNameTest(fName)) && (!lastNameTest(lName))
-						&& (!dateTest(DOB)) && (!phoneNumberTest(workPhone)) && (!numTest(roomNoTextField.getText()))) {
+				if ((!parent.numTest(licenseNo)) && (!parent.firstNameTest(fName)) && (!parent.lastNameTest(lName))
+						&& (!parent.dateTest(DOB)) && (!parent.phoneNumberTest(workPhone)) && (!parent.numTest(roomNoTextField.getText()))) {
 					
 					JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");
 				} else {
@@ -238,25 +236,5 @@ public class NewDoctorProfilePanel extends JPanel {
 				}
 			}
 		}
-	}
-	
-	public static boolean numTest(String n) {
-		return n.matches("[0-9][0-9]*");
-	}
-	
-	public static boolean firstNameTest(String fn){
-        return fn.matches("[A-Z][A-Za-z-]+([A-Z][A-Za-z]+)*");
-	}
-
-	public static boolean lastNameTest(String ln){
-        return ln.matches("[A-Z][']?[A-Za-z]+");
-	}
-	
-	public static boolean dateTest(String d) {
-		return d.matches("([0-9]{4})[-][0|1][0-9][-][0-3][0-9]");
-	}
-	
-	public static boolean phoneNumberTest(String p) {
-		return p.matches("([(]?)([0-9])([)]?)([0-9]{3})([-|\\s]?)([0-9]{4})");
 	}
 }
