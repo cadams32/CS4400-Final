@@ -229,7 +229,11 @@ public class DoctorEditProfilePanel extends JPanel {
 				String specialty = (String) specialtyComboBox.getSelectedItem();
 				String address = addressTextField.getText();
 				
-				if ((!parent.numTest(licenseNo)) && (!parent.firstNameTest(fName)) && (!parent.lastNameTest(lName))
+				if (!(licenseNo == null) && !(fName == null) && !(lName == null) && !(DOB == null) && !(workPhone == null) 
+						&& !(specialty == null) && !(address == null)) {
+				
+					JOptionPane.showMessageDialog(null, "Empty value, please try again.");
+				} else if ((!parent.numTest(licenseNo)) && (!parent.firstNameTest(fName)) && (!parent.lastNameTest(lName))
 						&& (!parent.dateTest(DOB)) && (!parent.phoneNumberTest(workPhone)) && (!parent.numTest(roomNoTextField.getText()))) {
 					
 					JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");

@@ -211,8 +211,12 @@ public class NewDoctorProfilePanel extends JPanel {
 				String specialty = (String) cbSpecialty.getSelectedItem();
 				String address = addressTextField.getText();
 
+
+				if (!(licenseNo == null) && !(fName == null) && !(lName == null) && !(DOB == null) && !(workPhone == null) 
+						&& !(specialty == null) && !(address == null)) {
 				
-				if ((!parent.numTest(licenseNo)) && (!parent.firstNameTest(fName)) && (!parent.lastNameTest(lName))
+					JOptionPane.showMessageDialog(null, "Empty value, please try again.");
+				} else if ((!parent.numTest(licenseNo)) && (!parent.firstNameTest(fName)) && (!parent.lastNameTest(lName))
 						&& (!parent.dateTest(DOB)) && (!parent.phoneNumberTest(workPhone)) && (!parent.numTest(roomNoTextField.getText()))) {
 					
 					JOptionPane.showMessageDialog(null, "Incorrect value, please try again.");
