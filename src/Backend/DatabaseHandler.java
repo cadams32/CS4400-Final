@@ -1736,7 +1736,7 @@ public class DatabaseHandler {
 	}
 	
 	public static boolean updateCommunicatesWith(String docReceiver, String status) {
-		String query = "UPDATE `cs4400_Group_37`.`Username` SET `Status` = '" + status + "' " +
+		String query = "UPDATE `cs4400_Group_37`.`CommunicatesWith` SET `Status` = '" + status + "' " +
 				"WHERE `Doc_Receiver`='"+docReceiver+"'";
 		try {
 			connection = DBC.createConnection();
@@ -1752,7 +1752,7 @@ public class DatabaseHandler {
 	}
 	
 	public static boolean updateSendMessageToPat(String username, String status) {
-		String query = "UPDATE `cs4400_Group_37`.`Username` SET `Status` = '" + status + "' " +
+		String query = "UPDATE `cs4400_Group_37`.`SendsMessageToPatient` SET `Status` = '" + status + "' " +
 				"WHERE `PatientUsername` = '" + username + "'";
 		try {
 			connection = DBC.createConnection();
@@ -1768,7 +1768,7 @@ public class DatabaseHandler {
 	}
 		
 	public static boolean updateSendMessageToDoc(String docUsername, String status) {
-		String query = "UPDATE `cs4400_Group_37`.`Username` SET `Status` = '" + status + "' " +
+		String query = "UPDATE `cs4400_Group_37`.`SendsMessageToDoc` SET `Status` = '" + status + "' " +
 				"WHERE `DocUsername`='"+docUsername+"'";
 		try {
 			connection = DBC.createConnection();
@@ -1779,7 +1779,6 @@ public class DatabaseHandler {
 			return true;
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
-		
 		}
 		return false;
 	}

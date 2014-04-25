@@ -109,8 +109,6 @@ public class InboxPanel extends JPanel {
 			model.fireTableDataChanged();
 			
 		}
-		
-
 	}
 	private class ButtonListener implements ActionListener {
 	
@@ -119,8 +117,8 @@ public class InboxPanel extends JPanel {
 			if(e.getSource() == btnBack) {
 				if (parent.getHandler().doesPatientExist(username)) {
 					parent.getHandler().updateSendMessageToPat(username, "Read");
-					parent.getHandler().updateSendMessageToDoc(username, "Read");
 				} else {
+					parent.getHandler().updateSendMessageToDoc(username, "Read");
 					parent.getHandler().updateCommunicatesWith(username, "Read");
 				}
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
