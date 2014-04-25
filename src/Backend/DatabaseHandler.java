@@ -740,7 +740,8 @@ public class DatabaseHandler {
 			DBC.closeConnection(connection);
 		}
 		return null;
-	} 
+	} 	
+	
 	
 	/**
 	 * Returns a list of all of the Availabilities of a specific doctor (Using Username of the doctor)

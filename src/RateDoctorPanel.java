@@ -96,11 +96,8 @@ public class RateDoctorPanel extends JPanel {
 				int index = comboBox.getSelectedIndex();
 				System.out.println("Rate");
 				
-				if (parent.getHandler().getDoctorRating(docs.get(index).getUsername()) != null) {
-					parent.getHandler().updateDoctorRating(docs.get(index).getUsername(), username, rating);
-				} else {
-					parent.getHandler().addNewDoctorRating(docs.get(index).getUsername(), username, rating);
-				}
+				parent.getHandler().addNewDoctorRating(docs.get(index).getUsername(), username, rating);
+				
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
 				cl.last(parent.getContentPane());
