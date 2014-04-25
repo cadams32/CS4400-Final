@@ -56,6 +56,7 @@ public class SurgeryPerformedPanel extends JPanel {
 		model.setColumnIdentifiers(colNames);
 		scrollPane.setViewportView(table);
 		
+		
 		JPanel panel_2 = new JPanel();
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[880.00][]", "[]"));
