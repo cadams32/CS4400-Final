@@ -1563,7 +1563,7 @@ public class DatabaseHandler {
 
 	public static ArrayList<String> getSurgeryPreOpMed(String CPTCode) {
 		ArrayList<String> preop = new ArrayList<String>();
-		String query = "SELECT * FROM `SurgeryPreOpMeds WHERE `CPTCode` = '"+CPTCode+"'";
+		String query = "SELECT * FROM `SurgeryPreOpMeds` WHERE `CPTCode` = '"+CPTCode+"'";
 		
 		try {
 			connection = DBC.createConnection();
