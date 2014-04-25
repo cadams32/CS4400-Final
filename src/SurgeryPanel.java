@@ -20,6 +20,8 @@ import javax.swing.table.DefaultTableModel;
 
 import Backend.Doctor;
 import Backend.Patient;
+import Backend.Surgery;
+
 import javax.swing.JSpinner;
 import javax.swing.JProgressBar;
 
@@ -37,22 +39,18 @@ public class SurgeryPanel extends JPanel {
 	
 	private MedicalFrame parent;
 	private String username;
-	private JButton btnRecord, btnBack, btnAdd, btnSearch, selectButton;
+	private JButton btnRecord, btnBack, selectBtn, btnSearch, selectButton;
 	private JTable table;
-	private JTextField preOpMedTextField;
 	
 	private ArrayList<String> preOpMed;
 	private ArrayList<Patient> pats;
 	private ArrayList<Doctor> docs;
 	private ArrayList<String> docNames;
+	private ArrayList<Surgery> types;
 	
 	private JComboBox noAssistantsComboBox;
 	private JComboBox procedureNameComboBox;
 	private JTextPane complicationsTextField;
-	
-	private String[] procedureNames = {"Eye Surgery", "Shoulder Surgery", "Ear Surgery", "Cosmetic Surgery", "Digestive Surgery", "Encdocrine Surgery", 
-										"Gynecologicl Surgery", "Lymphatic Organ Surgery", "Neurosurgery", "Obstetric Surgery", "Organ Transplantation", 
-										"Amputation", "Circumcision", "Tissue Transplant", "Trauma Surgery", "Urological Surgery", "Vascular Surgery"};
 	
 	Patient currPatient;
 	Doctor currDoctor;
@@ -60,12 +58,21 @@ public class SurgeryPanel extends JPanel {
 	private JTextField surgeryStartTimeTextField;
 	private JTextField surgeryCompletionTimeTextField;
 	
+	private ArrayList<String> typeNames;
+	
+	Surgery currSurgery;
 	
 	
 	/**
 	 * Create the panel.
 	 */
 	public SurgeryPanel(MedicalFrame parent, String username) {
+		
+		typeNames = new ArrayList<String>();
+		types = parent.getHandler().getSurgery();
+		for(Surgery s : types) {
+			typeNames.add(s.getSurgeryType());
+		}
 		
 		preOpMed = new ArrayList<String>();
 		pats = new ArrayList<Patient>();
@@ -100,49 +107,39 @@ public class SurgeryPanel extends JPanel {
 		panel.add(lblPatientName);
 		
 		patientTextField = new JTextField();
+		patientTextField.setEditable(false);
 		patientTextField.setBounds(185, 178, 130, 28);
 		panel.add(patientTextField);
 		patientTextField.setColumns(10);
 		
 		JLabel lblAnesthesiaStartTime = new JLabel("Anesthesia Start Time");
-		lblAnesthesiaStartTime.setBounds(509, 184, 137, 16);
+		lblAnesthesiaStartTime.setBounds(400, 184, 137, 16);
 		panel.add(lblAnesthesiaStartTime);
-		
-		String[] times = {"12:00 am", "12:15 am", "12:30 am", "12:45 am", "1:00 am", "1:15 am", "1:30 am", "1:45 am",
-				"2:00 am", "2:15 am", "2:30 am", "2:45 am", "3:00 am", "3:15 am", "3:30 am", "3:45 am", "4:00 am",
-				"4:15 am", "4:30 am", "4:45 am", "5:00 am", "5:15 am", "5:30 am", "5:45 am", "6:00 am", "6:15 am",
-				"6:30 am", "6:45 am", "7:00 am", "7:15 am", "7:30 am", "7:45 am", "8:00 am", "8:15 am", "8:30 am",
-				"8:45 am", "9:00 am", "9:15 am", "9:30 am", "9:45 am", "10:00 am", "10:15 am", "10:30 am", "10:45 am",
-				"11:00 am", "11:15 am", "11:30 am", "11:45 am", "12:00 pm", "12:15 pm", "12:30 pm", "12:45 pm", "1:00 pm",
-				"1:15 pm", "1:30 pm", "1:45 pm", "2:00 pm", "2:15 pm", "2:30 pm", "2:45 pm", "3:00 pm", "3:15 pm",
-				"3:30 pm", "3:45 pm", "4:00 pm", "4:15 pm", "4:30 pm", "4:45 pm", "5:00 pm", "5:15 pm", "5:30 pm",
-				"5:45 pm", "6:00 pm", "6:15 pm", "6:30 pm", "6:45 pm", "7:00 pm", "7:15 pm", "7:30 pm", "7:45 pm",
-				"8:00 pm", "8:15 pm", "8:30 pm", "8:45 pm", "9:00 pm", "9:15 pm", "9:30 pm", "9:45 pm", "10:00 pm",
-				"10:15 pm", "10:30 pm", "10:45 pm", "11:00 pm", "11:15 pm", "11:30 pm", "11:45 pm"};
-		
+
 		JLabel lblSurgeonName = new JLabel("Surgeon Name");
 		lblSurgeonName.setBounds(90, 217, 91, 16);
 		panel.add(lblSurgeonName);
 		
 		surgeonTextField = new JTextField();
+		surgeonTextField.setEditable(false);
 		surgeonTextField.setBounds(185, 211, 130, 28);
 		panel.add(surgeonTextField);
 		surgeonTextField.setColumns(10);
 		
 		JLabel lblSurgeryStartTime = new JLabel("Surgery Start Time");
-		lblSurgeryStartTime.setBounds(509, 217, 115, 16);
+		lblSurgeryStartTime.setBounds(416, 217, 115, 16);
 		panel.add(lblSurgeryStartTime);
 		
 		JLabel lblProcedureName = new JLabel("Procedure Name");
-		lblProcedureName.setBounds(79, 248, 102, 16);
+		lblProcedureName.setBounds(6, 248, 102, 16);
 		panel.add(lblProcedureName);
 		
-		procedureNameComboBox = new JComboBox(procedureNames);
-		procedureNameComboBox.setBounds(185, 244, 130, 27);
+		procedureNameComboBox = new JComboBox(typeNames.toArray());
+		procedureNameComboBox.setBounds(113, 244, 151, 27);
 		panel.add(procedureNameComboBox);
 		
 		JLabel lblSurgeryCompletionTime = new JLabel("Surgery Completion Time");
-		lblSurgeryCompletionTime.setBounds(511, 248, 159, 16);
+		lblSurgeryCompletionTime.setBounds(372, 245, 159, 16);
 		panel.add(lblSurgeryCompletionTime);
 		
 		JLabel lblCptCode = new JLabel("CPT Code");
@@ -150,16 +147,17 @@ public class SurgeryPanel extends JPanel {
 		panel.add(lblCptCode);
 		
 		cptCodeTextField = new JTextField();
+		cptCodeTextField.setEditable(false);
 		cptCodeTextField.setBounds(185, 275, 130, 28);
 		panel.add(cptCodeTextField);
 		cptCodeTextField.setColumns(10);
 		
 		JLabel lblComplications = new JLabel("Complications");
-		lblComplications.setBounds(509, 276, 91, 16);
+		lblComplications.setBounds(438, 281, 91, 16);
 		panel.add(lblComplications);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(607, 275, 196, 89);
+		scrollPane_1.setBounds(541, 275, 262, 89);
 		panel.add(scrollPane_1);
 		
 		complicationsTextField = new JTextPane();
@@ -178,23 +176,14 @@ public class SurgeryPanel extends JPanel {
 		lblPreoperativeMedications.setBounds(16, 338, 165, 16);
 		panel.add(lblPreoperativeMedications);
 		
-		preOpMedTextField = new JTextField();
-		preOpMedTextField.setBounds(185, 332, 134, 28);
-		panel.add(preOpMedTextField);
-		preOpMedTextField.setColumns(10);
-		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(348, 217, 151, 102);
+		scrollPane.setBounds(185, 336, 175, 47);
 		panel.add(scrollPane);
 		
-		btnAdd = new JButton("Add");
-		btnAdd.setBounds(326, 335, 93, 29);
-		panel.add(btnAdd);
-		btnAdd.addActionListener(listener);
-		
-		JLabel lblPreopMeds = new JLabel("PreOp Meds");
-		lblPreopMeds.setBounds(391, 197, 83, 16);
-		panel.add(lblPreopMeds);
+		selectBtn = new JButton("Select");
+		selectBtn.setBounds(267, 243, 93, 29);
+		panel.add(selectBtn);
+		selectBtn.addActionListener(listener);
 		
 		JPanel panel_1 = new JPanel();
 		add(panel_1, "cell 0 2,grow");
@@ -227,17 +216,17 @@ public class SurgeryPanel extends JPanel {
 		panel.add(selectButton);
 		
 		anesthesiaStartTimeTextField = new JTextField();
-		anesthesiaStartTimeTextField.setBounds(679, 178, 134, 28);
+		anesthesiaStartTimeTextField.setBounds(546, 178, 229, 28);
 		panel.add(anesthesiaStartTimeTextField);
 		anesthesiaStartTimeTextField.setColumns(10);
 		
 		surgeryStartTimeTextField = new JTextField();
-		surgeryStartTimeTextField.setBounds(679, 211, 134, 28);
+		surgeryStartTimeTextField.setBounds(546, 211, 229, 28);
 		panel.add(surgeryStartTimeTextField);
 		surgeryStartTimeTextField.setColumns(10);
 		
 		surgeryCompletionTimeTextField = new JTextField();
-		surgeryCompletionTimeTextField.setBounds(682, 242, 134, 28);
+		surgeryCompletionTimeTextField.setBounds(543, 242, 236, 28);
 		panel.add(surgeryCompletionTimeTextField);
 		surgeryCompletionTimeTextField.setColumns(10);
 		btnSearch.addActionListener(listener);
@@ -245,50 +234,12 @@ public class SurgeryPanel extends JPanel {
 		
 		currPatient = new Patient();
 		currDoctor = parent.getHandler().getDoctor(username);
+		
+		types = parent.getHandler().getSurgery();
+		currSurgery = new Surgery();
 
 	}
 	
-	private static int getSurgeryCost(String s) {
-		int result = -1;
-		switch(s) {
-		case "Eye Surgery": result = 5000;
-			break;
-		case "Shoulder Surgery": result = 20000;
-			break;
-		case "Ear Surgery": result = 10000;
-			break;
-		case "Cosmetic Surgery": result = 25000;
-			break;
-		case "Digestive Surgery": result = 30000;
-			break;
-		case "Encdocrine Surgery": result = 45000;
-			break;
-		case "Gynecologicl Surgery": result = 15000;
-			break;
-		case "Lymphatic Organ Surgery": result = 35000;
-			break;
-		case "Neurosurgery": result = 30500;
-			break;
-		case "Obstetric Surgery": result = 10000; 
-			break;
-		case "Organ Transplantation": result = 40000;
-			break;
-		case "Amputation": result = 20000;
-			break;
-		case "Circumcision": result = 1000;
-			break;
-		case "Tissue Transplant": result = 30000;
-			break;
-		case "Trauma Surgery": result = 15000;
-			break;
-		case "Urological Surgery": result = 20000;
-			break;
-		case "Vascular Surgery": result = 32000;
-			break;
-		}
-		
-		return result;
-	}
 	
 	private class ButtonListener implements ActionListener {
 
@@ -316,15 +267,26 @@ public class SurgeryPanel extends JPanel {
 				patientTextField.setText(currPatient.getName());
 				surgeonTextField.setText("Dr. " + currDoctor.getfName() + " " + currDoctor.getlName());
 			}
-			else if(e.getSource() == btnAdd) {
-				if(!preOpMedTextField.getText().equals("")) {
-					String medName = preOpMedTextField.getText();
-					preOpMed.add(medName);
-					listModel.addElement(medName);
+			else if (e.getSource() == selectBtn) {
+				String type = procedureNameComboBox.getSelectedItem().toString();
+				for(Surgery s : types) {
+					if(s.getSurgeryType().equals(type)) {
+						currSurgery = s;
+						break;
+					}
 				}
-			}	
-			else if(e.getSource() == btnRecord){
+				cptCodeTextField.setText(currSurgery.getCPTCode());
+				ArrayList<String> preopmed = parent.getHandler().getSurgeryPreOpMed(currSurgery.getCPTCode());
+				listModel.removeAllElements();
+				for(String s : preopmed) {
+					listModel.addElement(s);
+				}
 				
+				
+				
+			}
+			else if(e.getSource() == btnRecord){
+
 				int row = table.getSelectedRow();
 				currPatient = pats.get(row);
 				String patientName = currPatient.getName();
@@ -333,15 +295,14 @@ public class SurgeryPanel extends JPanel {
 				String complications = complicationsTextField.getText();
 				String cptCode = cptCodeTextField.getText();
 				String procedureType = procedureNameComboBox.getSelectedItem().toString();
-				int costOfSurgery = getSurgeryCost(procedureType);
 				String anesthesiaStart = anesthesiaStartTimeTextField.getText();
 				String surgeryStartTime = surgeryStartTimeTextField.getText();
 				String surgeryEndTime = surgeryCompletionTimeTextField.getText();
 				if(currPatient.getAnnualIncome().equals("10000-25000")) {
-					costOfSurgery *= 0.5;
+					//costOfSurgery *= 0.5;
 				}
-				parent.getHandler().addNewSurgery(cptCode, procedureType, costOfSurgery);
-				parent.getHandler().addNewPerforms(username, currPatient.getUsername(), cptCode, surgeryStartTime, surgeryEndTime, anesthesiaStart, complications, noAssistants);
+				//parent.getHandler().addNewSurgery(cptCode, procedureType, costOfSurgery);
+				//parent.getHandler().addNewPerforms(username, currPatient.getUsername(), cptCode, surgeryStartTime, surgeryEndTime, anesthesiaStart, complications, noAssistants);
 				for(String s : preOpMed) {
 					parent.getHandler().addNewSurgeryPreOpMeds(cptCode, s);
 				}

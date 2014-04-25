@@ -21,6 +21,10 @@ public class Surgery {
 		this.costOfSurgery = costOfSurgery;
 	}
 
+	public Surgery() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getCPTCode() {
 		return CPTCode;
 	}

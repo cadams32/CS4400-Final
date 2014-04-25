@@ -9,11 +9,14 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import Backend.Patient;
+
 
 public class PaymentInfoPanel extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private Patient currPatient;
 
 	MedicalFrame parent;
 	String username;
@@ -23,6 +26,8 @@ public class PaymentInfoPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public PaymentInfoPanel(MedicalFrame parent, String username) {
+		
+		currPatient = new Patient();
 		
 		this.parent = parent;
 		this.username = username;
@@ -88,7 +93,7 @@ public class PaymentInfoPanel extends JPanel {
 	
 	public void populateFields(){
 		//This method needs to populate the fields and make them not editable if there is already payment info for that user.
-		
+		 currPatient = parent.getHandler().getPatient(username);
 	}
 	
 	private class ButtonListener implements ActionListener{
