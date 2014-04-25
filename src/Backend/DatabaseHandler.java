@@ -1552,7 +1552,7 @@ public class DatabaseHandler {
 			while(rs.next()) {
 				CPTcode = rs.getString("CPTCode");
 				docUsername = rs.getString("DocUsername");
-				patUsername = rs.getString("PatUsername");
+				patUsername = rs.getString("PatientUsername");
 				surgeryStartTime = rs.getString("SurgeryStartTime");
 				surgeryEndTime = rs.getString("SurgeryEndTime");
 				anesthesiaStartTime = rs.getString("AnesthesiaStartTime");
