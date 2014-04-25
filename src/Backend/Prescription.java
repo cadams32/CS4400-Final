@@ -8,6 +8,9 @@ public class Prescription {
 	private int duration;
 	private String notes;
 	private String ordered;
+	private String patientUsername;
+	private String docUsername;
+	private String dateOfVisit;
 	
 	public Prescription(String patientUsername, String docUsername, String dateOfVisit, String medicineName, int dosage, int duration, String notes, String ordered) {
 		this.setMedicineName(medicineName);
@@ -19,6 +22,30 @@ public class Prescription {
 
 	public Prescription() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public void setPatientUsername(String patientUsername){
+		this.patientUsername = patientUsername;
+	}
+	
+	public String getPatientUsername(){
+		return patientUsername;
+	}
+	
+	public void setDocUsername(String docUsername){
+		this.docUsername = docUsername;
+	}
+	
+	public String getDocUsername(){
+		return docUsername;
+	}
+	
+	public void setDateOfVisit(String dateOfVisit){
+		this.dateOfVisit = dateOfVisit;
+	}
+	
+	public String getDateOfVisit(){
+		return dateOfVisit;
 	}
 	
 	public String getMedicineName() {

@@ -1560,29 +1560,45 @@ public class DatabaseHandler {
 		return null;
 	}
 
-public static ArrayList<String> getSurgeryPreOpMed(String CPTCode) {
-	ArrayList<String> preop = new ArrayList<String>();
-	String query = "SELECT * FROM `SurgeryPreOpMeds WHERE `CPTCode` = '"+CPTCode+"'";
-	
-	try {
-		connection = DBC.createConnection();
-		Statement statement = connection.createStatement();
-		ResultSet rs = (ResultSet) statement.executeQuery(query);
-		String preopmed = "";
-		while(rs.next()) {
-			preopmed = rs.getString("SurgeryPreOpMeds");
-			preop.add(preopmed);
+	public static ArrayList<String> getSurgeryPreOpMed(String CPTCode) {
+		ArrayList<String> preop = new ArrayList<String>();
+		String query = "SELECT * FROM `SurgeryPreOpMeds WHERE `CPTCode` = '"+CPTCode+"'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String preopmed = "";
+			while(rs.next()) {
+				preopmed = rs.getString("SurgeryPreOpMeds");
+				preop.add(preopmed);
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return preop;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
 		}
-		rs.close();
-		statement.close();
-		DBC.closeConnection(connection);
-		return preop;
-	} catch (Exception e) {
-		System.err.println("Exception: " + e.getMessage());
-	} finally {
-		DBC.closeConnection(connection);
+		return null;
 	}
-	return null;
-}
 
+	public static boolean updateDoctorRating(String docUsername, String patUsername, int rating) {
+		String query = "UPDATE `cs4400_Group_37`.`Doctor_Rating` SET `Rating` = '" + rating + "' " +
+				"WHERE `PatientUsername` = '" + patUsername + "' AND `DocUsername` = '" + docUsername + "'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
 }
