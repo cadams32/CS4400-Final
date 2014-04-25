@@ -30,20 +30,36 @@ public class MedicalFrame extends JFrame {
 		return handler;
 	}
 	
-	public static boolean phoneNumber(String p) {
-		return p.matches("[(]([0-9])[)][0-9]{3}-[0-9]{4}");
-	}
+	public static boolean phoneNumberTest(String p) {
+		return p.matches("([(]?)([0-9])([)]?)([0-9]{3})([-|\\s]?)([0-9]{4})");
+		}
 
-	public static boolean time(String t) {
-		return t.matches("[0-2][0-9][:][0-6][0-9][:][0-6][0-9]");
-	}
+		public static boolean timeTest(String t) {
+		return t.matches("(([0|1][0-9])|([2][0-4]))[:](([0-5][0-9])|([6][0]))[:](([0-5][0-9])|([6][0]))");
+		}
 
-	public static boolean date(String d) {
-		return d.matches("[0-9]{4}[-][0|1][0-9][-][0-3][0-9]");
-	}
+		public static boolean dateTest(String d) {
+		return d.matches("([0-9]{4})[-][0|1][0-9][-][0-3][0-9]");
+		}
 
-	public static boolean dateTime(String dt) {
-		return dt.matches("(([0-9]{4})[-][0|1][0-9][-][0-3][0-9])\\s([0-2][0-9][:][0-6][0-9][:][0-6][0-9])");
-	}
+		public static boolean dateTimeTest(String dt) {
+		return dt.matches("(([0-9]{4})[-][0|1][0-9][-][0-3][0-9])\\s((([0|1][0-9])|([2][0-4]))[:](([0-5][0-9])|([6][0]))[:](([0-5][0-9])|([6][0])))");
+		}
+
+		public static boolean cardTest(String c) {
+		return c.matches("(([0-9]{4})[-|\\s]([0-9]{4})[-|\\s]([0-9]{4})[-|\\s]([0-9]{4}))|(([0-9]{4})[-|\\s]([0-9]{6})[-|\\s]([0-9]{6}))");
+		}
+
+		public static boolean numTest(String n) {
+		return n.matches("[0-9]+");
+		}
+
+		public static boolean firstNameTest(String fn){
+		        return fn.matches("[A-Z][A-Za-z-]+([A-Z][A-Za-z]+)*");
+		}
+
+		public static boolean lastNameTest(String ln){
+		        return ln.matches("[A-Z][']?[A-Za-z]+");
+		}
 
 }
