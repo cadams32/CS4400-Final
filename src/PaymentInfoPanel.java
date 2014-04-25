@@ -2,6 +2,7 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
@@ -10,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import Backend.Card;
 import Backend.Patient;
 import Backend.Prescription;
 
@@ -95,12 +97,38 @@ public class PaymentInfoPanel extends JPanel {
 		btnOrder = new JButton("Order");
 		panel_2.add(btnOrder, "cell 1 0");
 		btnOrder.addActionListener(listener);
-
+		
+		populateFields();
 	}
 	
 	public void populateFields(){
 		//This method needs to populate the fields and make them not editable if there is already payment info for that user.
 		 currPatient = parent.getHandler().getPatient(username);
+		 System.out.println("CARDNO: " + currPatient.getCardNumber());
+		 Card card = parent.getHandler().getCard(parent.getHandler().getCardByUsername(currPatient.getUsername()));
+		 System.out.println("CARDOWNER: " + card.getCardHolderName());
+		 if(card != null){
+			 cardNameTextField.setText(currPatient.getName());
+			 cardNameTextField.setEditable(false);
+			 cardNoTextField.setText(card.getCardnumber());
+			 cardNoTextField.setEditable(false);
+			 boxCardType.setSelectedItem(card.getType());
+			 boxCardType.setEditable(false);
+			 cvvTextField.setText(card.getCvv());
+			 cvvTextField.setEditable(false);
+			 //Scanner scan = new Scanner(card.getDateOfExpiry());
+			 System.out.println(card.getDateOfExpiry());
+			 /*
+			 scan.useDelimiter("-");
+			 String expYear = scan.next();
+			 String expMonth = scan.next();
+			 boxExpMonth.setSelectedItem(expMonth);
+			 boxExpMonth.setEditable(false);
+			 boxExpYear.setSelectedItem(expYear);
+			 boxExpYear.setEditable(false);
+			 */
+			 
+		 }
 	}
 	
 	private class ButtonListener implements ActionListener{
