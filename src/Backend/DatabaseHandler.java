@@ -1782,4 +1782,38 @@ public class DatabaseHandler {
 		}
 		return false;
 	}
+	
+	public static ArrayList<Visit> getVisits() {
+		ArrayList<Visit> visits = new ArrayList<Visit>();
+		String query = "SELECT * FROM `cs4400_Group_37`.`Visit`";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String docUsername = "";
+			String patUsername = "";
+			String dateOfVisit = "";
+			int systolic = -1;
+			int diastolic = -1;
+			int billingAmount = -1;
+			while(rs.next()) {
+				docUsername = rs.getString("PatientUsername");
+				patUsername = rs.getString("Name");
+				dateOfVisit = rs.getString("DOB");
+				systolic = rs.getInt("Gender");
+				diastolic = rs.getInt("Address");
+				billingAmount = rs.getInt("BillingAmount");
+				visits.add(new Visit(docUsername, patUsername, dateOfVisit, diastolic, systolic, billingAmount));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return visits;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
+		}
+		return null;
+	}
 }
