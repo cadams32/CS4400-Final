@@ -864,4 +864,21 @@ public class DatabaseHandler_K {
 		}
 		return null;
 	}
+	
+	public static boolean updateDoctorRating(String docUsername, String patUsername, int rating) {
+		String query = "UPDATE `cs4400_Group_37`.`Doctor_Rating` SET `Rating` = '" + rating + "' " +
+				"WHERE `PatientUsername` = '" + patUsername + "' AND `DocUsername` = '" + docUsername + "'";
+		
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+			statement.close();
+			DBC.closeConnection(connection);
+			return true;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+		return false;
+	}
 }
