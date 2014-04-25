@@ -44,12 +44,11 @@ public class NewVisitPanel extends JPanel {
 				
 		this.parent = parent;
 		this.username = username;
+		this.patientName = patientName;
+		this.patientHomePhone = patientHomePhone;
 		ButtonListener listener = new ButtonListener();
 		prescriptionList = new ArrayList<Prescription>();
 		
-		System.out.println("Patient name: " + patientName);
-		System.out.println("Home Phone: " + patientHomePhone);
-		System.out.println("Patient username " + parent.getHandler().getPatientUsername(patientName, patientHomePhone));
 		setBackground(SystemColor.textHighlight);
 		setLayout(null);
 		
@@ -199,7 +198,6 @@ public class NewVisitPanel extends JPanel {
 				int durationMonths = Integer.parseInt((String) durationMonthsComboBox.getSelectedItem());
 				String notes = textPane.getText();
 				prescriptionList.add(new Prescription(parent.getHandler().getPatientUsername(patientName, patientHomePhone), username, dateOfVisitTextField.getText(), drugName, dosage, durationDays + (durationMonths*30), notes, "No"));
-				System.out.println("DATE: " + dateOfVisitTextField.getText());
 			}
 			else if (e.getSource() == btnRecordVisit) {
 				String dateOfVisit = dateOfVisitTextField.getText();
@@ -224,15 +222,10 @@ public class NewVisitPanel extends JPanel {
 				if(p.getAnnualIncome().equals("10000-25000")){
 					billingAmount *= .8;
 				}
-				System.out.println("Point 1");
-				System.out.println(parent.getHandler().addNewVisit(username, patUsername, dateOfVisit,Integer.parseInt(diastolic),Integer.parseInt(systolic), billingAmount));
-				System.out.println("Point 2");
 				for(Prescription presc: prescriptionList){
-					System.out.println("TEST: " + parent.getHandler().getPatientUsername(patientName, patientHomePhone));
 					parent.getHandler().addNewPrescription(parent.getHandler().getPatientUsername(patientName, patientHomePhone), username, dateOfVisitTextField.getText(),
 							presc.getMedicineName(), presc.getDosage(), presc.getDuration(), presc.getNotes(), presc.getOrdered());
 				}
-				System.out.println("Point 3");
 				
 			}
 			
