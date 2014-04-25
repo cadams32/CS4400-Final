@@ -491,8 +491,8 @@ public class DatabaseHandler {
 	 * @return
 	 */
 	public static boolean addNewVisitDiagnosis(String patientUsername, String docUsername, String dateOfVisit, String diagnosis) {
-		String query = "INSERT INTO `cs4400_Group_37`.`Visit_Diagnosis` (`VisitID`, `Diagnosis`) VALUES ('" +
-				visitID + "', '" + diagnosis + "')";
+		String query = "INSERT INTO `cs4400_Group_37`.`Visit_Diagnosis` (`patientUsername`, `docUsername`, `dateOfVisit`, `Diagnosis`) VALUES ('" +
+				patientUsername + "', '" + "', '" + docUsername + "', '" + dateOfVisit + "', '" + diagnosis + "')";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
@@ -518,9 +518,9 @@ public class DatabaseHandler {
 	 * @param ordered
 	 * @return
 	 */
-	public static boolean addNewPrescription(int visitID, String medicineName, int dosage, int duration, String notes, String ordered) {
-		String query = "INSERT INTO `cs4400_Group_37`.`Prescription` (`VisitID`, `MedicineName`, `Dosage`, `Duration`, `Notes`, `Ordered(Yes/No)`) VALUES ('" +
-				visitID + "', '" + medicineName + "', '" + dosage + "', '" + duration + "', '" + notes + "', '" + ordered + "')";
+	public static boolean addNewPrescription(String patientUsername, String docUsername, String dateOfVisit, String medicineName, int dosage, int duration, String notes, String ordered) {
+		String query = "INSERT INTO `cs4400_Group_37`.`Prescription` (`DateOfVisit`, `PatUsername`, `DocUsername`, `MedicineName`, `Dosage`, `Duration`, `Notes`, `Ordered(Yes/No)`) VALUES ('" +
+				dateOfVisit + "', '" + patientUsername + "', '" + docUsername + "', '" + "', '" + medicineName + "', '" + dosage + "', '" + duration + "', '" + notes + "', '" + ordered + "')";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
@@ -791,7 +791,6 @@ public class DatabaseHandler {
 			Statement statement = connection.createStatement();
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
 			while(rs.next()) {
-				int visitID = rs.getInt("VisitID");
 				String docUsername = rs.getString("DocUsername");
 				String dateOfVisit = rs.getString("DateOfVisit");
 				int diastolic = rs.getInt("Diastolic");
@@ -817,60 +816,27 @@ public class DatabaseHandler {
 	 * @param visitID
 	 * @return
 	 */
-	public ArrayList<Prescription> getVisitPrescriptions(int visitID) {
+	public ArrayList<Prescription> getVisitPrescriptions(String patientUsername, String docUsername, String dateOfVisit) {
 		ArrayList<Prescription> list = new ArrayList<Prescription>();
-		String query = "SELECT * FROM `Prescription` WHERE `VisitID`='"+visitID+"'";
+		String query = "SELECT * FROM `Prescription` WHERE `PatUsername`='"+patientUsername+"' AND  `DocUsername`='" +docUsername+"'AND `DateOfVisit`= '" + dateOfVisit + "'"; 
 		
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
 			while(rs.next()) {
-				int visitId = rs.getInt("VisitID");
 				String medicineName = rs.getString("MedicineName");
 				int dosage = rs.getInt("Dosage");
 				int duration = rs.getInt("Duration");
 				String notes = rs.getString("Notes");
 				String ordered = rs.getString("Ordered(Yes/No)");
 				
-				list.add(new Prescription(visitId, medicineName, dosage, duration, notes, ordered));
+				list.add(new Prescription(patientUsername, docUsername, dateOfVisit, medicineName, dosage, duration, notes, ordered));
 			}
 			rs.close();
 			statement.close();
 			DBC.closeConnection(connection);
 			return list;
-		} catch (Exception e) {
-			System.err.println("Exception: " + e.getMessage());
-		} finally {
-			DBC.closeConnection(connection);
-		}
-		return null;
-	}
-	
-	public Visit getVisit(int visitID) {
-		String query = "SELECT * FROM `Visit` WHERE `VisitID`='"+visitID+"'";
-		try {
-			connection = DBC.createConnection();
-			Statement statement = connection.createStatement();
-			ResultSet rs = (ResultSet) statement.executeQuery(query);
-			int visitI2D = -1;
-			String docUsername2 = "";
-			String dateOfVisit = "";
-			int diastolic = -1;
-			int systolic = -1;
-			int billingAmount = -1;
-			while(rs.next()) {
-				visitI2D = rs.getInt("VisitID");
-				docUsername2 = rs.getString("DocUsername");
-				dateOfVisit = rs.getString("DateOfVisit");
-				diastolic = rs.getInt("Diastolic");
-				systolic = rs.getInt("Systolic");
-				billingAmount = rs.getInt("BillingAmount");
-			}
-			rs.close();
-			statement.close();
-			DBC.closeConnection(connection);
-			return new Visit(docUsername2, null, dateOfVisit, diastolic, systolic, billingAmount);
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
 		} finally {
@@ -885,15 +851,12 @@ public class DatabaseHandler {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
 			ResultSet rs = (ResultSet) statement.executeQuery(query);
-			int visitID = -1;
 			String docUsername2 = "";
 			String dateOfVisit = "";
 			int diastolic = -1;
 			int systolic = -1;
 			int billingAmount = -1;
 			while(rs.next()) {
-				visitID = rs.getInt("VisitID");
-				docUsername2 = rs.getString("DocUsername");
 				dateOfVisit = rs.getString("DateOfVisit");
 				diastolic = rs.getInt("Diastolic");
 				systolic = rs.getInt("Systolic");
@@ -902,7 +865,7 @@ public class DatabaseHandler {
 			rs.close();
 			statement.close();
 			DBC.closeConnection(connection);
-			return new Visit(docUsername, null, dateOfVisit, diastolic, systolic, billingAmount);
+			return new Visit(docUsername, patUsername, dateOfVisit, diastolic, systolic, billingAmount);
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
 		} finally {
@@ -962,8 +925,8 @@ public class DatabaseHandler {
 	 * @param visitID
 	 * @return
 	 */
-	public String getVisitDiagnosis(int visitID) { 
-		String query = "SELECT `Diagnosis` FROM `Visit_Diagnosis` WHERE `VisitID`='"+visitID+"'";
+	public String getVisitDiagnosis(String patientUsername, String docUsername, String dateOfVisit) { 
+		String query = "SELECT `Diagnosis` FROM `Visit_Diagnosis` WHERE `PatientUsername`='"+patientUsername+"' AND  `DocUsername`='" +docUsername+"'AND `DateOfVisit`= '" + dateOfVisit + "'";
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();

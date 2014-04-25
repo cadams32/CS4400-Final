@@ -9,8 +9,7 @@ public class Prescription {
 	private String notes;
 	private String ordered;
 	
-	public Prescription(int visitID, String medicineName, int dosage, int duration, String notes, String ordered) {
-		this.setVisitID(visitID);
+	public Prescription(String patientUsername, String docUsername, String dateOfVisit, String medicineName, int dosage, int duration, String notes, String ordered) {
 		this.setMedicineName(medicineName);
 		this.setDosage(dosage);
 		this.setDuration(duration);
@@ -21,15 +20,7 @@ public class Prescription {
 	public Prescription() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public int getVisitID() {
-		return visitID;
-	}
-
-	public void setVisitID(int visitID) {
-		this.visitID = visitID;
-	}
-
+	
 	public String getMedicineName() {
 		return medicineName;
 	}
