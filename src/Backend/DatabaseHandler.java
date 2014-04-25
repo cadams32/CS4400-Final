@@ -1846,11 +1846,11 @@ public class DatabaseHandler {
 			int diastolic = -1;
 			int billingAmount = -1;
 			while(rs.next()) {
-				docUsername = rs.getString("PatientUsername");
-				patUsername = rs.getString("Name");
-				dateOfVisit = rs.getString("DOB");
-				systolic = rs.getInt("Gender");
-				diastolic = rs.getInt("Address");
+				docUsername = rs.getString("DocUsername");
+				patUsername = rs.getString("PatientUsername");
+				dateOfVisit = rs.getString("DateOfVisit");
+				systolic = rs.getInt("Systolic");
+				diastolic = rs.getInt("Diastolic");
 				billingAmount = rs.getInt("BillingAmount");
 				visits.add(new Visit(docUsername, patUsername, dateOfVisit, diastolic, systolic, billingAmount));
 			}
@@ -1887,7 +1887,7 @@ public class DatabaseHandler {
 				Dosage = Integer.parseInt(rs.getString("Dosage"));
 				Duration = Integer.parseInt(rs.getString("Duration"));
 				Notes = rs.getString("Notes");
-				Ordered = rs.getString("Ordered");
+				Ordered = rs.getString("Ordered(Yes/No)");
 				Prescription p = new Prescription(PatUsername, username, DateOfVisit, MedicineName, Dosage, Duration, Notes, Ordered);
 				pList.add(p);
 			}
