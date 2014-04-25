@@ -1672,4 +1672,49 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	public Patient getOnePatient(String userName) {
+		Patient pats = null;
+		String query = "SELECT * FROM `Patient` WHERE `PatientUsername` = '" + userName + "'";
+		try {
+			connection = DBC.createConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = (ResultSet) statement.executeQuery(query);
+			String name = "";
+			String username = "";
+			String dob = "";
+			String gender = "";
+			String address = "";
+			String workphone = "";
+			String homephone = "";
+			String emerContactName = "";
+			String emerContactPhone = "";
+			String weight = "";
+			String height = "";
+			String annualIncome = "";
+			while(rs.next()) {
+				username = rs.getString("PatientUsername");
+				name = rs.getString("Name");
+				dob = rs.getString("DOB");
+				gender = rs.getString("Gender");
+				address = rs.getString("Address");
+				workphone = rs.getString("WorkPhone");
+				homephone = rs.getString("HomePhone");
+				emerContactName = rs.getString("EContactName");
+				emerContactPhone = rs.getString("EContactPhone");
+				weight = rs.getString("Weight");
+				height = rs.getString("Height");
+				annualIncome = rs.getString("AnnualIncome");
+				pats = (new Patient(username, null, name, dob, gender, address, workphone, homephone, emerContactName, emerContactPhone, weight, height, annualIncome));
+			}
+			rs.close();
+			statement.close();
+			DBC.closeConnection(connection);
+			return pats;
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		} finally {
+			DBC.closeConnection(connection);
+		}
+		return null;
+	}
 }

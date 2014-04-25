@@ -43,7 +43,7 @@ public class Patient extends User{
 		this.annualIncome = annualIncome;
 	}
 	
-	public Patient(String username, String password, String name, String dob, String gender, String address, String workphone, String homephone, String emerContactName, String emerContactPhone, String weight, String height) {
+	public Patient(String username, String password, String name, String dob, String gender, String address, String workphone, String homephone, String emerContactName, String emerContactPhone, String weight, String height, String annualIncome) {
 		super(username, password, "Patient");
 		this.name = name;
 		this.dob = dob;
@@ -55,6 +55,7 @@ public class Patient extends User{
 		this.emerContactPhone = emerContactPhone;
 		this.weight = weight;
 		this.height = height;
+		this.annualIncome = annualIncome;
 	}
 	
 	public String getName() {
