@@ -211,7 +211,6 @@ public class NewDoctorProfilePanel extends JPanel {
 				String specialty = (String) cbSpecialty.getSelectedItem();
 				String address = addressTextField.getText();
 
-
 				if (!(licenseNo == null) && !(fName == null) && !(lName == null) && !(DOB == null) && !(workPhone == null) 
 						&& !(specialty == null) && !(address == null)) {
 				
