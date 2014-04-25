@@ -20,7 +20,10 @@ import Backend.Appointment;
 
 import java.awt.SystemColor;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class ViewAppointmentCalendarPanel extends JPanel {
@@ -702,6 +705,17 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		labels.add(label_30);
 		labels.add(label_31);
 		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		String s = dateFormat.format(cal.getTime());
+		String year = s.substring(0,4);
+		String month = s.substring(5,7);
+		  
+		System.out.println(year);
+		System.out.println(month);
+		monthComboBox.setSelectedIndex(Integer.parseInt(month) - 1);
+		yearComboBox.setSelectedItem(year);
+		   
 	}
 	
 	private class ButtonListener implements ActionListener {

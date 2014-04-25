@@ -11,8 +11,11 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JTable;
+
+import Backend.Doctor;
 
 
 public class ViewAppointmentPanel extends JPanel {
@@ -21,6 +24,8 @@ public class ViewAppointmentPanel extends JPanel {
 	private String username;
 	private JTable table;
 	JButton btnBack, btnSearch, btnRequestAppointment;
+	ArrayList<Doctor> docs;
+	
 	
 	/**
 	 * 
@@ -82,6 +87,7 @@ public class ViewAppointmentPanel extends JPanel {
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == btnSearch){
 				//DB query to populate doctor names
+				
 				
 			}
 			else if(e.getSource() == btnRequestAppointment){
