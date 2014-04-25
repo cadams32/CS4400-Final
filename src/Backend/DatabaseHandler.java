@@ -490,7 +490,7 @@ public class DatabaseHandler {
 	 * @param diagnosis
 	 * @return
 	 */
-	public static boolean addNewVisitDiagnosis(int visitID, String diagnosis) {
+	public static boolean addNewVisitDiagnosis(String patientUsername, String docUsername, String dateOfVisit, String diagnosis) {
 		String query = "INSERT INTO `cs4400_Group_37`.`Visit_Diagnosis` (`VisitID`, `Diagnosis`) VALUES ('" +
 				visitID + "', '" + diagnosis + "')";
 		try {
@@ -1597,9 +1597,9 @@ public class DatabaseHandler {
 		return null;
 	}
 
-public static ArrayList<String> getSurgeryPreOpMed() {
+public static ArrayList<String> getSurgeryPreOpMed(String CPTCode) {
 	ArrayList<String> preop = new ArrayList<String>();
-	String query = "SELECT * FROM `SurgeryPreOpMeds";
+	String query = "SELECT * FROM `SurgeryPreOpMeds WHERE `CPTCode` = '"+CPTCode+"'";
 	
 	try {
 		connection = DBC.createConnection();
