@@ -16,6 +16,9 @@ public class LoginPanel extends JPanel {
 	private JTextField textField_1;
 	JButton btnAdminLogin, btnCreateNewAccount;
 	MedicalFrame parent;
+	private JButton btnPatientHome;
+	private JButton btnDoctorHome;
+	private JButton btnAdminHome;
 	
 	/**
 	 * Create the panel.
@@ -58,9 +61,24 @@ public class LoginPanel extends JPanel {
 		lblGtmrsLogin.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
 		lblGtmrsLogin.setBounds(426, 42, 247, 41);
 		add(lblGtmrsLogin);
+		
 		btnCreateNewAccount.addActionListener(listener);
 		btnAdminLogin.addActionListener(listener);
+
+		btnPatientHome = new JButton("Patient Home");
+		btnPatientHome.setBounds(827, 548, 117, 29);
+		add(btnPatientHome);
+		btnPatientHome.addActionListener(listener);
 		
+		btnDoctorHome = new JButton("Doctor Home");
+		btnDoctorHome.setBounds(698, 548, 117, 29);
+		add(btnDoctorHome);
+		btnDoctorHome.addActionListener(listener);
+		
+		btnAdminHome = new JButton("Admin Home");
+		btnAdminHome.setBounds(572, 548, 117, 29);
+		add(btnAdminHome);
+		btnAdminHome.addActionListener(listener);
 	}
 	
 private class ButtonListener implements ActionListener{
@@ -90,6 +108,24 @@ private class ButtonListener implements ActionListener{
 					
 					}
 				}
+			}
+			else if (e.getSource() == btnPatientHome) {
+				PatientHomePanel php = new PatientHomePanel(parent, "PatientZero");
+				parent.getContentPane().add(php);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
+			}
+			else if (e.getSource() == btnDoctorHome) {
+				DoctorHomePanel dhp = new DoctorHomePanel(parent, "DoctorDoctor");
+				parent.getContentPane().add(dhp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
+			}
+			else if (e.getSource() == btnAdminHome) {
+				AdminHomePanel ahp = new AdminHomePanel(parent, "Administrator");
+				parent.getContentPane().add(ahp);
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				cl.next(parent.getContentPane());
 			}
 			else if(e.getSource() == btnCreateNewAccount){
 				NewUserPanel nup = new NewUserPanel(parent);
