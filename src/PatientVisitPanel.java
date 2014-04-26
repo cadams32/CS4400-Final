@@ -18,6 +18,8 @@ import net.miginfocom.swing.MigLayout;
 import Backend.Doctor;
 import Backend.Prescription;
 import Backend.Visit;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 
 public class PatientVisitPanel extends JPanel {
@@ -33,18 +35,20 @@ public class PatientVisitPanel extends JPanel {
 	ArrayList<Doctor> doctorList;
 	ArrayList<Prescription> prescriptionList;
 	ArrayList<Integer> totalBilling;
+	private JLabel lblPatientVisits;
 	
 	/**
 	 * Create the panel.
 	 */
 	
 	public PatientVisitPanel(MedicalFrame parent, String username) {
+		setBackground(SystemColor.textHighlight);
 		
 		visitList = new ArrayList<Visit>();
 		doctorList = new ArrayList<Doctor>();
 		prescriptionList = new ArrayList<Prescription>();
 		totalBilling = new ArrayList<Integer>();
-		
+		this.setBounds(100, 100, 1000, 600);
 		this.parent = parent;
 		this.username = username;
 		ButtonListener listener = new ButtonListener();
@@ -52,10 +56,17 @@ public class PatientVisitPanel extends JPanel {
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.textHighlight);
 		add(panel, "cell 0 0,grow");
-		panel.setLayout(new MigLayout("", "[]", "[]"));
+		panel.setLayout(null);
+		
+		lblPatientVisits = new JLabel("Patient Visits");
+		lblPatientVisits.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblPatientVisits.setBounds(422, 29, 229, 26);
+		panel.add(lblPatientVisits);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.textHighlight);
 		add(panel_1, "cell 0 1,grow");
 		panel_1.setLayout(new MigLayout("", "[200.00][grow][200.00,grow][200.00,grow][199.00]", "[][][][grow][]"));
 		
@@ -90,6 +101,7 @@ public class PatientVisitPanel extends JPanel {
 		scrollPane.setViewportView(table);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.textHighlight);
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[863.00][]", "[]"));
 		

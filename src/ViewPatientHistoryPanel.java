@@ -19,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
 
 import Backend.Prescription;
 import Backend.Visit;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 
 public class ViewPatientHistoryPanel extends JPanel {
@@ -42,24 +44,33 @@ public class ViewPatientHistoryPanel extends JPanel {
 	private JLabel lblPhoneNumber;
 	private JTextField textField_6;
 	private JTextField textField_7;
+	private JLabel lblViewPatientHistor;
 
 	/**
 	 * Create the panel.
 	 */
 	public ViewPatientHistoryPanel(MedicalFrame parent, String username) {
+		setBackground(SystemColor.textHighlight);
 		
 		this.parent = parent;
 		this.username = username;
 		ButtonListener listener = new ButtonListener();
 		visitList = new ArrayList<Visit>();
-		
+		this.setBounds(100, 100, 1000, 600);
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.textHighlight);
 		add(panel, "cell 0 0,grow");
-		panel.setLayout(new MigLayout("", "[]", "[]"));
+		panel.setLayout(null);
+		
+		lblViewPatientHistor = new JLabel("View Patient History");
+		lblViewPatientHistor.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblViewPatientHistor.setBounds(350, 20, 336, 36);
+		panel.add(lblViewPatientHistor);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.textHighlight);
 		add(panel_1, "cell 0 1,grow");
 		panel_1.setLayout(new MigLayout("", "[][189.00,grow][141.00,grow][60.00][28.00,grow][86.00,grow][80.00,grow][90.00][80.00,grow][]", "[][19.00][36.00,grow][48.00][40.00,grow][40.00][40.00][150.00,grow]"));
 		
@@ -173,6 +184,7 @@ public class ViewPatientHistoryPanel extends JPanel {
 		table_1.getColumnModel().getColumn(3).setPreferredWidth(70);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.textHighlight);
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[][]", "[]"));
 		

@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import Backend.Card;
 import Backend.Patient;
 import Backend.Prescription;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 
 public class PaymentInfoPanel extends JPanel {
@@ -35,7 +37,8 @@ public class PaymentInfoPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public PaymentInfoPanel(MedicalFrame parent, String username, ArrayList<Prescription> cart) {
-		
+		setBackground(SystemColor.textHighlight);
+		this.setBounds(100, 100, 1000, 600);
 		currPatient = new Patient();
 		this.cart = cart;
 		this.parent = parent;
@@ -44,53 +47,72 @@ public class PaymentInfoPanel extends JPanel {
 		ButtonListener listener = new ButtonListener();
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.textHighlight);
 		add(panel, "cell 0 0,grow");
-		panel.setLayout(new MigLayout("", "[]", "[]"));
+		panel.setLayout(null);
+		
+		JLabel lblPaymentInformation = new JLabel("Payment Information");
+		lblPaymentInformation.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblPaymentInformation.setBounds(337, 18, 424, 36);
+		panel.add(lblPaymentInformation);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.textHighlight);
 		add(panel_1, "cell 0 1,grow");
-		panel_1.setLayout(new MigLayout("", "[151.00][][70.00,grow][66.00][100.00][156.00][428.00]", "[][][][][][][][][][]"));
+		panel_1.setLayout(null);
 		
 		JLabel lblCardholdersName = new JLabel("Cardholder's Name");
-		panel_1.add(lblCardholdersName, "cell 1 1,alignx leading");
+		lblCardholdersName.setBounds(246, 51, 119, 16);
+		panel_1.add(lblCardholdersName);
 		
 		cardNameTextField = new JTextField();
-		panel_1.add(cardNameTextField, "cell 2 1 4 1,growx");
+		cardNameTextField.setBounds(369, 45, 329, 28);
+		panel_1.add(cardNameTextField);
 		cardNameTextField.setColumns(10);
 		
 		JLabel lblCardNumber = new JLabel("Card Number");
-		panel_1.add(lblCardNumber, "cell 1 3,alignx leading");
+		lblCardNumber.setBounds(246, 112, 83, 16);
+		panel_1.add(lblCardNumber);
 		
 		cardNoTextField = new JTextField();
-		panel_1.add(cardNoTextField, "cell 2 3 4 1,growx");
+		cardNoTextField.setBounds(369, 106, 329, 28);
+		panel_1.add(cardNoTextField);
 		cardNoTextField.setColumns(10);
 		
 		JLabel lblTypeOfCard = new JLabel("Type of Card");
-		panel_1.add(lblTypeOfCard, "cell 1 5,alignx leading");
+		lblTypeOfCard.setBounds(246, 171, 80, 16);
+		panel_1.add(lblTypeOfCard);
 		
 		String[] cardTypes = {"Visa", "Discover", "MasterCard", "American Express"};
 		boxCardType = new JComboBox(cardTypes);
-		panel_1.add(boxCardType, "cell 2 5 2 1");
+		boxCardType.setBounds(369, 167, 168, 27);
+		panel_1.add(boxCardType);
 		
 		JLabel lblCvv = new JLabel("CVV");
-		panel_1.add(lblCvv, "cell 1 7,alignx leading");
+		lblCvv.setBounds(246, 233, 25, 16);
+		panel_1.add(lblCvv);
 		
 		cvvTextField = new JTextField();
-		panel_1.add(cvvTextField, "cell 2 7,growx");
+		cvvTextField.setBounds(369, 227, 76, 28);
+		panel_1.add(cvvTextField);
 		cvvTextField.setColumns(10);
 		
 		JLabel lblDateOfExpiry = new JLabel("Date of Expiry");
-		panel_1.add(lblDateOfExpiry, "cell 1 9,alignx leading");
+		lblDateOfExpiry.setBounds(246, 292, 89, 16);
+		panel_1.add(lblDateOfExpiry);
 		
 		String[] months = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
 		boxExpMonth = new JComboBox(months);
-		panel_1.add(boxExpMonth, "cell 2 9");
+		boxExpMonth.setBounds(369, 288, 72, 27);
+		panel_1.add(boxExpMonth);
 		
 		String[] year = {"2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"};
 		boxExpYear = new JComboBox(year);
-		panel_1.add(boxExpYear, "cell 3 9");
+		boxExpYear.setBounds(449, 288, 88, 27);
+		panel_1.add(boxExpYear);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.textHighlight);
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[865.00][]", "[]"));
 		
@@ -104,9 +126,7 @@ public class PaymentInfoPanel extends JPanel {
 	public void populateFields(){
 		//This method needs to populate the fields and make them not editable if there is already payment info for that user.
 		 currPatient = parent.getHandler().getPatient(username);
-		 System.out.println("CARDNO: " + currPatient.getCardNumber());
 		 Card card = parent.getHandler().getCard(parent.getHandler().getCardByUsername(currPatient.getUsername()));
-		 System.out.println("CARDOWNER: " + card.getCardHolderName());
 		 if(card != null){
 			 cardNameTextField.setText(currPatient.getName());
 			 cardNameTextField.setEditable(false);

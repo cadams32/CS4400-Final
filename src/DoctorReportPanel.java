@@ -12,6 +12,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Backend.Doctor;
+import java.awt.SystemColor;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 
 public class DoctorReportPanel extends JPanel {
@@ -29,18 +32,27 @@ public class DoctorReportPanel extends JPanel {
 	DefaultTableModel model;
 	
 	public DoctorReportPanel(MedicalFrame parent, String username) {
+		setBackground(SystemColor.textHighlight);
 		
 		this.parent = parent;
 		this.username = username;
 		ButtonListener listener = new ButtonListener();
+		this.setBounds(100, 100, 1000, 600);
 		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][449.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.textHighlight);
 		add(panel, "cell 0 0,grow");
-		panel.setLayout(new MigLayout("", "[]", "[]"));
+		panel.setLayout(null);
+		
+		JLabel lblDoctorReports = new JLabel("Doctor Reports");
+		lblDoctorReports.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblDoctorReports.setBounds(409, 25, 223, 26);
+		panel.add(lblDoctorReports);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.textHighlight);
 		add(panel_1, "cell 0 1,grow");
 		panel_1.setLayout(new MigLayout("", "[200.00][600.00,grow][200.00]", "[][329.00,grow][91.00]"));
 		
@@ -61,6 +73,7 @@ public class DoctorReportPanel extends JPanel {
 		
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.textHighlight);
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[904.00][]", "[]"));
 		

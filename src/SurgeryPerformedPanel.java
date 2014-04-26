@@ -13,6 +13,9 @@ import javax.swing.table.DefaultTableModel;
 import Backend.Doctor;
 import Backend.Performs;
 import Backend.Surgery;
+import java.awt.SystemColor;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 
 public class SurgeryPerformedPanel extends JPanel {
@@ -26,18 +29,26 @@ public class SurgeryPerformedPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public SurgeryPerformedPanel(MedicalFrame parent, String username) {
+		setBackground(SystemColor.textHighlight);
 		
 		this.parent = parent;
 		this.username = username;
 		ButtonListener listener = new ButtonListener();
-		
+		this.setBounds(100, 100, 1000, 600);
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.textHighlight);
 		add(panel, "cell 0 0,grow");
-		panel.setLayout(new MigLayout("", "[]", "[]"));
+		panel.setLayout(null);
+		
+		JLabel lblSurgeryPerformed = new JLabel("Surgery Performed");
+		lblSurgeryPerformed.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblSurgeryPerformed.setBounds(345, 28, 331, 28);
+		panel.add(lblSurgeryPerformed);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.textHighlight);
 		add(panel_1, "cell 0 1,grow");
 		panel_1.setLayout(new MigLayout("", "[200.00][600.00,grow][200.00]", "[][304.00,grow][96.00]"));
 		
@@ -58,6 +69,7 @@ public class SurgeryPerformedPanel extends JPanel {
 		
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.textHighlight);
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[880.00][]", "[]"));
 		
@@ -91,7 +103,6 @@ public class SurgeryPerformedPanel extends JPanel {
 					totalBilling[i] += curSurg.get(0).getCostOfSurgery();
 					if(!docList.contains(p.getDocUsername())){
 						docList.add(p.getDocUsername());
-						System.out.println("Found a new doctor for surgery type " + surgName[i]);
 					}
 					numDocs[i] = docList.size();
 				}

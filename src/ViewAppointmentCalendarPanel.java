@@ -80,7 +80,7 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		this.parent = parent;
 		this.username = username;
 		ButtonListener listener = new ButtonListener();
-		
+		this.setBounds(100, 100, 1000, 600);
 		setBackground(SystemColor.textHighlight);
 		setLayout(null);
 		
@@ -713,10 +713,12 @@ public class ViewAppointmentCalendarPanel extends JPanel {
 		String year = s.substring(0,4);
 		String month = s.substring(5,7);
 		  
-		System.out.println(year);
-		System.out.println(month);
 		monthComboBox.setSelectedIndex(Integer.parseInt(month) - 1);
 		yearComboBox.setSelectedItem(year);
+		
+		JLabel lblAppointmentCalendar = new JLabel("Appointment Calendar");
+		lblAppointmentCalendar.setBounds(464, 8, 195, 16);
+		add(lblAppointmentCalendar);
 		
 	}
 	

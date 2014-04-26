@@ -14,6 +14,9 @@ import javax.swing.table.DefaultTableModel;
 import Backend.Doctor;
 import Backend.Message;
 import Backend.Patient;
+import java.awt.Color;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 
 public class InboxPanel extends JPanel {
@@ -32,18 +35,27 @@ public class InboxPanel extends JPanel {
 	ArrayList<Message> messages;
 	
 	public InboxPanel(MedicalFrame parent, String username) {
+		setBackground(SystemColor.textHighlight);
 		
 		this.parent = parent;
 		this.username = username;
+		this.setBounds(100, 100, 1000, 600);
 		ButtonListener listener = new ButtonListener();
 		
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.textHighlight);
 		add(panel, "cell 0 0,grow");
-		panel.setLayout(new MigLayout("", "[]", "[]"));
+		panel.setLayout(null);
+		
+		JLabel lblInbox = new JLabel("Inbox");
+		lblInbox.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblInbox.setBounds(454, 6, 89, 74);
+		panel.add(lblInbox);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.textHighlight);
 		add(panel_1, "cell 0 1,grow");
 		panel_1.setLayout(new MigLayout("", "[89.00][83.00,grow][][71.00][][119.00][][503.00][]", "[][][grow]"));
 		
@@ -61,6 +73,7 @@ public class InboxPanel extends JPanel {
 		//table.getColumnModel().getColumn(3).setPreferredWidth(400);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.textHighlight);
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[872.00][]", "[]"));
 		
@@ -94,7 +107,6 @@ public class InboxPanel extends JPanel {
 			for(Message m : messages) {
 				insert[0] = m.getStatus();
 				insert[1] = m.getTime();
-				System.out.println("Hi"+m.getSender());
 				if(parent.getHandler().doesPatientExist(m.getSender())) {
 					
 					Patient pat = parent.getHandler().getPatient(m.getSender());

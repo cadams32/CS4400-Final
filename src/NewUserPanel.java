@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 
 public class NewUserPanel extends JPanel {
@@ -25,16 +27,23 @@ public class NewUserPanel extends JPanel {
 	private JButton btnRegister;
 	MedicalFrame parent;
 	private JButton btnBack;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Create the panel.
 	 */
 	public NewUserPanel(MedicalFrame parent) {
+		setBackground(SystemColor.textHighlight);
 		setLayout(new MigLayout("", "[1000.00,grow]", "[100.00][491.00,grow]"));
 		ButtonListener listener = new ButtonListener();
 		this.parent = parent;
+		this.setBounds(100, 100, 1000, 600);
 		
+		lblNewLabel = new JLabel("New User Creation");
+		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		add(lblNewLabel, "cell 0 0,alignx center");
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.textHighlight);
 		add(panel, "cell 0 1,grow");
 		panel.setLayout(new MigLayout("", "[199.00][][][grow][][][][][][][][23.00][][][][][grow]", "[][][][][][][][][][][142.00][36.00]"));
 		

@@ -71,7 +71,6 @@ public class DatabaseHandler {
 	
 		if(validateLogin(username, password)) {
 			if(doesPatientExist(username)) {
-				System.out.println("Hi");
 				return "Patient";
 			} else if (doesDoctorExist(username)) {
 				return "Doctor";
@@ -156,7 +155,6 @@ public class DatabaseHandler {
 			while(resultSet.next()) {
 				dbU = resultSet.getString("PatientUsername");
 			}
-			System.out.println(dbU);
 			resultSet.close();
 			statement.close();
 			
@@ -169,19 +167,7 @@ public class DatabaseHandler {
 			DBC.closeConnection(connection);
 		}
 		return false;
-	}
-
-	/**
-	 * NEW USER
-	 * 
-	 * doesUsernameExist - Check if username is exists in User table
-	 * addNewUser - Insert New User into User table
-	 * addNewPatient - Insert New Patient into Patient table
-	 * 		addNewPatientAllergy - Insert New Patient Allergy into Patient table
-	 * addNewDoctor - Insert New Doctor into Doctor table
-	 * 		addNewDoctorAvailable - Insert New DoctorAvailable into Patient table
-	 */
-	
+	}	
 	
 	/**
 	 * Check if User exists.
@@ -222,13 +208,11 @@ public class DatabaseHandler {
 		if(!doesUsernameExist(username)) {
 			String query = "INSERT INTO  `cs4400_Group_37`.`User` (`Username` ,`Password`) VALUES ('"+username+"',  '"+password+"')";
 			try {
-				System.out.println("Swag");
 				connection = DBC.createConnection();
 				Statement statement = connection.createStatement();
 				statement.executeUpdate(query);
 				statement.close();
 				DBC.closeConnection(connection);
-				System.out.println("Swag2");
 				return true;
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
@@ -236,7 +220,6 @@ public class DatabaseHandler {
 				DBC.closeConnection(connection);
 			}
 		}
-		System.out.println("Not Swag");
 		return false;
 	}
 	
@@ -320,7 +303,6 @@ public class DatabaseHandler {
 				statement.executeUpdate(query);
 				statement.close();
 				DBC.closeConnection(connection);
-				System.out.println("Doc");
 				return true;
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
@@ -347,7 +329,6 @@ public class DatabaseHandler {
 				statement.executeUpdate(query);
 				statement.close();
 				DBC.closeConnection(connection);
-				System.out.println("avail");
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
 			} finally {
@@ -371,7 +352,6 @@ public class DatabaseHandler {
 				statement.executeUpdate(query);
 				statement.close();
 				DBC.closeConnection(connection);
-				System.out.println("Hi");
 				return true;
 			} catch (Exception e) {
 				System.err.println("Exception: " + e.getMessage());
@@ -674,14 +654,6 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * Other
-	 */
-	
-	/**
-	 * Creating Appointment Screen
-	 */
-	
-	/**
 	 * Gets the First Name, Last Name, RoomNo, and Username of all doctors of a specific Specialty
 	 * @param specialty
 	 * @return List with Doctors of a specific specialty
@@ -773,10 +745,6 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
-	
-	/**
-	 * Creating Order Prescription
-	 */
 	
 	/**
 	 * Get all of the Visits of a Particular Patient (Using PatientUsername)
@@ -909,17 +877,6 @@ public class DatabaseHandler {
 		
 	}
 	
-	//Change Prescription Ordered from No to Yes
-	public static void updatePrescription() { }
-	
-	
-	/**
-	 * Creating View Visit History
-	 */
-	
-	//Creating View Visit History
-	//Reuse getPatientVisits() X
-	
 	/**
 	 * Get all visits
 	 * @param visitID
@@ -927,7 +884,6 @@ public class DatabaseHandler {
 	 */
 	public String getVisitDiagnosis(String patientUsername, String docUsername, String dateOfVisit) { 
 		String query = "SELECT `Diagnosis` FROM `Visit_Diagnosis` WHERE `PatUsername`='"+patientUsername+"' AND  `DocUsername`='" +docUsername+"' AND `DateOfVisit`= '" + dateOfVisit + "'";
-		System.out.println("INPUT: " + patientUsername + " " + docUsername + " " + dateOfVisit);
 		try {
 			connection = DBC.createConnection();
 			Statement statement = connection.createStatement();
@@ -935,7 +891,6 @@ public class DatabaseHandler {
 			String diagnosis = "";
 			while(rs.next()) {
 				diagnosis = rs.getString("Diagnosis");
-				System.out.println("Diagnosis: " + diagnosis);
 			}
 			rs.close();
 			statement.close();
@@ -949,14 +904,6 @@ public class DatabaseHandler {
 		return null;
 	
 	}
-
-	//Reuse getPrescriptionsForVisit()
-	//Reuse Get a Doctor
-	
-
-	/**
-	 * Rate A Doctor
-	 */
 	
 	/**
 	 * Get Doctors returns all Doctors
@@ -990,6 +937,10 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * Get all Doctors
+	 * @return
+	 */
 	public ArrayList<Doctor> getDoctorsBig() { 
 		ArrayList<Doctor> docs = new ArrayList<Doctor>();
 		String query = "SELECT * FROM `Doctor`";
@@ -1030,8 +981,11 @@ public class DatabaseHandler {
 		return null;
 	}
 	
-	//Creating AppointmentCalendar
-	//get all appointments of a doctor
+	/**
+	 * Get Appointments for a Doctor
+	 * @param username
+	 * @return
+	 */
 	public ArrayList<Appointment> getAppointmentsForDoctor(String username) { 
 		ArrayList<Appointment> appts = new ArrayList<Appointment>();
 		String query = "SELECT * FROM `Appointment` WHERE `DocUsername`='"+username+"'";
@@ -1062,6 +1016,12 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * get Appointments for Doctor by Date
+	 * @param username
+	 * @param date
+	 * @return
+	 */
 	public ArrayList<Appointment> getAppointmentsForDoctorByDate(String username, Date date) {
 		ArrayList<Appointment> appts = new ArrayList<Appointment>();
 		String query = "SELECT * FROM `Appointment` WHERE `DocUsername`='"+username+"' AND `Date`='"+date+"'";
@@ -1117,6 +1077,10 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * get Patients
+	 * @return
+	 */
 	public ArrayList<Patient> getPatients() {
 		ArrayList<Patient> pats = new ArrayList<Patient>();
 		String query = "SELECT * FROM `Patient`";
@@ -1129,7 +1093,6 @@ public class DatabaseHandler {
 			while(rs.next()) {
 				username = rs.getString("PatientUsername");
 				name = rs.getString("Name");
-				System.out.println(username + " " + name);
 				pats.add(new Patient(username, name));
 			}
 			rs.close();
@@ -1144,6 +1107,10 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * get All Patient Names
+	 * @return
+	 */
 	public ArrayList<String> getPatientsNames() {
 		ArrayList<String> pats = new ArrayList<String>();
 		String query = "SELECT `Name` FROM `Patient`";
@@ -1168,6 +1135,12 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * get Doctor Usernames
+	 * @param fName
+	 * @param lName
+	 * @return
+	 */
 	public static String getDoctorUsername(String fName, String lName) {
 		String query = "SELECT `DocUsername` FROM `Doctor` WHERE `FName`='"+fName+"' AND `LName`='"+lName+"'";
 		try {
@@ -1190,6 +1163,11 @@ public class DatabaseHandler {
 		return null;
 	}
 
+	/**
+	 * get Patient Names
+	 * @param name
+	 * @return
+	 */
 	public static ArrayList<Patient> getPatientFromName(String name) {
 		ArrayList<Patient> pats = new ArrayList<Patient>();
 		String query = "SELECT `PatientUsername`, `HomePhone`, `WorkPhone`, `AnnualIncome` FROM `Patient` WHERE `Name`='"+name+"'";
@@ -1220,9 +1198,12 @@ public class DatabaseHandler {
 		return null;
 	}
 	
-	
-	//Patient Visit History
-	//get a Patient based on name and homePhone? (May need to return a list)
+	/**
+	 * get Patient Usernames
+	 * @param name
+	 * @param homePhone
+	 * @return
+	 */
 	public static String getPatientUsername(String name, String homePhone) {
 		String query = "SELECT `PatientUsername` FROM `Patient` WHERE `Name`='"+name+"' AND `HomePhone`='"+homePhone+"'";
 		try {
@@ -1245,25 +1226,9 @@ public class DatabaseHandler {
 		return null;
 
 	}
-	//Reuse getPatientVisits()
-	//Reuse getVisitDiagnosis()
-	//Reuse getVisitPrescriptions()
-	
-	//Record a visit
-	//Insert visit
-	//Insert visit_diagnosis
-	//Insert visit_prescription
-	
-	//Surgery Record
-	//Reuse getPatient(name, homePhone)
-	//Insert Surgery
-	//Insert SurgeryPreOpMed
-	//Insert Performs
-	
-	//Messages
 	
 	/**
-	 * 
+	 * Get Doctor->Doctor Messages
 	 * @param username
 	 * @return
 	 */
@@ -1299,7 +1264,7 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * 
+	 * Get Doctor->Patient
 	 * @param username
 	 * @return
 	 */
@@ -1334,7 +1299,7 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * 
+	 * Get Patient->Doctor
 	 * @param username
 	 * @return
 	 */
@@ -1367,11 +1332,9 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
-	//Reports
-	//TODO
-	//Creating Edit Profile for Doctor and Patient
+
 	/**
-	 * 
+	 * Update PatientProfile
 	 * @param patUsername
 	 * @param patName
 	 * @param dob
@@ -1411,7 +1374,7 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * 
+	 * Update Doctor Profile
 	 * @param docUsername
 	 * @param licenseNo
 	 * @param Fname
@@ -1446,6 +1409,12 @@ public class DatabaseHandler {
 		return false;
 	}
 	
+	/**
+	 * update Patient Allergies
+	 * @param patUsername
+	 * @param Allergy
+	 * @return
+	 */
 	public static boolean updatePatientAllergies(String patUsername, String Allergy) {
 		String query = "UPDATE `cs4400_Group_37`.`Patient_Allergies` SET `Allergy` = '" + Allergy + "' WHERE `PatientUsername` = '" + patUsername + "'";
 		
@@ -1462,6 +1431,11 @@ public class DatabaseHandler {
 		return false;
 	}
 	
+	/**
+	 * get Patient Phone Number
+	 * @param name
+	 * @return
+	 */
 	public static String getPatientPhoneNumber(String name) {
 		String query = "SELECT `HomePhone` FROM `Patient` WHERE `Name`='"+name+"'";
 		try {
@@ -1485,6 +1459,11 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * get CPT Code
+	 * @param username
+	 * @return
+	 */
 	public static ArrayList<String> getCPTCode(String username) {
 		ArrayList<String> list = new ArrayList<String>();
 		String query = "SELECT `CPTCode` FROM `Performs` WHERE `PatientUsername`='"+username+"' OR `DocUsername` = '"+username+"'";
@@ -1509,6 +1488,10 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * get Surgery
+	 * @return
+	 */
 	public static ArrayList<Surgery> getSurgery() {
 		ArrayList<Surgery> list = new ArrayList<Surgery>();
 		String query = "SELECT * FROM `Surgery`";
@@ -1536,6 +1519,10 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * get Performs
+	 * @return
+	 */
 	public static ArrayList<Performs> getPerforms() {
 		ArrayList<Performs> list = new ArrayList<Performs>();
 		String query = "SELECT * FROM `Performs`";
@@ -1575,6 +1562,11 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * get Surgery cpt
+	 * @param cpt
+	 * @return
+	 */
 	public static ArrayList<Surgery> getSurgery(String cpt){ 
 		ArrayList<Surgery> list = new ArrayList<Surgery>();
 		String query = "SELECT * FROM `Surgery` WHERE `CPTCode`='"+cpt+"'";
@@ -1601,6 +1593,11 @@ public class DatabaseHandler {
 		return null;
 	}
 
+	/**
+	 * get Surgery Pre Op Meds
+	 * @param CPTCode
+	 * @return
+	 */
 	public static ArrayList<String> getSurgeryPreOpMed(String CPTCode) {
 		ArrayList<String> preop = new ArrayList<String>();
 		String query = "SELECT * FROM `SurgeryPreOpMeds` WHERE `CPTCode` = '"+CPTCode+"'";
@@ -1626,6 +1623,13 @@ public class DatabaseHandler {
 		return null;
 	}
 
+	/**
+	 * update Doctor Rating
+	 * @param docUsername
+	 * @param patUsername
+	 * @param rating
+	 * @return
+	 */
 	public static boolean updateDoctorRating(String docUsername, String patUsername, int rating) {
 		String query = "UPDATE `cs4400_Group_37`.`Doctor_Rating` SET `Rating` = '" + rating + "' " +
 				"WHERE `PatientUsername` = '" + patUsername + "' AND `DocUsername` = '" + docUsername + "'";
@@ -1643,6 +1647,12 @@ public class DatabaseHandler {
 		return false;
 	}
 	
+	/**
+	 * get Appoitnments by Pair
+	 * @param docUsername
+	 * @param patientUsername
+	 * @return
+	 */
 	public ArrayList<Appointment> getAppointmentsByPair(String docUsername, String patientUsername) {
 		ArrayList<Appointment> appts = new ArrayList<Appointment>();
 		String query = "SELECT * FROM `Appointment` WHERE `DocUsername`='"+docUsername+"' AND `PatientUsername`='" + patientUsername +"'";
@@ -1673,6 +1683,11 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * get One Patient
+	 * @param userName
+	 * @return
+	 */
 	public Patient getOnePatient(String userName) {
 		Patient pats = null;
 		String query = "SELECT * FROM `Patient` WHERE `PatientUsername` = '" + userName + "'";
@@ -1719,6 +1734,14 @@ public class DatabaseHandler {
 		return null;
 	}
 
+	/**
+	 * update Prescriptions
+	 * @param docUsername
+	 * @param patUsername
+	 * @param dateOfVisit
+	 * @param ordered
+	 * @return
+	 */
 	public static boolean updatePrescription(String docUsername, String patUsername, String dateOfVisit, String ordered) {
 		String query = "UPDATE `cs4400_Group_37`.`Username` SET `Ordered` = '" + ordered + "' " +
 				"WHERE `DateOfVisit` = '" + dateOfVisit + "' AND `DocUsername`='"+docUsername+"' AND `PatUsername`='"+patUsername+"'";
@@ -1736,6 +1759,12 @@ public class DatabaseHandler {
 		
 	}
 	
+	/**
+	 * update Communicates With
+	 * @param docReceiver
+	 * @param status
+	 * @return
+	 */
 	public static boolean updateCommunicatesWith(String docReceiver, String status) {
 		String query = "UPDATE `cs4400_Group_37`.`CommunicatesWith` SET `Status` = '" + status + "' " +
 				"WHERE `Doc_Receiver`='"+docReceiver+"'";
@@ -1752,6 +1781,12 @@ public class DatabaseHandler {
 		return false;
 	}
 	
+	/**
+	 * Update Send Message To
+	 * @param username
+	 * @param status
+	 * @return
+	 */
 	public static boolean updateSendMessageToPat(String username, String status) {
 		String query = "UPDATE `cs4400_Group_37`.`SendsMessageToPatient` SET `Status` = '" + status + "' " +
 				"WHERE `PatientUsername` = '" + username + "'";
@@ -1768,6 +1803,12 @@ public class DatabaseHandler {
 		return false;
 	}
 		
+	/**
+	 * Update Send Message to Doc
+	 * @param docUsername
+	 * @param status
+	 * @return
+	 */
 	public static boolean updateSendMessageToDoc(String docUsername, String status) {
 		String query = "UPDATE `cs4400_Group_37`.`SendsMessageToDoc` SET `Status` = '" + status + "' " +
 				"WHERE `DocUsername`='"+docUsername+"'";
@@ -1784,6 +1825,11 @@ public class DatabaseHandler {
 		return false;
 	}
 	
+	/**
+	 * Get Card
+	 * @param cardNo
+	 * @return
+	 */
 	public static Card getCard(String cardNo) {
 		String query = "SELECT * FROM `Payment_Information` WHERE `CardNo`= '" + cardNo + "'";
 		try {
@@ -1813,6 +1859,11 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * get Card By Username
+	 * @param username
+	 * @return
+	 */
 	public static String getCardByUsername(String username) {
 		String query = "SELECT `CardNo` FROM `Patient` WHERE `PatientUsername`= '" + username + "'";
 		try {
@@ -1833,6 +1884,10 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * get Visits
+	 * @return
+	 */
 	public static ArrayList<Visit> getVisits() {
 		ArrayList<Visit> visits = new ArrayList<Visit>();
 		String query = "SELECT * FROM `cs4400_Group_37`.`Visit`";
@@ -1867,6 +1922,11 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * get Prescription by Username
+	 * @param username
+	 * @return
+	 */
 	public static ArrayList<Prescription> getPrescriptionByUsername(String username) {
 		String query = "SELECT * FROM `Prescription` WHERE `DocUsername`= '" + username + "'";
 		try {
@@ -1902,6 +1962,11 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	/**
+	 * get One Doctor
+	 * @param DocUsername
+	 * @return
+	 */
 	public Doctor getOneDoctor(String DocUsername) { 
 		Doctor docs = null;
 		String query = "SELECT * FROM `Doctor` WHERE `DocUsername` = '"+DocUsername+"'";

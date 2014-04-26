@@ -7,12 +7,12 @@ public class DataBaseConnection {
 	public Connection createConnection() {    
         Connection conn = null; 
         try { 
-        	System.out.println("Driver");
+        	//System.out.println("Driver");
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Driver Success");
+           // System.out.println("Driver Success");
             conn = DriverManager.getConnection("jdbc:mysql://130.207.114.235/cs4400_Group_37", "cs4400_Group_37", "Vs2GEguW"); 
             if(!conn.isClosed()) {
-                System.out.println("Successfully connected to MySQL server using TCP/IP..."); 
+             //   System.out.println("Successfully connected to MySQL server using TCP/IP..."); 
                 return conn;
             }
         } catch(Exception e) { 
@@ -25,7 +25,7 @@ public class DataBaseConnection {
 		try {
 			if (conn != null) {
 				conn.close();
-				System.out.println("Successfully closed connection.");
+			//	System.out.println("Successfully closed connection.");
 			}
 		} catch (SQLException e) {
 			System.err.println("Exception: " + e.getMessage()); 

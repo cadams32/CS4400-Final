@@ -17,6 +17,8 @@ import javax.swing.JTable;
 
 import Backend.Surgery;
 import Backend.Visit;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 
 public class BillingPanel extends JPanel {
@@ -35,18 +37,26 @@ public class BillingPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public BillingPanel(MedicalFrame parent, String username) {
+		setBackground(SystemColor.textHighlight);
 		
 		this.parent = parent;
 		this.username = username;
-		
+		this.setBounds(100, 100, 1000, 600);
 		setLayout(new MigLayout("", "[grow]", "[100.00,grow][450.00,grow][50.00,grow]"));
 		ButtonListener listener = new ButtonListener();
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.textHighlight);
 		add(panel, "cell 0 0,grow");
-		panel.setLayout(new MigLayout("", "[]", "[]"));
+		panel.setLayout(null);
+		
+		JLabel lblBilling = new JLabel("Billing");
+		lblBilling.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblBilling.setBounds(468, 6, 99, 44);
+		panel.add(lblBilling);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.textHighlight);
 		add(panel_1, "cell 0 1,grow");
 		panel_1.setLayout(new MigLayout("", "[100.00][200.00,grow][200.00,grow][200.00,grow][64.00][106.00,grow]", "[][201.00,grow][122.00]"));
 		
@@ -99,6 +109,7 @@ public class BillingPanel extends JPanel {
 		costTextField.setColumns(10);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.textHighlight);
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[894.00][]", "[]"));
 		

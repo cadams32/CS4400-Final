@@ -20,6 +20,7 @@ import javax.swing.JList;
 import Backend.Doctor;
 import Backend.Prescription;
 import Backend.Visit;
+import java.awt.Font;
 
 
 public class OrderMedicationPanel extends JPanel {
@@ -69,25 +70,27 @@ public class OrderMedicationPanel extends JPanel {
 		cart = new ArrayList<Prescription>();
 		
 		setBackground(SystemColor.textHighlight);
-		
+		this.setBounds(100, 100, 1000, 600);
 		this.parent = parent;
 		this.username = username;
 		ButtonListener listener = new ButtonListener();
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(16, 16, 784, 32);
-		panel.setBackground(SystemColor.controlHighlight);
+		panel.setBounds(189, 49, 784, 32);
+		panel.setBackground(SystemColor.textHighlight);
 		add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblOrderMedication = new JLabel("ORDER MEDICATION");
-		lblOrderMedication.setForeground(SystemColor.menu);
-		lblOrderMedication.setBounds(160, 6, 138, 16);
+		JLabel lblOrderMedication = new JLabel("Order Medication");
+		lblOrderMedication.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblOrderMedication.setBackground(SystemColor.desktop);
+		lblOrderMedication.setForeground(SystemColor.menuText);
+		lblOrderMedication.setBounds(211, 6, 296, 26);
 		panel.add(lblOrderMedication);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(16, 52, 784, 291);
+		panel_1.setBounds(105, 158, 784, 291);
 		panel_1.setBackground(SystemColor.textHighlight);
 		add(panel_1);
 		panel_1.setLayout(null);
@@ -161,7 +164,7 @@ public class OrderMedicationPanel extends JPanel {
 		btnSelectDate.addActionListener(listener);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(16, 347, 784, 61);
+		panel_2.setBounds(105, 499, 784, 61);
 		panel_2.setBackground(SystemColor.textHighlight);
 		add(panel_2);
 		panel_2.setLayout(null);

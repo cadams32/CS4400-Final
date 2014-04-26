@@ -19,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
 
 import Backend.Availability;
 import Backend.Doctor;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 
 public class ViewAppointmentPanel extends JPanel {
@@ -32,28 +34,38 @@ public class ViewAppointmentPanel extends JPanel {
 	JScrollPane scrollPane;
 	String[] colNames = {"Doctor Name", "Phone Number", "Room Number", "Availability", "Average Rating"};
 	JComboBox boxSpecialty;
+	private JLabel lblViewAppointments;
 	
 	/**
 	 * 
 	 * Create the panel.
 	 */
 	public ViewAppointmentPanel(MedicalFrame parent, String username) {
+		setBackground(SystemColor.textHighlight);
 		
 		this.parent = parent;
 		this.username = username;
 		ButtonListener listener = new ButtonListener();
+		this.setBounds(100, 100, 1000, 600);
 		
 		setLayout(new MigLayout("", "[279.00,grow][67.00][145.00][279.00,grow][177.00]", "[100.00,grow][100.00,grow][400.00,grow][]"));
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.textHighlight);
 		add(panel, "cell 0 0 5 1,grow");
-		panel.setLayout(new MigLayout("", "[]", "[]"));
+		panel.setLayout(null);
+		
+		lblViewAppointments = new JLabel("View Appointments");
+		lblViewAppointments.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblViewAppointments.setBounds(388, 20, 320, 33);
+		panel.add(lblViewAppointments);
 		
 		JLabel lblSpecialty = new JLabel("Specialty:");
 		lblSpecialty.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblSpecialty, "cell 1 1");
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.textHighlight);
 		add(panel_1, "cell 2 1 2 1,grow");
 		panel_1.setLayout(new MigLayout("", "[][61.00][]", "[][]"));
 		
@@ -72,6 +84,7 @@ public class ViewAppointmentPanel extends JPanel {
 		
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.textHighlight);
 		add(panel_2, "cell 0 2 5 1,grow");
 		panel_2.setLayout(new MigLayout("", "[grow]", "[grow]"));
 		
@@ -129,16 +142,13 @@ public class ViewAppointmentPanel extends JPanel {
 				Scanner scan = new Scanner(docName);
 				String fName = scan.next();
 				String lName = scan.next();
-				System.out.println("NAME: " +fName + " " + lName);
 				String docUsername = parent.getHandler().getDoctorUsername(fName, lName);
-				System.out.println("USERNAME: " + docUsername);
 				
 				if(parent.getHandler().getAppointmentsByPair(docUsername, username).size() == 0){
 					scan = new Scanner((String) table.getValueAt(table.getSelectedRow(), 3));
 					scan.next();
 					scan.next();
 					String startTime = scan.next();
-					System.out.println("HERE IT IS: " + " " + docUsername + " " + username + " " + "2014-04-25" + " " + startTime );
 					parent.getHandler().addNewAppointments(docUsername, username, "2014-04-30", startTime);
 				}
 				else{

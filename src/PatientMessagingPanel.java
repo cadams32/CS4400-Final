@@ -17,6 +17,8 @@ import javax.swing.JButton;
 
 import Backend.Doctor;
 import Backend.Patient;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 
 public class PatientMessagingPanel extends JPanel {
@@ -36,10 +38,11 @@ public class PatientMessagingPanel extends JPanel {
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public PatientMessagingPanel(MedicalFrame parent, String username) {
+		setBackground(SystemColor.textHighlight);
 		
 		docs = new ArrayList<Doctor>();
 		docNames = new ArrayList<String>();
-		
+		this.setBounds(100, 100, 1000, 600);
 		this.parent = parent;
 		this.username = username;
 		ButtonListener listener = new ButtonListener();
@@ -47,9 +50,17 @@ public class PatientMessagingPanel extends JPanel {
 		setLayout(new MigLayout("", "[986px,grow]", "[93px][442px][grow]"));
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.textHighlight);
 		add(panel, "cell 0 0,grow");
+		panel.setLayout(null);
+		
+		JLabel lblPatientMessaging = new JLabel("Patient Messaging");
+		lblPatientMessaging.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblPatientMessaging.setBounds(354, 24, 357, 45);
+		panel.add(lblPatientMessaging);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.textHighlight);
 		add(panel_1, "cell 0 1,grow");
 		panel_1.setLayout(new MigLayout("", "[147.00][][211.00,grow][325.00][176.00]", "[69.00][][][50.00,grow][247.00][71.00]"));
 		
@@ -74,6 +85,7 @@ public class PatientMessagingPanel extends JPanel {
 		scrollPane.setViewportView(textPane);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.textHighlight);
 		add(panel_2, "cell 0 2,grow");
 		panel_2.setLayout(new MigLayout("", "[394.00][][334.00][]", "[]"));
 		

@@ -7,6 +7,8 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 
 public class LoginPanel extends JPanel {
@@ -19,36 +21,44 @@ public class LoginPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public LoginPanel(MedicalFrame parent) {
+		setBackground(SystemColor.textHighlight);
+		this.setBounds(100, 100, 1000, 600);
 		
 		ButtonListener listener = new ButtonListener();
-		
-		setLayout(new MigLayout("", "[1000.00,grow]", "[99.00][495.00,grow]"));
 		this.parent = parent;
+		setLayout(null);
 		
-		JPanel panel = new JPanel();
-		add(panel, "cell 0 1,grow");
-		panel.setLayout(new MigLayout("", "[][][][][][grow][][][][][][grow][grow][][][][][][][][][][][][][][][-22.00][]", "[70.00][][][][280.00][][][]"));
+		btnAdminLogin = new JButton("Login");
+		btnAdminLogin.setBounds(618, 392, 79, 29);
+		add(btnAdminLogin);
+		
+		btnCreateNewAccount = new JButton("Create New Account");
+		btnCreateNewAccount.setBounds(319, 392, 171, 29);
+		add(btnCreateNewAccount);
 		
 		JLabel lblUsername = new JLabel("Username:");
-		panel.add(lblUsername, "cell 9 1");
+		lblUsername.setBounds(344, 197, 66, 16);
+		add(lblUsername);
 		
 		textField = new JTextField();
-		panel.add(textField, "cell 11 1 10 1,growx");
+		textField.setBounds(418, 191, 255, 28);
+		add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password:");
-		panel.add(lblPassword, "cell 9 3");
+		lblPassword.setBounds(344, 233, 63, 16);
+		add(lblPassword);
 		
 		textField_1 = new JTextField();
-		panel.add(textField_1, "cell 11 3 10 1,growx");
+		textField_1.setBounds(418, 227, 255, 28);
+		add(textField_1);
 		textField_1.setColumns(10);
 		
-		btnCreateNewAccount = new JButton("Create New Account");
-		panel.add(btnCreateNewAccount, "cell 25 7");
+		JLabel lblGtmrsLogin = new JLabel("GTMRS Login");
+		lblGtmrsLogin.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblGtmrsLogin.setBounds(426, 42, 247, 41);
+		add(lblGtmrsLogin);
 		btnCreateNewAccount.addActionListener(listener);
-		
-		btnAdminLogin = new JButton("Login");
-		panel.add(btnAdminLogin, "cell 28 7");
 		btnAdminLogin.addActionListener(listener);
 		
 	}

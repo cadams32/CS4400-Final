@@ -40,7 +40,7 @@ public class ViewAppointmentDatePanel extends JPanel {
 		
 		this.parent = parent;
 		this.username = username;
-		
+		this.setBounds(100, 100, 1000, 600);
 		setBackground(SystemColor.textHighlight);
 		setLayout(null);
 		
@@ -123,7 +123,6 @@ public class ViewAppointmentDatePanel extends JPanel {
 						insert[0] = i;
 						insert[1] = parent.getHandler().getPatient(a.getPatUsername()).getName();
 						insert[2] = a.getTime();
-						System.out.println(insert[0] + " " + insert[1] + " " + insert[2]);
 						model.addRow(insert);
 						i++;
 						}

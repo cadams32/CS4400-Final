@@ -54,54 +54,54 @@ public class ViewVisitHistoryPanel extends JPanel {
 	public ViewVisitHistoryPanel(MedicalFrame parent, String username) {
 		this.parent = parent;
 		this.username = username;
-		
+		this.setBounds(100, 100, 1000, 600);
 		setBackground(SystemColor.textHighlight);
 		setLayout(null);
 		
 		JLabel lblDatesOfVisits = new JLabel("Dates of Visits");
-		lblDatesOfVisits.setBounds(33, 177, 121, 16);
+		lblDatesOfVisits.setBounds(140, 219, 121, 16);
 		add(lblDatesOfVisits);
 		
 		JLabel lblConsultingDoctor = new JLabel("Consulting Doctor");
-		lblConsultingDoctor.setBounds(390, 104, 121, 16);
+		lblConsultingDoctor.setBounds(497, 146, 121, 16);
 		add(lblConsultingDoctor);
 		
 		JLabel lblBloodPressure = new JLabel("Blood Pressure : ");
-		lblBloodPressure.setBounds(341, 141, 140, 16);
+		lblBloodPressure.setBounds(448, 183, 140, 16);
 		add(lblBloodPressure);
 		
 		JLabel lblSystolic = new JLabel("Systolic");
-		lblSystolic.setBounds(462, 141, 61, 16);
+		lblSystolic.setBounds(569, 183, 61, 16);
 		add(lblSystolic);
 		
 		JLabel lblDiastolic = new JLabel("Diastolic");
-		lblDiastolic.setBounds(462, 177, 61, 16);
+		lblDiastolic.setBounds(569, 219, 61, 16);
 		add(lblDiastolic);
 		
 		consultingDoctorTxtField = new JTextField();
 		consultingDoctorTxtField.setEditable(false);
-		consultingDoctorTxtField.setBounds(523, 98, 134, 28);
+		consultingDoctorTxtField.setBounds(630, 140, 134, 28);
 		add(consultingDoctorTxtField);
 		consultingDoctorTxtField.setColumns(10);
 		
 		systolicTextField = new JTextField();
 		systolicTextField.setEditable(false);
-		systolicTextField.setBounds(523, 135, 134, 28);
+		systolicTextField.setBounds(630, 177, 134, 28);
 		add(systolicTextField);
 		systolicTextField.setColumns(10);
 		
 		diastolicTextField = new JTextField();
 		diastolicTextField.setEditable(false);
 		diastolicTextField.setColumns(10);
-		diastolicTextField.setBounds(523, 171, 134, 28);
+		diastolicTextField.setBounds(630, 213, 134, 28);
 		add(diastolicTextField);
 		
 		JLabel lblDiagnosis = new JLabel("Diagnosis");
-		lblDiagnosis.setBounds(362, 211, 75, 16);
+		lblDiagnosis.setBounds(469, 253, 75, 16);
 		add(lblDiagnosis);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(454, 211, 225, 84);
+		scrollPane_1.setBounds(561, 253, 225, 84);
 		add(scrollPane_1);
 		
 		textPane = new JTextPane();
@@ -109,16 +109,16 @@ public class ViewVisitHistoryPanel extends JPanel {
 		scrollPane_1.setViewportView(textPane);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(393, 319, 391, 115);
+		scrollPane_2.setBounds(500, 361, 391, 115);
 		add(scrollPane_2);
 		
 		JLabel lblMedications = new JLabel("Medications");
-		lblMedications.setBounds(285, 320, 96, 16);
+		lblMedications.setBounds(392, 362, 96, 16);
 		add(lblMedications);
 		
 		JLabel lblViewVisitHistory = new JLabel("View Visit History");
-		lblViewVisitHistory.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblViewVisitHistory.setBounds(302, 17, 140, 16);
+		lblViewVisitHistory.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblViewVisitHistory.setBounds(409, 47, 320, 36);
 		add(lblViewVisitHistory);
 		
 		ButtonListener listener = new ButtonListener();
@@ -132,7 +132,7 @@ public class ViewVisitHistoryPanel extends JPanel {
 		scrollPane_2.setViewportView(table);
 		
 		
-		btnBackButton.setBounds(16, 499, 121, 28);
+		btnBackButton.setBounds(111, 522, 121, 28);
 		btnBackButton.addActionListener(listener);
 		add(btnBackButton);
 		
@@ -145,16 +145,16 @@ public class ViewVisitHistoryPanel extends JPanel {
 		}
 		
 		comboBox = new JComboBox(dates.toArray());
-		comboBox.setBounds(114, 206, 147, 28);
+		comboBox.setBounds(221, 248, 147, 28);
 		add(comboBox);
 			
 		btnGetVisit = new JButton("Get Visit");
-		btnGetVisit.setBounds(135, 172, 87, 28);
+		btnGetVisit.setBounds(242, 214, 87, 28);
 		btnGetVisit.addActionListener(listener);
 		add(btnGetVisit);	
 
 		JLabel lblChooseDate = new JLabel("Choose Date:");
-		lblChooseDate.setBounds(18, 211, 96, 16);
+		lblChooseDate.setBounds(125, 253, 96, 16);
 		add(lblChooseDate);
 		
 	}

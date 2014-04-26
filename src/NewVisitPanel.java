@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import Backend.Patient;
 import Backend.Prescription;
 import Backend.Visit;
+import java.awt.Font;
 
 public class NewVisitPanel extends JPanel {
 	
@@ -46,6 +47,7 @@ public class NewVisitPanel extends JPanel {
 		this.username = username;
 		this.patientName = patientName;
 		this.patientHomePhone = patientHomePhone;
+		this.setBounds(100, 100, 1000, 600);
 		ButtonListener listener = new ButtonListener();
 		prescriptionList = new ArrayList<Prescription>();
 		
@@ -53,39 +55,39 @@ public class NewVisitPanel extends JPanel {
 		setLayout(null);
 		
 		dateOfVisitTextField = new JTextField();
-		dateOfVisitTextField.setBounds(381, 97, 134, 28);
+		dateOfVisitTextField.setBounds(382, 119, 171, 28);
 		add(dateOfVisitTextField);
 		dateOfVisitTextField.setColumns(10);
 		
 		JLabel lblDateOfVisit = new JLabel("Date of Visit :");
-		lblDateOfVisit.setBounds(275, 103, 115, 16);
+		lblDateOfVisit.setBounds(276, 125, 115, 16);
 		add(lblDateOfVisit);
 		
 		JLabel lblPatientName = new JLabel("Patient Name : ");
-		lblPatientName.setBounds(275, 143, 115, 16);
+		lblPatientName.setBounds(276, 165, 115, 16);
 		add(lblPatientName);
 		
 		patientNameTextField = new JTextField();
-		patientNameTextField.setBounds(381, 137, 134, 28);
+		patientNameTextField.setBounds(382, 159, 171, 28);
 		add(patientNameTextField);
 		patientNameTextField.setColumns(10);
 		patientNameTextField.setText(patientName);
 		patientNameTextField.setEditable(false);
 		
 		JLabel lblBloodPressure = new JLabel("Blood Pressure: ");
-		lblBloodPressure.setBounds(194, 183, 115, 16);
+		lblBloodPressure.setBounds(195, 205, 115, 16);
 		add(lblBloodPressure);
 		
 		JLabel lblSystolic = new JLabel("Systolic : ");
-		lblSystolic.setBounds(303, 183, 90, 16);
+		lblSystolic.setBounds(304, 205, 90, 16);
 		add(lblSystolic);
 		
 		JLabel lblDiastolic = new JLabel("Diastolic :");
-		lblDiastolic.setBounds(527, 183, 79, 16);
+		lblDiastolic.setBounds(528, 205, 79, 16);
 		add(lblDiastolic);
 		
 		systolicTextField = new JTextField();
-		systolicTextField.setBounds(381, 177, 134, 28);
+		systolicTextField.setBounds(382, 199, 134, 28);
 		add(systolicTextField);
 		systolicTextField.setColumns(10);
 		
@@ -112,7 +114,7 @@ public class NewVisitPanel extends JPanel {
 		add(lblDosage);
 
 		JLabel lblPerDay = new JLabel("per day");
-		lblPerDay.setBounds(305, 313, 61, 16);
+		lblPerDay.setBounds(318, 315, 61, 16);
 		add(lblPerDay);
 		
 		JLabel lblDuration = new JLabel("Duration : ");
@@ -121,26 +123,26 @@ public class NewVisitPanel extends JPanel {
 		
 		String[] months = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
 		durationMonthsComboBox = new JComboBox(months);
-		durationMonthsComboBox.setBounds(232, 348, 52, 27);
+		durationMonthsComboBox.setBounds(232, 348, 72, 27);
 		add(durationMonthsComboBox);
 		
 		String[] dosage = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 		dosageComboBox = new JComboBox(dosage);
-		dosageComboBox.setBounds(232, 309, 52, 27);
+		dosageComboBox.setBounds(232, 309, 77, 27);
 		add(dosageComboBox);
 		
 		String[] days = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
 				"16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
 		durationDaysComboBox = new JComboBox(days);
-		durationDaysComboBox.setBounds(363, 348, 52, 27);
+		durationDaysComboBox.setBounds(363, 348, 79, 27);
 		add(durationDaysComboBox);
 		
 		JLabel lblMonths = new JLabel("Months");
-		lblMonths.setBounds(290, 352, 61, 16);
+		lblMonths.setBounds(305, 352, 61, 16);
 		add(lblMonths);
 	
 		JLabel lblDays = new JLabel("Days");
-		lblDays.setBounds(430, 352, 61, 16);
+		lblDays.setBounds(454, 352, 61, 16);
 		add(lblDays);
 		
 		JLabel lblNotes = new JLabel("Notes : ");
@@ -148,7 +150,8 @@ public class NewVisitPanel extends JPanel {
 		add(lblNotes);
 		
 		JLabel lblAddNewVisit = new JLabel("Add New Visit");
-		lblAddNewVisit.setBounds(434, 19, 179, 16);
+		lblAddNewVisit.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblAddNewVisit.setBounds(414, 16, 358, 36);
 		add(lblAddNewVisit);
 		
 		//Buttons

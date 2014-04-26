@@ -4,9 +4,11 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.RootPaneContainer;
 import javax.swing.border.EmptyBorder;
 
 import Backend.DatabaseHandler;
+import java.awt.SystemColor;
 
 
 public class MedicalFrame extends JFrame {
@@ -18,12 +20,15 @@ public class MedicalFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MedicalFrame() {
+		getContentPane().setBackground(SystemColor.textHighlight);
 		handler = new DatabaseHandler();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 600);
 		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.textHighlight);
 		contentPane.setLayout(new CardLayout());
-		setContentPane(contentPane);
+		contentPane.setBounds(100, 100, 1000, 600);
+		this.setContentPane(contentPane);
 	}
 	
 	public DatabaseHandler getHandler() {

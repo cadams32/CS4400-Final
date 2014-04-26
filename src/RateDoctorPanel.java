@@ -34,7 +34,7 @@ public class RateDoctorPanel extends JPanel {
 	public RateDoctorPanel(MedicalFrame parent, String username) {
 		this.parent = parent;
 		this.username = username;
-		
+		this.setBounds(100, 100, 1000, 600);
 		ButtonListener listener = new ButtonListener();
 		
 		setBackground(SystemColor.textHighlight);
@@ -42,7 +42,7 @@ public class RateDoctorPanel extends JPanel {
 		
 		JLabel lblRateADoctor = new JLabel("Rate A Doctor!");
 		lblRateADoctor.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
-		lblRateADoctor.setBounds(385, 20, 289, 52);
+		lblRateADoctor.setBounds(408, 33, 289, 52);
 		add(lblRateADoctor);
 		
 		slider = new JSlider();
@@ -52,22 +52,22 @@ public class RateDoctorPanel extends JPanel {
 		slider.setPaintLabels(true);
 		slider.setMaximum(5);
 		slider.setMajorTickSpacing(1);
-		slider.setBounds(243, 216, 549, 52);
+		slider.setBounds(298, 253, 549, 52);
 		add(slider);
 		
 		JLabel lblRating = new JLabel("Rating: ");
 		lblRating.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
-		lblRating.setBounds(105, 201, 126, 47);
+		lblRating.setBounds(185, 253, 126, 47);
 		add(lblRating);
 		
 		btnRate = new JButton("Rate");
 		btnRate.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		btnRate.setBounds(429, 334, 117, 29);
+		btnRate.setBounds(434, 373, 117, 29);
 		btnRate.addActionListener(listener);
 		add(btnRate);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(439, 404, 97, 25);
+		btnBack.setBounds(441, 439, 97, 25);
 		btnBack.addActionListener(listener);
 		add(btnBack);
 		
@@ -78,11 +78,11 @@ public class RateDoctorPanel extends JPanel {
 		}
 		
 		comboBox = new JComboBox(s.toArray());
-		comboBox.setBounds(415, 105, 176, 27);
+		comboBox.setBounds(446, 163, 176, 27);
 		add(comboBox);
 		
 		lblNewLabel = new JLabel("Doctor");
-		lblNewLabel.setBounds(321, 109, 61, 16);
+		lblNewLabel.setBounds(397, 167, 61, 16);
 		add(lblNewLabel);
 
 	}
@@ -94,7 +94,6 @@ public class RateDoctorPanel extends JPanel {
 			if(e.getSource() == btnRate) {
 				int rating = slider.getValue();
 				int index = comboBox.getSelectedIndex();
-				System.out.println("Rate");
 				
 				parent.getHandler().addNewDoctorRating(docs.get(index).getUsername(), username, rating);
 				

@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import Backend.Availability;
 import Backend.Doctor;
 import Backend.Patient;
+import java.awt.Font;
 
 
 public class DoctorEditProfilePanel extends JPanel {
@@ -49,14 +50,15 @@ public class DoctorEditProfilePanel extends JPanel {
 	
 	public DoctorEditProfilePanel(MedicalFrame parent, String username) {
 		setBackground(SystemColor.textHighlight);
-		
+		this.setBounds(100, 100, 1000, 600);
 		this.parent = parent;
 		this.username = username;
 		setLayout(null);
 		ButtonListener listener = new ButtonListener();
 		
 		JLabel lblDoctorEditProfile = new JLabel("Doctor Edit Profile");
-		lblDoctorEditProfile.setBounds(478, 37, 162, 16);
+		lblDoctorEditProfile.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblDoctorEditProfile.setBounds(396, 29, 286, 36);
 		add(lblDoctorEditProfile);
 		
 		JLabel lblLicenseNo = new JLabel("License Number : ");
@@ -88,15 +90,15 @@ public class DoctorEditProfilePanel extends JPanel {
 		add(lblAddress);
 		
 		JLabel lblAvailability = new JLabel("Availability:");
-		lblAvailability.setBounds(388, 373, 77, 16);
+		lblAvailability.setBounds(262, 373, 77, 16);
 		add(lblAvailability);
 		
 		JLabel lblFrom = new JLabel("From:");
-		lblFrom.setBounds(610, 373, 42, 16);
+		lblFrom.setBounds(484, 373, 42, 16);
 		add(lblFrom);
 		
 		JLabel lblTo = new JLabel("To:");
-		lblTo.setBounds(748, 373, 31, 16);
+		lblTo.setBounds(622, 373, 31, 16);
 		add(lblTo);
 		
 		licenseNumberTextField = new JTextField();
@@ -132,7 +134,7 @@ public class DoctorEditProfilePanel extends JPanel {
 		String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 		
 		dayComboBox = new JComboBox(days);
-		dayComboBox.setBounds(478, 368, 106, 27);
+		dayComboBox.setBounds(352, 368, 106, 27);
 		add(dayComboBox);
 		
 		String[] specialty = {"General Physician", "Heart Specialist", "Eye Physician",
@@ -166,11 +168,11 @@ public class DoctorEditProfilePanel extends JPanel {
 				"22:15", "22:30", "22:45", "23:00", "23:15", "23:30", "23:45"};
 		
 		fromComboBox = new JComboBox(times);
-		fromComboBox.setBounds(647, 368, 77, 27);
+		fromComboBox.setBounds(521, 368, 77, 27);
 		add(fromComboBox);
 		
 		toComboBox = new JComboBox(times);
-		toComboBox.setBounds(778, 368, 61, 27);
+		toComboBox.setBounds(652, 368, 61, 27);
 		add(toComboBox);
 		
 		btnBack = new JButton("Back");
@@ -183,13 +185,13 @@ public class DoctorEditProfilePanel extends JPanel {
 		add(btnSubmit);
 		
 		btnAddAvail = new JButton("+");
-		btnAddAvail.setBounds(860, 370, 42, 23);
+		btnAddAvail.setBounds(734, 370, 42, 23);
 		add(btnAddAvail);
 		btnSubmit.addActionListener(listener);
 		btnAddAvail.addActionListener(listener);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(478, 419, 367, 73);
+		scrollPane.setBounds(352, 419, 367, 73);
 		add(scrollPane);
 		model = new DefaultListModel();
 		list = new JList(model);

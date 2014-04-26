@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import Backend.Availability;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 public class NewDoctorProfilePanel extends JPanel {
 	private JTextField licenseTextField;
@@ -66,101 +68,106 @@ public class NewDoctorProfilePanel extends JPanel {
 			"22:15", "22:30", "22:45", "23:00", "23:15", "23:30", "23:45"};	
 	private JLabel lblRoomNo;
 	private JTextField roomNoTextField;
+	private JLabel lblDoctorProfileCreation;
+	private JLabel lblAvailability;
 	/**
 	 * Create the panel.
 	 */
 	public NewDoctorProfilePanel(MedicalFrame parent, String username, String password) {
+		setBackground(SystemColor.textHighlight);
 		ButtonListener listener = new ButtonListener();
 		this.parent = parent;
 		this.username = username;
 		this.password = password;
 		
+		this.setBounds(100, 100, 1000, 600);
+		
 		setLayout(null);
 		
 		licenseLabel = new JLabel("License Numer");
-		licenseLabel.setBounds(22, 101, 93, 16);
+		licenseLabel.setBounds(311, 105, 93, 16);
 		add(licenseLabel);
 		
 		licenseTextField = new JTextField();
-		licenseTextField.setBounds(125, 95, 166, 28);
+		licenseTextField.setBounds(414, 99, 166, 28);
 		add(licenseTextField);
 		licenseTextField.setColumns(10);
 		
 		fnameLabel = new JLabel("First Name");
-		fnameLabel.setBounds(41, 133, 68, 16);
+		fnameLabel.setBounds(330, 137, 68, 16);
 		add(fnameLabel);
 		
 		FnameTextField = new JTextField();
-		FnameTextField.setBounds(125, 127, 166, 28);
+		FnameTextField.setBounds(414, 131, 166, 28);
 		add(FnameTextField);
 		FnameTextField.setColumns(10);
 		
 		lnameLabel = new JLabel("Last Name");
-		lnameLabel.setBounds(42, 165, 66, 16);
+		lnameLabel.setBounds(331, 169, 66, 16);
 		add(lnameLabel);
 		
 		LnameTextField = new JTextField();
-		LnameTextField.setBounds(125, 159, 166, 28);
+		LnameTextField.setBounds(414, 163, 166, 28);
 		add(LnameTextField);
 		LnameTextField.setColumns(10);
 		
 		DOBLabel = new JLabel("Date of Birth");
-		DOBLabel.setBounds(35, 197, 79, 16);
+		DOBLabel.setBounds(324, 201, 79, 16);
 		add(DOBLabel);
 		
 		DOBTextField = new JTextField();
-		DOBTextField.setBounds(125, 191, 166, 28);
+		DOBTextField.setBounds(414, 195, 166, 28);
 		add(DOBTextField);
 		DOBTextField.setColumns(10);
 		
 		wPhoneLabel = new JLabel("Work Phone");
-		wPhoneLabel.setBounds(38, 229, 74, 16);
+		wPhoneLabel.setBounds(327, 233, 74, 16);
 		add(wPhoneLabel);
 		
 		workPhoneTextField = new JTextField();
-		workPhoneTextField.setBounds(125, 223, 166, 28);
+		workPhoneTextField.setBounds(414, 227, 166, 28);
 		add(workPhoneTextField);
 		workPhoneTextField.setColumns(10);
 		
 		specialtyLabel = new JLabel("Specialty");
-		specialtyLabel.setBounds(47, 259, 56, 16);
+		specialtyLabel.setBounds(336, 263, 56, 16);
 		add(specialtyLabel);
 		
 		cbSpecialty = new JComboBox(user_opSpecial);
-		cbSpecialty.setBounds(125, 255, 166, 27);
+		cbSpecialty.setBounds(414, 259, 166, 27);
 		add(cbSpecialty);
 		
 		addressLabel = new JLabel("Address");
-		addressLabel.setBounds(49, 292, 51, 16);
+		addressLabel.setBounds(338, 296, 51, 16);
 		add(addressLabel);
 		
 		addressTextField = new JTextField();
-		addressTextField.setBounds(125, 286, 166, 28);
+		addressTextField.setBounds(414, 290, 166, 28);
 		add(addressTextField);
 		addressTextField.setColumns(10);
 		
-		availLabel = new JLabel("Availablity");
-		availLabel.setBounds(49, 360, 66, 16);
+		availLabel = new JLabel("Availability");
+		availLabel.setBounds(175, 360, 79, 16);
 		add(availLabel);
 		
 		cbDays = new JComboBox(user_opDays);
-		cbDays.setBounds(125, 356, 166, 27);
+		cbDays.setBounds(264, 356, 166, 27);
 		add(cbDays);
 		
 		fromLabel = new JLabel("From: ");
-		fromLabel.setBounds(295, 360, 40, 16);
+		fromLabel.setBounds(434, 360, 40, 16);
 		add(fromLabel);
 		
 		cbFromTime = new JComboBox(user_opTime);
-		cbFromTime.setBounds(339, 356, 116, 27);
+		cbFromTime.setBounds(478, 356, 116, 27);
 		add(cbFromTime);
 		
 		toLabel = new JLabel("To: ");
-		toLabel.setBounds(459, 360, 24, 16);
+		toLabel.setBounds(598, 360, 24, 16);
 		add(toLabel);
 		
 		cbToTime = new JComboBox(user_opTime);
-		cbToTime.setBounds(487, 356, 116, 27);
+		cbToTime.setBounds(626, 356, 116, 27);
 		add(cbToTime);
 		
 		btnAddAvail = new JButton("+");
@@ -169,26 +176,35 @@ public class NewDoctorProfilePanel extends JPanel {
 		btnAddAvail.addActionListener(listener);
 		
 		btnCreateProfile = new JButton("Create Profile");
-		btnCreateProfile.setBounds(795, 468, 128, 29);
+		btnCreateProfile.setBounds(794, 525, 128, 29);
 		add(btnCreateProfile);
 		
 		lblRoomNo = new JLabel("Room No");
-		lblRoomNo.setBounds(54, 320, 61, 16);
+		lblRoomNo.setBounds(343, 324, 61, 16);
 		add(lblRoomNo);
 		
 		roomNoTextField = new JTextField();
 		roomNoTextField.setColumns(10);
-		roomNoTextField.setBounds(125, 316, 166, 28);
+		roomNoTextField.setBounds(414, 320, 166, 28);
 		add(roomNoTextField);
 		btnCreateProfile.addActionListener(listener);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(125, 412, 478, 85);
+		scrollPane.setBounds(264, 412, 478, 85);
 		add(scrollPane);
 		
 		model = new DefaultListModel();
 		list = new JList(model);
 		scrollPane.setViewportView(list);
+		
+		lblDoctorProfileCreation = new JLabel("Doctor Profile Creation");
+		lblDoctorProfileCreation.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblDoctorProfileCreation.setBounds(330, 19, 349, 63);
+		add(lblDoctorProfileCreation);
+		
+		lblAvailability = new JLabel("Availability");
+		lblAvailability.setBounds(156, 414, 93, 16);
+		add(lblAvailability);
 	}
 	
 	private class ButtonListener implements ActionListener{

@@ -26,6 +26,7 @@ import Backend.Surgery;
 import javax.swing.JSpinner;
 import javax.swing.JProgressBar;
 import java.awt.Font;
+import java.awt.SystemColor;
 
 
 public class SurgeryPanel extends JPanel {
@@ -69,7 +70,8 @@ public class SurgeryPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public SurgeryPanel(MedicalFrame parent, String username) {
-		
+		setBackground(SystemColor.textHighlight);
+		this.setBounds(100, 100, 1000, 600);
 		typeNames = new ArrayList<String>();
 		types = parent.getHandler().getSurgery();
 		for(Surgery s : types) {
@@ -87,7 +89,8 @@ public class SurgeryPanel extends JPanel {
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(16, 59, 819, 389);
+		panel.setBackground(SystemColor.textHighlight);
+		panel.setBounds(87, 113, 819, 389);
 		add(panel);
 		panel.setLayout(null);
 		
@@ -188,7 +191,8 @@ public class SurgeryPanel extends JPanel {
 		selectBtn.addActionListener(listener);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(16, 452, 819, 61);
+		panel_1.setBackground(SystemColor.textHighlight);
+		panel_1.setBounds(144, 515, 819, 61);
 		add(panel_1);
 		panel_1.setLayout(new MigLayout("", "[405.00][][406.00][]", "[]"));
 		
@@ -238,8 +242,8 @@ public class SurgeryPanel extends JPanel {
 		panel.add(lblYyyymmddHhmmss);
 		
 		JLabel lblRecordASurgery = new JLabel("Record A Surgery");
-		lblRecordASurgery.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		lblRecordASurgery.setBounds(364, 19, 178, 25);
+		lblRecordASurgery.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblRecordASurgery.setBounds(377, 28, 285, 36);
 		add(lblRecordASurgery);
 		btnSearch.addActionListener(listener);
 		selectButton.addActionListener(listener);
@@ -293,13 +297,10 @@ public class SurgeryPanel extends JPanel {
 						break;
 					}
 				}
-				cptCodeTextField.setText(currSurgery.getCPTCode());
-				System.out.println("CPT: " + currSurgery.getCPTCode());				
+				cptCodeTextField.setText(currSurgery.getCPTCode());		
 				ArrayList<String> preopmed = parent.getHandler().getSurgeryPreOpMed(currSurgery.getCPTCode());
-				System.out.println("SIZE: " + preopmed.size());
 				listModel.removeAllElements();
 				for(String s : preopmed) {
-					System.out.println("PREOP: " + s);
 					listModel.addElement(s);
 				}
 						

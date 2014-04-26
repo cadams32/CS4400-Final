@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.SystemColor;
 
 
 public class PatientHomePanel extends JPanel {
@@ -17,53 +19,69 @@ public class PatientHomePanel extends JPanel {
 	
 	private JLabel lblPatient;
 	private JLabel lblYouHaveMessages;
-	JButton btnMakeAppointments, btnEditProfile, btnViewVisitHistory, btnViewMessages, btnOrderMedication, btnCommunicate, btnRateADoctor;
+	private JButton btnMakeAppointments, btnEditProfile, btnViewVisitHistory, btnLogout, btnViewMessages, btnOrderMedication, btnCommunicate, btnRateADoctor;
 
 	/**
 	 * Create the panel.
 	 */
 	public PatientHomePanel(MedicalFrame parent, String username) {
+		setBackground(SystemColor.textHighlight);
 		
 		this.parent = parent;
 		this.username = username;
-		
-		setLayout(new MigLayout("", "[][][][][][][][]", "[][][][][][][][]"));
+		this.setBounds(100, 100, 1000, 600);
 		
 		ButtonListener listener = new ButtonListener();
+		setLayout(null);
 		
-		JLabel lblPatient = new JLabel("Patient");
-		add(lblPatient, "cell 4 0");
+		JLabel lblPatient = new JLabel("Patient Home");
+		lblPatient.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		lblPatient.setBounds(411, 49, 307, 76);
+		add(lblPatient);
 		
 		btnMakeAppointments = new JButton("Make Appointments");
-		add(btnMakeAppointments, "cell 3 2");
+		btnMakeAppointments.setBounds(267, 175, 170, 29);
+		add(btnMakeAppointments);
 		btnMakeAppointments.addActionListener(listener);
 		
 		btnEditProfile = new JButton("Edit Profile");
-		add(btnEditProfile, "cell 3 7");
+		btnEditProfile.setBounds(267, 340, 112, 29);
+		add(btnEditProfile);
 		btnEditProfile.addActionListener(listener);
 		
 		btnViewVisitHistory = new JButton("View Visit History");
-		add(btnViewVisitHistory, "cell 3 3");
+		btnViewVisitHistory.setBounds(267, 208, 155, 29);
+		add(btnViewVisitHistory);
 		btnViewVisitHistory.addActionListener(listener);
 		
-		lblYouHaveMessages = new JLabel("You have messages");
-		add(lblYouHaveMessages, "cell 7 2");
+		lblYouHaveMessages = new JLabel("Inbox");
+		lblYouHaveMessages.setBounds(580, 180, 123, 16);
+		add(lblYouHaveMessages);
 		
 		btnOrderMedication = new JButton("Order Medication");
-		add(btnOrderMedication, "cell 3 4");
+		btnOrderMedication.setBounds(267, 241, 152, 29);
+		add(btnOrderMedication);
 		btnOrderMedication.addActionListener(listener);
 		
 		btnCommunicate = new JButton("Communicate");
-		add(btnCommunicate, "cell 3 5");
+		btnCommunicate.setBounds(267, 274, 131, 29);
+		add(btnCommunicate);
 		btnCommunicate.addActionListener(listener);
 		
 		btnRateADoctor = new JButton("Rate A Doctor");
-		add(btnRateADoctor, "cell 3 6");
+		btnRateADoctor.setBounds(267, 307, 131, 29);
+		add(btnRateADoctor);
 		btnRateADoctor.addActionListener(listener);
 		
 		//Added this one.
 		btnViewMessages = new JButton("View Messages");
-		add(btnViewMessages, "cell 7 3");
+		btnViewMessages.setBounds(533, 208, 138, 29);
+		add(btnViewMessages);
+		
+		btnLogout = new JButton("Logout");
+		btnLogout.setBounds(267, 382, 117, 29);
+		add(btnLogout);
+		btnLogout.addActionListener(listener);
 		btnViewMessages.addActionListener(listener);
 
 	}
@@ -120,9 +138,12 @@ public class PatientHomePanel extends JPanel {
 				parent.getContentPane().add(ip);
 				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
 				cl.next(parent.getContentPane());
+			} else if (e.getSource() == btnLogout){
+				CardLayout cl = (CardLayout) parent.getContentPane().getLayout();
+				parent.getContentPane().remove(parent.getContentPane().getComponents().length-1);
+				cl.last(parent.getContentPane());
 			}
 		}
 		
 	}
-
 }
